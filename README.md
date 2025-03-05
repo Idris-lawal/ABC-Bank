@@ -233,3 +233,20 @@ The database, Table  are found here [FianceDB](https://github.com/Idris-lawal/AB
 | C0662      | Alex Taylor   | A0992         | Checking    | 1117.13         | 8                |
 | C0631      | Alex Taylor   | A0387         | Checking    | 5149.77         | 6                |
 | C0648      | Alex Taylor   | A0956         | Credit      | 1953.75         | 12               |
+
+
+
+### Business Scenario Q2
+**High-Value Customers Identification** 
+ The bank management wants to identify all customers who have a balance greater than $5,000 in their accounts. This information is critical for understanding the highvalue customer segment, offering them tailored financial products, and providing them with premium customer services.
+
+ ```sql
+          SELECT CONCAT(C.FirstName,' ',C.LastName) As Fullname,Round(Sum(isnull(a.Balance,0)),2) as current_balance
+          FROM FB.Customers C
+          JOIN FB.Accounts A ON A.CustomerID = C.CustomerID
+          GROUP BY C.FirstName,C.LastName
+          HAVING Round(Sum(isnull(a.Balance,0)),2) > 5000
+          ORDER BY current_balance DESC
+```
+### Below is the output of the query
+
