@@ -73,8 +73,8 @@ The database, Table  are found here [FianceDB](https://github.com/Idris-lawal/AB
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ### Tools and Technologies:
-     -     **Database**: Relational database ( Microsoft SQL Server)
-     -    ** SQL**: For querying and analyzing data.
+- **Database**: Relational database ( Microsoft SQL Server)
+- ** SQL**: For querying and analyzing data.
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
    
