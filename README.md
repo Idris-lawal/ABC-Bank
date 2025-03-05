@@ -63,4 +63,4 @@ The analysis is performed using SQL queries to extract, aggregate, and analyze d
 
 ### Data source:
 
-The database, Table  are found here [FianceDB](https://www.example.com)
+The database, Table  are found here [FianceDB](https://github.com/Idris-lawal/ABC-Bank/blob/main/Finance%20and%20bank.sql)
