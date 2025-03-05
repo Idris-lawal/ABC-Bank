@@ -66,4 +66,4 @@ The analysis is performed using SQL queries to extract, aggregate, and analyze d
 The database, Table  are found here [FianceDB](https://github.com/Idris-lawal/ABC-Bank/blob/main/Finance%20and%20bank.sql). Containing the codes of creating the database, tables and inserting values into the tables.
 
 
-![ERD](image.jpg)
+![ERD](Capture.PNG)
