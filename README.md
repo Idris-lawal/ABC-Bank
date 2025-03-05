@@ -53,11 +53,11 @@ The analysis covers the following key areas of the banking database:
 
 #### Methodology:
 The analysis is performed using SQL queries to extract, aggregate, and analyze data from the banking database. Key methodologies include:
-     -     **Data Aggregation**:   Summarizing data (e.g., total deposits, average balances, transaction counts).
-     -     **Filtering and Segmentation**: Identifying specific customer segments (e.g., high-value customers, inactive accounts).
-     -     **Trend Analysis**: Tracking Year-over-Year growth in investments and loans.
-     -     **Conditional Logic**: Using CASE statements for customer segmentation and loan repayment status.
-     -     **Joins and Subqueries**: Combining data from multiple tables (e.g., customers, accounts, transactions).
+     - **Data Aggregation**:   Summarizing data (e.g., total deposits, average balances, transaction counts).
+     - **Filtering and Segmentation**: Identifying specific customer segments (e.g., high-value customers, inactive accounts).
+     - **Trend Analysis**: Tracking Year-over-Year growth in investments and loans.
+     - **Conditional Logic**: Using CASE statements for customer segmentation and loan repayment status.
+     - **Joins and Subqueries**: Combining data from multiple tables (e.g., customers, accounts, transactions).
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
