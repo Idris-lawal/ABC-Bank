@@ -77,4 +77,20 @@ The database, Table  are found here [FianceDB](https://github.com/Idris-lawal/AB
 - **SQL**: For querying and analyzing data.
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-   
+### EXPLORATORY DATA ANALYSIS
+
+1. ### Business Scenario Q1
+     **Customer Account Balances Overview**
+  The bank management wants to have a comprehensive view of all customers along with their account details and current balances. This information is crucial for identifying high-value customers, understanding the distribution of account balances,and planning targeted marketing campaigns. 
+
+```sql
+          SELECT C.CustomerID,CONCAT(C.FirstName,' ',C.LastName) As Fullname,a.AccountType,Round(Sum(isnull(a.Balance,0)),2) as current_balance
+          ,DATEDIFF(YY,A.OpenDate,GETDATE()) as Years_of_account
+          FROM FB.Customers C
+          JOIN FB.Accounts A ON A.CustomerID = C.CustomerID
+          GROUP BY C.CustomerID,C.FirstName,C.LastName,a.AccountType,DATEDIFF(YY,A.OpenDate,GETDATE())
+          ORDER BY Fullname
+
+```
+
+
