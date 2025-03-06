@@ -644,4 +644,13 @@ Below is the output
 | A0123     | C0776      | Savings     | 3685.98    | 2022-02-22 09:16:04.0000000 |
 
 
+### Business Scenario Q11
 
+**Total Loan Payments in 2015**
+The bank management wants to calculate the total amount of payments made towards loans in the year 2015. This information is essential for understanding the cash flow related to loan repayments, assessing the bank's financial performance for that year, and making strategic decisions based on loan repayment trends.
+
+```sql
+	
+		SELECT  Round(sum(isnull(Amount,0)),2) as payment FROM FB.Payments
+		WHERE YEAR(Paymentdate) = '2015'
+```
