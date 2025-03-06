@@ -371,6 +371,12 @@ The bank management wants to calculate the total amount deposited in all account
 
 ```
 
+Below is the result of the scripts
+
+| _total_deposit_may |
+|--------------------|
+| 214.38            |
+
 
 
 ### Business Scenario Q5
@@ -383,3 +389,9 @@ The bank management wants to retrieve the details of all loans taken by a custom
 		FROM [FB].[Loans] L JOIN FB.Customers C on L.CustomerID = c.CustomerID 
 		WHERE l.CustomerID = 'C0768'
 ```
+
+Below is the output of the scripts above 
+| LoanID | CustomerID | Fullname       | LoanType  | LoanAmount | InterestRate | LoanDate                   |
+|--------|-----------|---------------|-----------|------------|--------------|----------------------------|
+| L0597  | C0768     | Michael Brown | Mortgage  | 47841.77   | 7.34         | 2000-08-31 05:18:12.0000000 |
+| L0769  | C0768     | Michael Brown | Student   | 34793.9    | 7.82         | 2014-05-08 06:09:17.0000000 |
