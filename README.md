@@ -250,3 +250,44 @@ The database, Table  are found here [FianceDB](https://github.com/Idris-lawal/AB
 ```
 ### Below is the output of the query
 
+| Fullname         | Current Balance |
+|------------------|-----------------|
+| Michelle Davis   | 213754.49       |
+| John Brown       | 211897.98       |
+| Jane Smith       | 187904.3        |
+| Alex Davis       | 182035.02       |
+| John Taylor      | 171696.42       |
+| Michelle Wilson  | 153490.18       |
+| Alex Brown       | 153404.23       |
+| Michael Smith    | 149636.47       |
+| John Davis       | 146594.43       |
+| John Wilson      | 143637.45       |
+| Alice Smith      | 143513.8        |
+| Jane Brown       | 142572.96       |
+| Michael Doe      | 140859.24       |
+| Michelle Taylor  | 140764.76       |
+| Alex Doe         | 134358.29       |
+| Alice Doe        | 133916.66       |
+| Jane Taylor      | 133624.57       |
+| John Smith       | 133321.48       |
+| Jane Doe         | 127537.96       |
+| Jane Davis       | 122645.12       |
+| Alice Taylor     | 119542.23       |
+| Michelle Smith   | 118616.07       |
+| Alice Wilson     | 118012.37       |
+| Michael Taylor   | 114756.27       |
+| John Doe         | 110796.88       |
+| Alice Davis      | 110683.47       |
+| Alice Brown      | 109393.14       |
+| Michelle Doe     | 107219.67       |
+| Michael Wilson   | 103865.41       |
+| Michael Davis    | 102483.44       |
+| Jane Wilson      | 99852.36        |
+| Alex Wilson      | 97154.63        |
+| Michelle Brown   | 86088.53        |
+| Alex Smith       | 84924.33        |
+| Michael Brown    | 76635.13        |
+| Alex Taylor      | 74198.39        |
+
+
+The result above shows the list of customers whose balance is greater than 5000
