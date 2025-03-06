@@ -305,7 +305,7 @@ The bank management wants to analyse all transactions made in the year 2022 to u
 	JOIN FB.Customers C on c.CustomerID = A.CustomerID
 	WHERE Year(TransactionDate) = '2022'
 	ORDER BY MONTH(TransactionDate) 
-	```
+```
 
 
 Below is the output of the script
