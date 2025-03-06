@@ -395,3 +395,253 @@ Below is the output of the scripts above
 |--------|-----------|---------------|-----------|------------|--------------|----------------------------|
 | L0597  | C0768     | Michael Brown | Mortgage  | 47841.77   | 7.34         | 2000-08-31 05:18:12.0000000 |
 | L0769  | C0768     | Michael Brown | Student   | 34793.9    | 7.82         | 2014-05-08 06:09:17.0000000 |
+
+
+
+###  Business Scenario Q6
+**Branch-Specific Employee List**
+The bank management wants to retrieve a list of all employees working in a branch having an ID “B0851”. This information is useful for branch managers to understand their team composition, manage human resources effectively, and plan for staffing needs
+
+```sql
+		SELECT E.* FROM FB.Branches B JOIN [FB].[Employees] E on E.BranchID = b.BranchID
+		WHERE b.BranchID = 'B0851'
+		
+		SELECT * FROM FB.Employees 
+		WHERE BranchID = 'B0851'
+```
+Below is the output of the error
+
+| EmployeeID | FirstName | LastName | Position          | BranchID | HireDate                   | PhoneNumber |
+|-----------|----------|---------|------------------|---------|--------------------------|------------|
+| E0758     | James    | Jones   | Customer Service | B0851   | 2020-02-09 14:12:57.0000000 | 555-02758  |
+
+
+### Business Scenario Q7
+**Total Credit Cards Issued**
+The bank management wants to determine the total number of credit cards issued by the bank. This information is important for understanding the bank's reach in the credit card market, evaluating the success of their credit card products, and planning future marketing campaigns.
+
+```sql
+	SELECT Count(distinct(CardID)) as Total_Number_Of_card  FROM [FB].[Credit_cards]
+```
+Below is the output of the query
+| Total_Number_Of_Card |
+|----------------------|
+| 1000                |
+
+The Bank has issued 1000 credit cards to the customers
+
+### Business Scenario Q8
+**Average Interest Rate for Loans**
+The bank management wants to calculate the average interest rate for all loans. This information is essential for assessing the overall cost of borrowing for customers,comparing it with industry benchmarks, and making decisions about future loan product offerings and interest rate adjustments.
+
+```sql 
+	SELECT Round(Avg(isnull(InterestRate,0)),2) As Avg_interest_rate FROM FB.Loans
+```
+
+Below is the output
+
+| Avg_Interest_Rate |
+|------------------|
+| 4.98            |
+
+The bank gives average of 4.98% as interest rate
+
+
+### Business Scenario Q9
+**Active Customers in 2020**
+The bank management wants to identify and retrieve the details of all customers who have made at least one transaction in the year 2020. This information is valuable for understanding customer activity, identifying engaged customers, and planning targeted marketing and customer retention strategies.
+
+```sql
+	SELECT CONCAT(c.FirstName,' ', C.LastName) aS FullName,A.AccountID, TransactionType,Round(SUM(isnull(t.Amount,0)),2) as Transaction_Amount, TransactionDate
+	FROM FB.Transactions T JOIN FB.Accounts A on a.AccountID = T.AccountID
+	JOIN fb.Customers c ON c.CustomerID = a.CustomerID
+	WHERE TransactionDate BETWEEN '2020-01-01' AND '2020-12-31'
+	GROUP BY CONCAT(c.FirstName,' ', C.LastName),A.AccountID, TransactionDate,TransactionType
+	HAVING Count(t.TransactionID) >= 0
+```
+Belew is the output 
+
+| FullName        | AccountID | TransactionType | Transaction_Amount | TransactionDate           |
+|-----------------|-----------|-----------------|--------------------|---------------------------|
+| Alex Brown      | A0374     | Payment         | 569.31             | 2020-06-11 15:11:40.0000000 |
+| Alex Brown      | A0568     | Transfer        | 720.72             | 2020-01-16 05:37:44.0000000 |
+| Alex Davis      | A0338     | Transfer        | 281.88             | 2020-10-02 15:46:22.0000000 |
+| Alex Davis      | A0998     | Transfer        | 860.26             | 2020-09-10 03:09:08.0000000 |
+| Alex Smith      | A0577     | Withdrawal      | 168.77             | 2020-12-11 20:31:39.0000000 |
+| Alex Taylor     | A0293     | Payment         | 421.49             | 2020-01-16 21:34:30.0000000 |
+| Alex Taylor     | A0434     | Transfer        | 689.97             | 2020-09-09 11:58:09.0000000 |
+| Alex Taylor     | A0779     | Payment         | 393.18             | 2020-07-08 16:59:07.0000000 |
+| Alex Taylor     | A0956     | Deposit         | 287.5              | 2020-01-01 03:02:18.0000000 |
+| Alex Wilson     | A0203     | Payment         | 404.47             | 2020-08-02 15:10:13.0000000 |
+| Alex Wilson     | A0658     | Deposit         | 971.27             | 2020-09-20 19:39:19.0000000 |
+| Alice Brown     | A0858     | Payment         | 522.34             | 2020-08-21 06:51:40.0000000 |
+| Alice Smith     | A0049     | Payment         | 731.46             | 2020-08-14 13:30:11.0000000 |
+| Alice Smith     | A0596     | Withdrawal      | 458.06             | 2020-01-31 06:26:01.0000000 |
+| Alice Smith     | A0621     | Transfer        | 976.39             | 2020-11-02 15:04:15.0000000 |
+| Alice Taylor    | A0262     | Payment         | 802.13             | 2020-07-12 18:17:43.0000000 |
+| Alice Taylor    | A0312     | Transfer        | 432.04             | 2020-01-18 03:22:56.0000000 |
+| Jane Brown      | A0305     | Withdrawal      | 950.94             | 2020-12-06 06:30:39.0000000 |
+| Jane Doe        | A0879     | Deposit         | 167.29             | 2020-01-29 07:17:36.0000000 |
+| Jane Doe        | A0938     | Payment         | 852.74             | 2020-12-02 08:29:43.0000000 |
+| Jane Smith      | A0947     | Withdrawal      | 328.08             | 2020-08-03 15:02:06.0000000 |
+| Jane Wilson     | A0088     | Deposit         | 528.98             | 2020-02-17 06:01:45.0000000 |
+| Jane Wilson     | A0812     | Payment         | 596.79             | 2020-05-07 09:00:34.0000000 |
+| John Brown      | A0360     | Deposit         | 789.56             | 2020-01-20 19:14:23.0000000 |
+| John Brown      | A0637     | Deposit         | 0                  | 2020-11-07 08:54:15.0000000 |
+| John Brown      | A0701     | Transfer        | 556.33             | 2020-12-02 13:52:00.0000000 |
+| John Brown      | A0910     | Transfer        | 780.33             | 2020-10-06 06:46:31.0000000 |
+| John Davis      | A0098     | Deposit         | 372.57             | 2020-08-31 02:37:50.0000000 |
+| John Davis      | A0536     | Transfer        | 915.05             | 2020-06-19 07:42:20.0000000 |
+| John Davis      | A0676     | Transfer        | 914.84             | 2020-11-07 12:31:46.0000000 |
+| John Davis      | A0810     | Withdrawal      | 918.93             | 2020-09-24 13:00:29.0000000 |
+| John Davis      | A0982     | Transfer        | 517.39             | 2020-06-11 01:32:55.0000000 |
+| John Davis      | A0982     | Payment         | 165.34             | 2020-09-11 03:06:15.0000000 |
+| John Doe        | A0722     | Withdrawal      | 14.02              | 2020-08-24 03:35:25.0000000 |
+| John Smith      | A0373     | Payment         | 72.25              | 2020-02-02 18:16:22.0000000 |
+| John Smith      | A0846     | Payment         | 32.11              | 2020-07-14 23:01:57.0000000 |
+| John Taylor     | A0078     | Transfer        | 567.44             | 2020-09-11 19:49:43.0000000 |
+| John Taylor     | A0139     | Withdrawal      | 83.21              | 2020-07-03 14:55:55.0000000 |
+| John Taylor     | A0372     | Payment         | 736.46             | 2020-08-08 23:38:01.0000000 |
+| John Wilson     | A0800     | Payment         | 0                  | 2020-07-04 14:32:23.0000000 |
+| Michael Brown   | A0680     | Withdrawal      | 50.34              | 2020-10-24 18:10:34.0000000 |
+| Michael Brown   | A0930     | Transfer        | 459.68             | 2020-02-09 21:08:13.0000000 |
+| Michael Doe     | A0463     | Withdrawal      | 361.36             | 2020-06-28 06:37:43.0000000 |
+| Michael Taylor  | A0839     | Withdrawal      | 31.91              | 2020-05-29 03:11:41.0000000 |
+| Michael Wilson  | A0284     | Transfer        | 974.53             | 2020-12-29 07:02:26.0000000 |
+| Michael Wilson  | A0376     | Payment         | 775.92             | 2020-09-20 10:42:47.0000000 |
+| Michael Wilson  | A0747     | Payment         | 818.38             | 2020-08-17 00:56:34.0000000 |
+| Michelle Davis  | A0467     | Deposit         | 294.24             | 2020-03-20 01:58:01.0000000 |
+| Michelle Davis  | A0570     | Transfer        | 697.08             | 2020-03-01 04:54:35.0000000 |
+| Michelle Doe    | A0383     | Withdrawal      | 60.83              | 2020-10-05 20:37:08.0000000 |
+| Michelle Taylor | A0629     | Transfer        | 752.21             | 2020-03-07 21:47:50.0000000 |
+| Michelle Wilson | A0855     | Withdrawal      | 303.95             | 2020-08-31 06:24:37.0000000 |
+| Michelle Wilson | A0936     | Deposit         | 417.1              | 2020-01-12 21:08:19.0000000 |
+
+
+above table shows the list of customers that are active between january 2020 and December 2022 as well as their respective accounr details , transaction type, amount and transaction date 
+
+
+### Business Scenario Q10
+**Inactive Accounts Between 2019 and 2023**
+The bank management wants to identify all accounts that have had no transactions between the years 2019 and 2023. This information is important for understanding long-term account inactivity, identifying dormant accounts, and planning strategies to reactivate these accounts.
+
+```sql
+	SELECT a.AccountID,a.CustomerID,a.AccountType,Accountbal= Round(isnull(a.Balance,0),2),a.OpenDate
+	FROM FB.Accounts a
+	WHERE a.AccountID NOT IN (SELECT t.AccountID FROM FB.Transactions t
+	WHERE t.TransactionDate >= '2019-01-01'
+	AND t.TransactionDate < '2024-01-01' )
+```
+there are 830 unactive customer between 2019 and 2023
+
+Below is the output 
+
+| AccountID | CustomerID | AccountType | Accountbal | OpenDate               |
+|-----------|------------|-------------|------------|------------------------|
+| A0001     | C0666      | Credit      | 4426.25    | 2009-06-22 14:15:18.0000000 |
+| A0002     | C0604      | Savings     | 8570.57    | 2008-09-01 11:11:41.0000000 |
+| A0004     | C0005      | Credit      | 669.76     | 2000-06-14 14:47:37.0000000 |
+| A0006     | C0965      | Credit      | 3930.91    | 2006-02-13 23:11:49.0000000 |
+| A0007     | C0527      | Checking    | 5365.45    | 2015-04-08 22:50:14.0000000 |
+| A0008     | C0632      | Savings     | 9679.44    | 2006-03-19 05:07:32.0000000 |
+| A0010     | C0315      | Credit      | 7860.53    | 2006-04-27 02:39:33.0000000 |
+| A0011     | C0349      | Credit      | 6741.67    | 2019-02-22 15:08:15.0000000 |
+| A0012     | C0335      | Credit      | 2666.09    | 2008-01-11 07:05:19.0000000 |
+| A0013     | C0780      | Checking    | 7952.41    | 2013-03-11 10:35:01.0000000 |
+| A0014     | C0432      | Checking    | 3515.13    | 2022-07-01 12:56:27.0000000 |
+| A0015     | C0316      | Savings     | 1454.33    | 2019-11-21 17:59:33.0000000 |
+| A0016     | C0384      | Credit      | 7748.48    | 2003-08-20 10:48:56.0000000 |
+| A0017     | C0597      | Savings     | 6102.06    | 2004-03-13 00:49:14.0000000 |
+| A0018     | C0334      | Checking    | 6662.81    | 2010-06-27 20:51:46.0000000 |
+| A0019     | C0040      | Checking    | 0          | 2012-12-12 18:52:59.0000000 |
+| A0020     | C0989      | Savings     | 201.3      | 2003-05-14 11:36:21.0000000 |
+| A0021     | C0372      | Savings     | 5965.05    | 2016-10-06 07:57:46.0000000 |
+| A0022     | C0678      | Savings     | 5305.79    | 2005-06-05 04:46:20.0000000 |
+| A0023     | C0328      | Checking    | 1708.84    | 2006-05-08 15:02:35.0000000 |
+| A0025     | C0878      | Checking    | 4073.35    | 2011-08-28 17:09:02.0000000 |
+| A0027     | C0073      | Credit      | 5916.82    | 2007-02-22 14:09:00.0000000 |
+| A0028     | C0958      | Savings     | 4217.39    | 2015-04-15 09:29:16.0000000 |
+| A0029     | C0755      | Credit      | 3766.23    | 2004-10-11 20:49:17.0000000 |
+| A0030     | C0313      | Credit      | 2021.69    | 2016-07-04 20:10:51.0000000 |
+| A0032     | C0222      | Checking    | 8532.62    | 2010-05-06 11:17:50.0000000 |
+| A0033     | C0950      | Savings     | 7980.97    | 2007-11-30 08:41:09.0000000 |
+| A0034     | C0446      | Credit      | 1455.29    | 2016-04-05 12:10:28.0000000 |
+| A0035     | C0365      | Savings     | 8703.89    | 2019-10-12 15:56:52.0000000 |
+| A0036     | C0432      | Checking    | 3365.19    | 2020-12-06 17:15:12.0000000 |
+| A0037     | C0017      | Savings     | 2652.18    | 2008-01-21 22:27:39.0000000 |
+| A0038     | C0705      | Credit      | 0          | 2005-10-26 20:47:59.0000000 |
+| A0039     | C0517      | Checking    | 0          | 2003-06-23 22:00:23.0000000 |
+| A0040     | C0278      | Checking    | 9968.89    | 2016-10-30 05:55:54.0000000 |
+| A0041     | C0361      | Credit      | 5406.46    | 2003-01-02 22:11:56.0000000 |
+| A0042     | C0195      | Savings     | 1291.44    | 2003-01-27 15:42:33.0000000 |
+| A0043     | C0756      | Checking    | 792.08     | 2016-06-02 15:13:22.0000000 |
+| A0044     | C0215      | Checking    | 1935.22    | 2020-05-17 00:59:01.0000000 |
+| A0045     | C0609      | Savings     | 3030.1     | 2006-01-04 18:33:58.0000000 |
+| A0046     | C0390      | Savings     | 1573.97    | 2000-10-02 12:40:12.0000000 |
+| A0047     | C0552      | Savings     | 5790.91    | 2007-02-09 15:01:57.0000000 |
+| A0050     | C0021      | Credit      | 8748.31    | 2015-02-04 08:35:40.0000000 |
+| A0051     | C0064      | Credit      | 3282.56    | 2019-06-17 00:48:25.0000000 |
+| A0052     | C0148      | Checking    | 9231.97    | 2004-02-21 21:09:00.0000000 |
+| A0054     | C0628      | Credit      | 5773.43    | 2008-10-03 20:14:19.0000000 |
+| A0055     | C0059      | Savings     | 3860.21    | 2021-01-11 09:19:08.0000000 |
+| A0056     | C0460      | Checking    | 674.69     | 2004-02-05 05:38:33.0000000 |
+| A0057     | C0279      | Savings     | 1413.34    | 2006-12-24 17:16:26.0000000 |
+| A0059     | C0128      | Credit      | 8177.24    | 2013-10-02 16:57:58.0000000 |
+| A0060     | C0829      | Savings     | 8542.6     | 2002-07-30 00:40:03.0000000 |
+| A0061     | C0147      | Credit      | 742.76     | 2014-01-05 23:48:38.0000000 |
+| A0062     | C0642      | Savings     | 4703.2     | 2019-10-27 10:20:52.0000000 |
+| A0063     | C0575      | Savings     | 9049.71    | 2007-08-17 00:56:12.0000000 |
+| A0064     | C0006      | Checking    | 4362.97    | 2021-10-15 13:43:02.0000000 |
+| A0065     | C0158      | Savings     | 7763.42    | 2000-12-28 03:00:50.0000000 |
+| A0066     | C0628      | Savings     | 1588.03    | 2017-10-15 21:25:20.0000000 |
+| A0067     | C0762      | Checking    | 1359.93    | 2020-06-06 09:22:43.0000000 |
+| A0068     | C0454      | Checking    | 213.63     | 2009-05-01 20:36:42.0000000 |
+| A0069     | C0878      | Checking    | 4859.3     | 2009-03-09 12:56:15.0000000 |
+| A0070     | C0677      | Credit      | 8414.89    | 2016-08-27 16:13:26.0000000 |
+| A0071     | C0856      | Credit      | 610.16     | 2001-05-27 18:39:56.0000000 |
+| A0072     | C0573      | Savings     | 2016.83    | 2000-09-14 21:41:08.0000000 |
+| A0073     | C0456      | Checking    | 9472.16    | 2007-07-18 21:43:02.0000000 |
+| A0074     | C0844      | Credit      | 9111.97    | 2020-06-19 04:54:03.0000000 |
+| A0075     | C0534      | Checking    | 7406.15    | 2016-01-08 14:43:55.0000000 |
+| A0076     | C0681      | Credit      | 7838.76    | 2016-07-10 06:21:09.0000000 |
+| A0077     | C0390      | Checking    | 1116.63    | 2000-10-13 07:31:10.0000000 |
+| A0079     | C0491      | Credit      | 6443.89    | 2012-08-11 16:58:02.0000000 |
+| A0080     | C0360      | Checking    | 6902.44    | 2018-05-30 17:00:56.0000000 |
+| A0081     | C0980      | Savings     | 2656.74    | 2001-03-15 01:43:03.0000000 |
+| A0082     | C0863      | Savings     | 5616.07    | 2020-06-15 22:50:31.0000000 |
+| A0083     | C0697      | Checking    | 2795.96    | 2009-08-07 10:59:14.0000000 |
+| A0084     | C0892      | Credit      | 7336.24    | 2013-08-25 02:27:11.0000000 |
+| A0085     | C0510      | Credit      | 4370.89    | 2016-05-12 18:12:26.0000000 |
+| A0086     | C0066      | Checking    | 2736.76    | 2019-06-05 22:10:22.0000000 |
+| A0089     | C0834      | Savings     | 4168.57    | 2009-10-01 13:58:27.0000000 |
+| A0091     | C0494      | Savings     | 6918.71    | 2019-09-05 02:19:38.0000000 |
+| A0092     | C0368      | Savings     | 6968.94    | 2020-01-19 05:58:09.0000000 |
+| A0093     | C0166      | Savings     | 9828.15    | 2004-07-20 11:42:21.0000000 |
+| A0094     | C0972      | Savings     | 455.7      | 2018-04-06 04:44:16.0000000 |
+| A0096     | C0274      | Savings     | 9312.96    | 2003-07-15 09:03:06.0000000 |
+| A0097     | C0613      | Savings     | 1691.2     | 2006-05-01 11:05:25.0000000 |
+| A0099     | C0687      | Credit      | 3849.09    | 2013-05-02 14:41:25.0000000 |
+| A0100     | C0316      | Credit      | 1687.65    | 2016-04-03 13:03:10.0000000 |
+| A0101     | C0603      | Checking    | 151.66     | 2012-03-22 21:35:12.0000000 |
+| A0103     | C0527      | Savings     | 0          | 2014-04-09 20:43:34.0000000 |
+| A0104     | C0487      | Checking    | 1493.39    | 2001-09-16 18:09:25.0000000 |
+| A0105     | C0637      | Credit      | 4219.4     | 2007-03-17 23:50:55.0000000 |
+| A0106     | C0414      | Checking    | 6705.59    | 2003-07-22 08:58:30.0000000 |
+| A0107     | C0821      | Checking    | 2579.71    | 2017-09-01 09:15:23.0000000 |
+| A0108     | C0228      | Credit      | 8904.21    | 2000-09-02 02:55:17.0000000 |
+| A0109     | C0759      | Checking    | 1248.99    | 2007-09-14 12:48:38.0000000 |
+| A0110     | C0206      | Savings     | 8820.9     | 2020-11-11 03:41:21.0000000 |
+| A0111     | C0444      | Credit      | 7652.26    | 2018-10-09 05:27:49.0000000 |
+| A0112     | C0226      | Credit      | 0          | 2016-11-30 02:18:55.0000000 |
+| A0114     | C0462      | Credit      | 3742.19    | 2009-10-16 21:35:39.0000000 |
+| A0115     | C0066      | Savings     | 1861.64    | 2017-12-24 16:37:06.0000000 |
+| A0116     | C0072      | Checking    | 5681.58    | 2006-10-17 02:48:32.0000000 |
+| A0117     | C0935      | Checking    | 4165.1     | 2000-04-25 00:37:20.0000000 |
+| A0118     | C0364      | Credit      | 2072.6     | 2016-12-30 07:03:47.0000000 |
+| A0119     | C0975      | Checking    | 1022.72    | 2013-03-10 16:23:36.0000000 |
+| A0121     | C0565      | Credit      | 5002.39    | 2003-10-24 17:39:27.0000000 |
+| A0122     | C0529      | Checking    | 2662.59    | 2019-05-02 02:23:32.0000000 |
+| A0123     | C0776      | Savings     | 3685.98    | 2022-02-22 09:16:04.0000000 |
+
+
+
