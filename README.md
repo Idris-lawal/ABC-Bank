@@ -299,13 +299,13 @@ The result above shows the list of customers whose balance is greater than 5000
 The bank management wants to analyse all transactions made in the year 2022 to understand customer behaviour, transaction volumes, and financial flows during that period. This analysis will help in identifying trends, detecting anomalies, and planning future strategies.
 
 ```sql
-SELECT TransactionID,a.AccountID,CONCAT(C.FirstName,' ',C.LastName) As Fullname, T.TransactionType, Round(isnull(T.Amount,0),2) As Transaction_Amount,
-		TransactionDate
-FROM [FB].[Transactions] T JOIN FB.Accounts A ON T.AccountID = A.AccountID
-JOIN FB.Customers C on c.CustomerID = A.CustomerID
-WHERE Year(TransactionDate) = '2022'
-ORDER BY MONTH(TransactionDate) 
-```
+	SELECT TransactionID,a.AccountID,CONCAT(C.FirstName,' ',C.LastName) As Fullname, T.TransactionType, Round(isnull(T.Amount,0),2) As Transaction_Amount,
+			TransactionDate
+	FROM [FB].[Transactions] T JOIN FB.Accounts A ON T.AccountID = A.AccountID
+	JOIN FB.Customers C on c.CustomerID = A.CustomerID
+	WHERE Year(TransactionDate) = '2022'
+	ORDER BY MONTH(TransactionDate) 
+	```
 
 
 Below is the output of the script
@@ -359,3 +359,27 @@ Below is the output of the script
 | T0846         | A0386     | Alice Brown      | Deposit          | 410.65             | 2022-11-14 09:51:23.000  |
 
 The table above shows the list of transactions performed in 2022 by customers
+
+### Business Scenario Q4
+**Monthly Deposit Summary**
+The bank management wants to calculate the total amount deposited in all accounts for the month of May 2022. This information is essential for monitoring cash inflows, assessing the bank's liquidity position, and planning for future financial needs
+
+```sql
+	SELECT Round(Sum(isnull(Amount,0)),2) As _total_deposit_may
+	FROM FB.Transactions 
+	WHERE Year(TransactionDate)= '2022' and Month(TransactionDate) = 5 and TransactionType = 'Deposit'
+
+```
+
+
+
+### Business Scenario Q5
+**Customer Loan Details**
+The bank management wants to retrieve the details of all loans taken by a customer with ID “C0768”. This information is crucial for understanding the customer's borrowing behaviour, managing their credit risk, and providing them with tailored loan products.
+
+```sql
+		SELECT l.LoanID,L.CustomerID, CONCAT(C.FirstName,' ',C.LastName) As Fullname, L.LoanType,ROUND(LoanAmount,2) as loanAmount
+				, Round(InterestRate,2) InterestRate, LoanDate
+		FROM [FB].[Loans] L JOIN FB.Customers C on L.CustomerID = c.CustomerID 
+		WHERE l.CustomerID = 'C0768'
+```
