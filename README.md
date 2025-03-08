@@ -1873,3 +1873,1104 @@ The bank management wants to find the total number of credit card transactions m
 The total number of credit card transactions in 2022 is 12
 
 ### Business Scenario Q29
+**Average Credit Limit of Credit Cards**
+The bank management wants to calculate the average credit limit of all credit cards.This information is essential for understanding the distribution of credit limits among customers, assessing the bank's credit exposure, and making informed decisions about credit card policies and offerings.
+```sql
+		SELECT Round(Avg(ISnull(CreditLimit,0)),2) as Avg_CreditLimit FROM FB.Credit_cards
+```
+|Avg_CreditLimit |
+|----------------|
+| 10470.24       |
+
+The Average Credit limit for credit cards is $10470.24
+
+
+### Business Scenario Q30
+**Customers with Bond Investments**
+The bank management wants to retrieve the details of all customers who have investments in bonds. This information is valuable for understanding customer investment preferences, identifying potential opportunities for targeted marketing of bond-related financial products, and analysing the popularity of bonds among customers.
+
+```sql
+		SELECT * FROM FB.Customers 
+		WHERE CustomerID IN
+				(SELECT Distinct CustomerID FROM FB.Investments
+				WHERE InvestmentType = 'Bonds')
+```
+| CustomerID | FirstName | LastName | Gender | DateOfBirth | Email                     | PhoneNumber |
+|------------|-----------|----------|--------|-------------|--------------------------|-------------|
+| C0003      | John      | Doe      | M      | 1988-12-02  | john.doe@example.com      | 555-01003   |
+| C0008      | John      | Doe      | F      | 1972-12-06  | john.doe@example.com      | 555-01008   |
+| C0012      | Michael   | Doe      | M      | 1976-03-22  | michael.doe@example.com   | 555-01012   |
+| C0016      | Jane      | Brown    | M      | 1973-03-31  | jane.brown@example.com    | 555-01016   |
+| C0024      | Alice     | Doe      | F      | 1987-11-26  | alice.doe@example.com     | 555-01024   |
+| C0025      | Alice     | Brown    | M      | 1980-01-17  | alice.brown@example.com   | 555-01025   |
+| C0046      | Michelle  | Smith    | F      | 1983-06-18  | michelle.smith@example.com| 555-01046   |
+| C0052      | Jane      | Davis    | M      | 1974-10-01  | jane.davis@example.com    | 555-01052   |
+| C0056      | Alex      | Brown    | F      | 1989-05-10  | alex.brown@example.com    | 555-01056   |
+| C0065      | Michelle  | Brown    | F      | 1976-04-22  | michelle.brown@example.com| 555-01065   |
+| C0068      | John      | Smith    | F      | 1970-06-13  | john.smith@example.com    | 555-01068   |
+| C0070      | Michelle  | Davis    | F      | 1981-03-30  | michelle.davis@example.com| 555-01070   |
+| C0075      | Alice     | Smith    | F      | 1972-09-10  | alice.smith@example.com   | 555-01075   |
+| C0079      | Michael   | Taylor   | F      | 1982-12-25  | michael.taylor@example.com| 555-01079   |
+| C0080      | Alice     | Doe      | F      | 1987-08-26  | alice.doe@example.com     | 555-01080   |
+| C0081      | Michael   | Smith    | M      | 1986-11-14  | michael.smith@example.com | 555-01081   |
+| C0087      | Michael   | Smith    | F      | 1988-06-15  | michael.smith@example.com | 555-01087   |
+| C0092      | Michelle  | Doe      | F      | 1987-05-02  | michelle.doe@example.com  | 555-01092   |
+| C0093      | John      | Brown    | M      | 1974-06-18  | john.brown@example.com    | 555-01093   |
+| C0103      | Alex      | Taylor   | F      | 1985-05-27  | alex.taylor@example.com   | 555-01103   |
+| C0112      | John      | Smith    | F      | 1973-03-06  | john.smith@example.com    | 555-01112   |
+| C0113      | John      | Brown    | M      | 1977-11-09  | john.brown@example.com    | 555-01113   |
+| C0117      | Alice     | Smith    | F      | 1988-01-24  | alice.smith@example.com   | 555-01117   |
+| C0120      | Michael   | Wilson   | M      | 1984-11-09  | michael.wilson@example.com| 555-01120   |
+| C0126      | John      | Brown    | M      | 1981-06-13  | john.brown@example.com    | 555-01126   |
+| C0128      | John      | Wilson   | M      | 1985-09-12  | john.wilson@example.com   | 555-01128   |
+| C0140      | Michelle  | Doe      | M      | 1983-06-15  | michelle.doe@example.com  | 555-01140   |
+| C0144      | Jane      | Taylor   | M      | 1975-12-31  | jane.taylor@example.com   | 555-01144   |
+| C0151      | Michael   | Davis    | M      | 1984-10-22  | michael.davis@example.com | 555-01151   |
+| C0161      | Michael   | Smith    | F      | 1984-11-25  | michael.smith@example.com | 555-01161   |
+| C0166      | John      | Taylor   | M      | 1986-10-22  | john.taylor@example.com   | 555-01166   |
+| C0169      | Alice     | Taylor   | M      | 1987-07-12  | alice.taylor@example.com  | 555-01169   |
+| C0171      | Michael   | Wilson   | F      | 1981-01-31  | michael.wilson@example.com| 555-01171   |
+| C0179      | Michelle  | Brown    | F      | 1970-11-09  | michelle.brown@example.com| 555-01179   |
+| C0187      | Alice     | Wilson   | F      | 1985-08-03  | alice.wilson@example.com  | 555-01187   |
+| C0188      | John      | Taylor   | F      | 1981-10-14  | john.taylor@example.com   | 555-01188   |
+| C0193      | Alex      | Brown    | M      | 1989-05-27  | alex.brown@example.com    | 555-01193   |
+| C0194      | John      | Taylor   | M      | 1981-09-29  | john.taylor@example.com   | 555-01194   |
+| C0195      | Alex      | Smith    | F      | 1971-11-28  | alex.smith@example.com    | 555-01195   |
+| C0196      | Jane      | Doe      | M      | 1988-01-29  | jane.doe@example.com      | 555-01196   |
+| C0197      | Alice     | Doe      | F      | 1988-08-23  | alice.doe@example.com     | 555-01197   |
+| C0216      | Michelle  | Brown    | F      | 1972-06-28  | michelle.brown@example.com| 555-01216   |
+| C0231      | John      | Taylor   | M      | 1984-12-18  | john.taylor@example.com   | 555-01231   |
+| C0232      | Alice     | Davis    | M      | 1978-10-22  | alice.davis@example.com   | 555-01232   |
+| C0255      | Alex      | Smith    | F      | 1986-06-06  | alex.smith@example.com    | 555-01255   |
+| C0259      | John      | Taylor   | F      | 1978-04-14  | john.taylor@example.com   | 555-01259   |
+| C0263      | Alice     | Brown    | M      | 1986-07-21  | alice.brown@example.com   | 555-01263   |
+| C0267      | Alice     | Davis    | F      | 1984-04-06  | alice.davis@example.com   | 555-01267   |
+| C0271      | Alex      | Davis    | F      | 1982-11-26  | alex.davis@example.com    | 555-01271   |
+| C0274      | Michael   | Smith    | M      | 1980-07-12  | michael.smith@example.com | 555-01274   |
+| C0294      | Jane      | Smith    | M      | 1974-06-25  | jane.smith@example.com    | 555-01294   |
+| C0306      | Alex      | Smith    | F      | 1983-05-16  | alex.smith@example.com    | 555-01306   |
+| C0309      | Michael   | Doe      | F      | 1980-11-24  | michael.doe@example.com   | 555-01309   |
+| C0313      | Alice     | Smith    | M      | 1971-10-11  | alice.smith@example.com   | 555-01313   |
+| C0319      | Michael   | Davis    | F      | 1988-02-16  | michael.davis@example.com | 555-01319   |
+| C0326      | Alex      | Brown    | M      | 1988-10-11  | alex.brown@example.com    | 555-01326   |
+| C0328      | John      | Wilson   | F      | 1982-10-31  | john.wilson@example.com   | 555-01328   |
+| C0329      | Jane      | Taylor   | F      | 1986-11-01  | jane.taylor@example.com   | 555-01329   |
+| C0335      | Alex      | Doe      | F      | 1976-09-21  | alex.doe@example.com      | 555-01335   |
+| C0338      | Michelle  | Doe      | F      | 1977-03-27  | michelle.doe@example.com  | 555-01338   |
+| C0343      | Alex      | Davis    | M      | 1977-11-21  | alex.davis@example.com    | 555-01343   |
+| C0348      | Michelle  | Davis    | F      | 1975-09-29  | michelle.davis@example.com| 555-01348   |
+| C0350      | John      | Wilson   | F      | 1985-08-10  | john.wilson@example.com   | 555-01350   |
+| C0353      | Michael   | Wilson   | M      | 1985-03-23  | michael.wilson@example.com| 555-01353   |
+| C0369      | John      | Doe      | M      | 1982-01-08  | john.doe@example.com      | 555-01369   |
+| C0372      | John      | Wilson   | F      | 1974-10-29  | john.wilson@example.com   | 555-01372   |
+| C0373      | John      | Doe      | M      | 1974-03-24  | john.doe@example.com      | 555-01373   |
+| C0376      | Alice     | Davis    | M      | 1980-10-22  | alice.davis@example.com   | 555-01376   |
+| C0384      | Jane      | Wilson   | M      | 1970-06-23  | jane.wilson@example.com   | 555-01384   |
+| C0387      | Michelle  | Brown    | M      | 1988-05-30  | michelle.brown@example.com| 555-01387   |
+| C0388      | John      | Taylor   | M      | 1978-02-17  | john.taylor@example.com   | 555-01388   |
+| C0393      | Michelle  | Wilson   | F      | 1976-03-16  | michelle.wilson@example.com| 555-01393   |
+| C0399      | Alex      | Brown    | F      | 1977-08-04  | alex.brown@example.com    | 555-01399   |
+| C0410      | Jane      | Davis    | M      | 1987-11-21  | jane.davis@example.com    | 555-01410   |
+| C0413      | Alex      | Doe      | M      | 1979-09-23  | alex.doe@example.com      | 555-01413   |
+| C0417      | Alex      | Davis    | M      | 1973-04-29  | alex.davis@example.com    | 555-01417   |
+| C0419      | Jane      | Davis    | M      | 1979-04-16  | jane.davis@example.com    | 555-01419   |
+| C0422      | Michael   | Doe      | M      | 1976-07-30  | michael.doe@example.com   | 555-01422   |
+| C0425      | Michelle  | Doe      | F      | 1981-06-17  | michelle.doe@example.com  | 555-01425   |
+| C0432      | Michelle  | Taylor   | F      | 1970-09-26  | michelle.taylor@example.com| 555-01432   |
+| C0433      | Alice     | Taylor   | M      | 1975-11-14  | alice.taylor@example.com  | 555-01433   |
+| C0438      | Alice     | Smith    | M      | 1974-11-11  | alice.smith@example.com   | 555-01438   |
+| C0440      | Michelle  | Taylor   | M      | 1986-06-13  | michelle.taylor@example.com| 555-01440   |
+| C0443      | Michelle  | Davis    | M      | 1980-12-05  | michelle.davis@example.com| 555-01443   |
+| C0449      | Michael   | Doe      | F      | 1978-08-03  | michael.doe@example.com   | 555-01449   |
+| C0470      | Alex      | Davis    | M      | 1988-02-27  | alex.davis@example.com    | 555-01470   |
+| C0471      | Alex      | Davis    | F      | 1982-04-21  | alex.davis@example.com    | 555-01471   |
+| C0480      | John      | Taylor   | F      | 1977-12-14  | john.taylor@example.com   | 555-01480   |
+| C0481      | Alice     | Smith    | F      | 1987-09-02  | alice.smith@example.com   | 555-01481   |
+| C0486      | Michelle  | Brown    | F      | 1980-11-20  | michelle.brown@example.com| 555-01486   |
+| C0487      | Jane      | Doe      | M      | 1971-11-19  | jane.doe@example.com      | 555-01487   |
+| C0496      | Alice     | Wilson   | M      | 1986-06-09  | alice.wilson@example.com  | 555-01496   |
+| C0505      | John      | Doe      | F      | 1973-02-13  | john.doe@example.com      | 555-01505   |
+| C0509      | Alice     | Taylor   | F      | 1972-04-01  | alice.taylor@example.com  | 555-01509   |
+| C0515      | John      | Doe      | F      | 1976-08-26  | john.doe@example.com      | 555-01515   |
+| C0524      | Michael   | Wilson   | F      | 1980-04-02  | michael.wilson@example.com| 555-01524   |
+| C0525      | Alex      | Davis    | M      | 1984-12-18  | alex.davis@example.com    | 555-01525   |
+| C0539      | Alice     | Doe      | M      | 1980-12-02  | alice.doe@example.com     | 555-01539   |
+| C0543      | Alex      | Taylor   | M      | 1983-07-26  | alex.taylor@example.com   | 555-01543   |
+| C0545      | Alice     | Wilson   | M      | 1983-01-07  | alice.wilson@example.com  | 555-01545   |
+| C0550      | Jane      | Taylor   | M      | 1989-03-07  | jane.taylor@example.com   | 555-01550   |
+
+The table above shows the information of customers who have bond investments
+
+
+###  Business Scenario Q31
+**Total Number of Loans Approved by Loan Type**
+The bank management wants to calculate the total number of loans approved for each loan type (Personal, Mortgage, Auto, Student). This information is crucial for understanding the distribution of loan approvals across different types, evaluating the demand for various loan products, and making informed decisions about future loan offerings.
+
+```sql
+	SELECT LoanType,Count(loanID) As Total_Number_ofLoan FROM FB.Loans
+	Group by LoanType
+```
+| LoanType  | Total_Number_ofLoan |
+|-----------|---------------------|
+| Personal  | 242                 |
+| Mortgage  | 234                 |
+| Student   | 276                 |
+| Auto      | 248                 |
+
+The table above shows the number of loans approved by loan type
+
+### Business Scenario Q32
+**List of Employees Working as Loan Officers**
+The bank management wants to list all employees who work as loan officers. This information is essential for understanding the workforce composition, managing human resources, and planning targeted training and development programs for loan officers.
+
+```sql
+		SELECT E.EmployeeID, CONCAT(FirstName, ' ', LastName) as fullname, BranchName, HireDate FROM FB.Employees E, FB.Branches B
+		WHERE Position = 'Loan Officer' and E.BranchID = b.BranchID
+```
+
+| EmployeeID | fullname         | BranchName   | HireDate                     |
+|------------|------------------|--------------|------------------------------|
+| E0600      | Sarah Martinez   | West Branch  | 2013-09-18 17:16:57.0000000  |
+| E0526      | Sarah Jones      | North Branch | 2000-04-29 15:27:26.0000000  |
+| E0426      | Robert Garcia    | East Branch  | 2019-08-13 23:34:39.0000000  |
+| E0957      | Robert Jones     | Central Branch | 2014-07-23 19:15:12.0000000 |
+| E0458      | Maria Martinez   | East Branch  | 2018-11-30 18:20:26.0000000  |
+| E0524      | James Martinez   | East Branch  | 2002-08-03 03:37:15.0000000  |
+| E0616      | Maria Martinez   | Central Branch | 2012-08-26 14:59:20.0000000 |
+| E0588      | David Hernandez  | South Branch | 2010-06-11 19:58:41.0000000  |
+| E0118      | James Johnson    | North Branch | 2008-05-18 21:57:58.0000000  |
+| E0506      | Robert Johnson   | Central Branch | 2000-11-07 19:26:36.0000000 |
+| E0899      | Maria Williams   | Central Branch | 2017-05-18 09:30:56.0000000 |
+| E0968      | Maria Jones      | East Branch  | 2015-03-24 11:32:18.0000000  |
+| E0027      | David Jones      | East Branch  | 2001-08-02 17:08:48.0000000  |
+| E0250      | James Martinez   | East Branch  | 2003-11-14 10:15:14.0000000  |
+| E0107      | Laura Jones      | West Branch  | NULL                          |
+| E0391      | Sarah Martinez   | West Branch  | 2003-02-18 08:07:46.0000000  |
+| E0909      | Sarah Johnson    | West Branch  | 2015-06-10 14:06:54.0000000  |
+| E0003      | Laura Williams   | Central Branch | 2019-02-28 08:00:12.0000000 |
+| E0153      | Maria Williams   | East Branch  | 2019-09-10 01:19:59.0000000  |
+| E0669      | James Garcia     | North Branch | 2012-09-27 01:58:11.0000000  |
+| E0871      | Sarah Williams   | North Branch | 2016-09-12 22:55:58.0000000  |
+| E0658      | Sarah Martinez   | East Branch  | 2004-09-07 07:12:55.0000000  |
+| E0801      | Laura Johnson    | East Branch  | 2020-04-11 12:24:58.0000000  |
+| E0177      | James Johnson    | East Branch  | 2007-02-03 21:34:39.0000000  |
+| E0420      | Robert Williams  | East Branch  | 2008-08-26 01:18:17.0000000  |
+| E0095      | Maria Martinez   | South Branch | NULL                          |
+| E0805      | James Hernandez  | North Branch | 2001-02-26 13:36:40.0000000  |
+| E0780      | David Hernandez  | North Branch | 2007-12-06 18:29:11.0000000  |
+| E0158      | Sarah Garcia     | South Branch | 2013-03-15 08:08:50.0000000  |
+| E0623      | Maria Johnson    | Central Branch | 2005-03-07 04:50:27.0000000 |
+| E0226      | James Jones      | East Branch  | 2000-04-30 08:06:38.0000000  |
+| E0144      | Maria Hernandez  | South Branch | 2019-02-10 03:19:13.0000000  |
+| E0772      | James Hernandez  | South Branch | 2013-09-01 21:01:55.0000000  |
+| E0764      | Sarah Jones      | Central Branch | 2002-05-20 04:53:10.0000000 |
+| E0457      | David Hernandez  | West Branch  | 2011-11-06 09:16:54.0000000  |
+| E0332      | Robert Johnson   | South Branch | 2018-11-07 18:04:08.0000000  |
+| E0637      | Maria Garcia     | West Branch  | 2011-06-27 12:53:53.0000000  |
+| E0026      | Sarah Jones      | East Branch  | 2002-05-05 07:26:22.0000000  |
+| E0793      | Sarah Garcia     | East Branch  | 2010-11-26 10:49:44.0000000  |
+| E0774      | Maria Hernandez  | North Branch | 2015-09-29 19:37:47.0000000  |
+| E0782      | Sarah Williams   | West Branch  | 2005-07-07 16:08:51.0000000  |
+| E0860      | David Williams   | West Branch  | 2015-03-23 01:21:43.0000000  |
+| E0590      | Robert Hernandez | South Branch | 2000-08-03 19:05:09.0000000  |
+| E0625      | David Hernandez  | North Branch | 2002-07-07 06:07:37.0000000  |
+| E0055      | David Martinez   | West Branch  | 2005-08-02 16:11:27.0000000  |
+| E0978      | Robert Johnson   | East Branch  | 2001-03-02 21:52:49.0000000  |
+| E0645      | Robert Garcia    | West Branch  | 2009-01-26 03:08:56.0000000  |
+| E0695      | James Garcia     | West Branch  | 2007-09-02 12:31:29.0000000  |
+| E0683      | Maria Hernandez  | East Branch  | 2004-05-04 12:00:10.0000000  |
+| E0543      | Sarah Jones      | East Branch  | 2020-12-10 11:24:29.0000000  |
+| E0672      | Sarah Johnson    | North Branch | 2011-04-18 13:52:43.0000000  |
+| E0399      | David Jones      | Central Branch | 2018-07-21 04:58:29.0000000 |
+| E0412      | Robert Garcia    | South Branch | 2008-11-28 19:46:33.0000000  |
+| E0310      | Sarah Williams   | West Branch  | 2007-01-21 12:22:46.0000000  |
+| E0082      | Robert Martinez  | West Branch  | 2009-10-27 15:46:55.0000000  |
+| E0931      | Robert Williams  | North Branch | 2015-07-12 08:12:35.0000000  |
+| E0087      | Laura Jones      | West Branch  | 2005-12-18 07:18:25.0000000  |
+| E0232      | Maria Johnson    | Central Branch | 2018-08-01 15:43:10.0000000 |
+| E0715      | Maria Hernandez  | Central Branch | 2004-06-05 06:55:04.0000000 |
+| E0989      | Robert Williams  | North Branch | 2004-10-22 22:06:45.0000000  |
+| E0406      | David Johnson    | North Branch | 2007-07-02 16:02:45.0000000  |
+| E0686      | Maria Martinez   | North Branch | 2014-08-06 19:22:53.0000000  |
+| E0471      | Laura Hernandez  | West Branch  | 2011-09-22 01:28:02.0000000  |
+| E0414      | James Garcia     | West Branch  | NULL                          |
+| E0724      | James Jones      | North Branch | 2007-08-09 09:47:34.0000000  |
+| E0954      | Laura Johnson    | South Branch | 2017-01-02 00:39:03.0000000  |
+| E0016      | David Jones      | South Branch | 2015-01-21 16:58:30.0000000  |
+| E0678      | Robert Johnson   | Central Branch | 2016-06-10 06:34:19.0000000 |
+| E0750      | Maria Williams   | South Branch | 2012-07-28 21:37:03.0000000  |
+| E0796      | James Martinez   | East Branch  | 2009-02-21 22:39:18.0000000  |
+| E0237      | Laura Jones      | East Branch  | 2002-09-02 17:24:10.0000000  |
+| E0888      | Robert Martinez  | North Branch | 2008-01-01 15:09:26.0000000  |
+| E0549      | Sarah Garcia     | West Branch  | 2008-02-08 21:04:12.0000000  |
+| E0544      | Laura Johnson    | North Branch | 2017-09-08 14:19:56.0000000  |
+| E0396      | David Jones      | Central Branch | 2008-05-22 00:43:00.0000000 |
+| E0152      | James Hernandez  | Central Branch | 2013-11-26 10:16:51.0000000 |
+| E0165      | Maria Jones      | Central Branch | 2008-07-19 16:38:17.0000000 |
+| E0586      | Maria Jones      | Central Branch | 2004-01-31 16:56:43.0000000 |
+| E0635      | Robert Jones     | South Branch | 2010-08-24 17:54:40.0000000  |
+| E0196      | Sarah Garcia     | North Branch | 2003-12-28 14:44:02.0000000  |
+| E0187      | Robert Martinez  | Central Branch | 2007-04-05 05:23:20.0000000 |
+| E0210      | James Johnson    | Central Branch | 2001-06-14 05:24:49.0000000 |
+| E0270      | David Williams   | South Branch | 2011-10-10 01:25:24.0000000  |
+| E0916      | Robert Jones     | Central Branch | 2016-01-11 02:00:21.0000000 |
+| E0802      | Sarah Hernandez  | West Branch  | 2007-09-23 01:02:12.0000000  |
+| E0541      | Robert Garcia    | Central Branch | 2016-07-26 16:39:50.0000000 |
+| E0882      | James Hernandez  | South Branch | 2019-03-19 09:23:12.0000000  |
+| E0971      | Laura Hernandez  | East Branch  | 2018-12-04 07:27:35.0000000  |
+| E0991      | Robert Johnson   | East Branch  | 2014-01-21 05:06:43.0000000  |
+| E0682      | James Garcia     | West Branch  | 2000-07-09 20:02:14.0000000  |
+| E0435      | Sarah Johnson    | West Branch  | 2011-08-14 01:49:40.0000000  |
+| E0709      | Sarah Johnson    | West Branch  | 2019-02-10 06:25:17.0000000  |
+| E0832      | James Garcia     | West Branch  | 2002-02-22 02:24:09.0000000  |
+| E0388      | Maria Martinez   | West Branch  | 2000-10-13 02:40:36.0000000  |
+| E0603      | Laura Garcia     | East Branch  | 2020-03-13 20:49:24.0000000  |
+| E0564      | Sarah Martinez   | West Branch  | 2013-07-24 15:15:57.0000000  |
+| E0290      | Robert Jones     | East Branch  | NULL                          |
+| E0932      | Maria Martinez   | South Branch | 2019-03-26 17:30:36.0000000  |
+| E0935      | Laura Williams   | South Branch | NULL                          |
+| E0575      | Sarah Johnson    | East Branch  | 2003-11-07 13:13:18.0000000  |
+| E0755      | James Hernandez  | West Branch  | 2009-11-19 17:24:05.0000000  |
+| E0702      | Sarah Williams   | West Branch  | 2017-08-03 20:01:03.0000000  |
+| E0120      | Laura Garcia     | East Branch  | 2005-08-25 20:42:30.0000000  |
+| E0667      | Robert Garcia    | West Branch  | 2013-07-11 17:10:31.0000000  |
+| E0675      | David Hernandez  | West Branch  | 2002-09-10 08:00:15.0000000  |
+| E0884      | Maria Hernandez  | South Branch | 2003-07-14 18:13:26.0000000  |
+| E0474      | Sarah Johnson    | South Branch | NULL                          |
+| E0433      | James Hernandez  | East Branch  | 2006-09-18 16:35:07.0000000  |
+| E0997      | Robert Garcia    | Central Branch | 2019-04-03 14:56:08.0000000 |
+| E0053      | Maria Hernandez  | South Branch | 2019-05-30 11:21:56.0000000  |
+| E0403      | Laura Johnson    | North Branch | 2007-01-17 11:13:07.0000000  |
+| E0972      | David Garcia     | South Branch | 2009-08-03 07:41:17.0000000  |
+| E0022      | Sarah Martinez   | North Branch | 2009-06-26 00:58:21.0000000  |
+| E0822      | Sarah Martinez   | North Branch | 2019-10-22 16:46:50.0000000  |
+| E0415      | James Williams   | Central Branch | 2015-08-23 15:28:04.0000000 |
+| E0186      | Robert Garcia    | South Branch | 2002-09-17 16:53:27.0000000  |
+| E0864      | Robert Jones     | West Branch  | 2012-06-28 02:10:41.0000000  |
+| E0001      | Maria Martinez   | East Branch  | 2009-12-16 00:37:30.0000000  |
+| E0794      | James Hernandez  | South Branch | 2012-07-04 03:29:25.0000000  |
+| E0119      | Maria Jones      | East Branch  | 2007-03-23 04:37:59.0000000  |
+| E0275      | Maria Martinez   | Central Branch | NULL                          |
+| E0367      | Sarah Martinez   | South Branch | 2006-10-18 04:57:48.0000000  |
+| E0653      | James Garcia     | South Branch | 2018-01-22 07:18:35.0000000  |
+| E0979      | David Jones      | West Branch  | 2004-07-03 15:02:45.0000000  |
+| E0183      | Robert Williams  | South Branch | 2016-07-02 02:50:42.0000000  |
+| E0273      | James Hernandez  | Central Branch | 2014-10-21 02:30:31.0000000 |
+| E0779      | James Jones      | West Branch  | 2005-10-04 23:29:57.0000000  |
+| E0182      | David Jones      | West Branch  | 2020-09-02 00:12:28.0000000  |
+| E0896      | James Hernandez  | Central Branch | 2017-12-26 10:41:05.0000000 |
+
+
+The table above shows the liat of employees working as loan officer
+
+### Business Scenario Q33
+**Total Number of Accounts Opened in 2014**
+The bank management wants to find the total number of accounts that were opened	in the year 2014. This information is important for understanding the growth in the customer base during that year, evaluating the success of marketing campaigns, and making informed decisions about future strategies to attract new customers.
+
+```sql
+		SELECT Count(*) As CNT_Account_opened_2014 FROM FB.Accounts
+		WHERE YEAR(openDate) = '2014'
+```
+| CNT_Account_opened_2014 |
+|-------------------------|
+| 46                      |
+
+The total number of account opened in 2014 is 46
+
+
+### Business Scenario Q34
+**Average Transaction Amount by Transaction Type**
+The bank management wants to calculate the average transaction amount for each transaction type. This information is essential for understanding customer behaviour, identifying transaction trends, and making informed decisions about fee structures and service offerings.
+
+```sql
+		SELECT TransactionType, Round(AVG(Isnull(Amount,0)),0) AVg_transaction_amount FROM FB.Transactions
+		GROUP BY TransactionType;
+```
+
+| TransactionType | AVg_transaction_amount |
+|-----------------|------------------------|
+| Payment         | 456.68                 |
+| Transfer        | 434.27                 |
+| Withdrawal      | 455.92                 |
+| Deposit         | 451.02                 |
+
+The above shows the average transaction Amount by transaction type
+
+
+
+### Business Scenario Q35
+**Identify High-Value Customers**
+The bank management wants to identify high-value customers, defined as the top 10% of customers based on their total account balances and investments. This information	is crucial for targeted marketing, offering premium services, and personalised financial products to these valuable customers.
+
+```sql
+	WITH CustomerACCBAL_Investment
+	AS 
+		(
+			SELECT TOP 10 A.CustomerID, Round(Sum(isnull(A.Balance,0)),2) AccBal, Round(Sum(isnull(I.Amount,0)),2) Investment,
+			Round(Sum((isnull(A.Balance,0) + isnull(I.Amount,0))),2) TotalAmount
+			FROM FB.Accounts A JOIN FB.Investments I ON I.CustomerID = A.CustomerID
+			GROUP BY A.CustomerID
+			
+		)
+		SELECT CAL.customerID, Concat(C.firstname, ' ', C.lastname) As Fullname, AccBal, Investment, TotalAmount 
+		FROM CustomerACCBAL_Investment CAL JOIN FB.Customers C ON C.CustomerID= CAL.customerID
+		Order By TotalAmount DESC 
+```
+
+| customerID | Fullname      | AccBal   | Investment | TotalAmount |
+|------------|---------------|----------|------------|-------------|
+| C0010      | Jane Brown    | 16729.2  | 108160.58  | 124889.78   |
+| C0022      | John Wilson   | 36186.5  | 63227.12   | 99413.62    |
+| C0018      | John Smith    | 13144.68 | 40313.53   | 53458.21    |
+| C0016      | Jane Brown    | 13895.42 | 38306.34   | 52201.76    |
+| C0012      | Michael Doe   | 2788.6   | 32154.31   | 34942.91    |
+| C0011      | Alex Doe      | 5868.02  | 27264.72   | 33132.74    |
+| C0006      | John Davis    | 4362.97  | 26224.67   | 30587.64    |
+| C0017      | John Smith    | 2652.18  | 11822.9    | 14475.08    |
+| C0002      | Jane Wilson   | 4745.76  | 9479.94    | 14225.7     |
+| C0020      | Alice Taylor  | 1055.67  | 7364.31    | 8419.98     |
+
+
+The table above show the high-value customers
+
+
+###  Business Scenario Q36
+**Customer Segmentation**
+The bank management wants to categorise customers into segments (e.g., low, medium, high value) based on their account balances, transaction frequency, and investment amounts. This information is crucial for targeted marketing, personalised service offerings, and enhancing customer satisfaction.
+
+```sql
+		WITH CustomerSegment 
+		AS (
+				SELECT  A.CustomerID,Round(Sum(isnull(A.Balance,0)),2) AccBal, Round(Sum(isnull(I.Amount,0)),2) Investment, Count(TransactionID) As Transaction_frequency
+				FROM FB.Accounts A JOIN FB.Investments I ON I.CustomerID = A.CustomerID JOIN FB.Transactions T ON t.AccountID = A.AccountID
+				GROUP BY A.CustomerID
+			)
+			SELECT CS.customerID,Concat(C.firstname, ' ', C.lastname) As Fullname,CS.Accbal, Cs.Investment, CS.Transaction_Frequency,
+			CASE
+					WHEN CS.Accbal >= 100000 OR Cs.Investment >= 50000 THEN
+					'High Value'
+					WHEN CS.Accbal >= 50000 OR Cs.Investment>= 25000 THEN
+					'Medium Value'
+					ELSE 'Low Value' 
+					END AS CustomerSegment
+		
+			FROM CustomerSegment CS JOIN FB.Customers C ON C.CustomerID = CS.customerID
+```
+| customerID | Fullname          | AccBal    | Investment  | Transaction_Frequency | CustomerSegment |
+|------------|-------------------|-----------|-------------|-----------------------|-----------------|
+| C0002      | Jane Wilson       | 4745.76   | 9479.94     | 3                     | Low Value       |
+| C0010      | Jane Brown        | 28570.72  | 162240.87   | 6                     | High Value      |
+| C0016      | Jane Brown        | 41686.26  | 114919.02   | 6                     | High Value      |
+| C0017      | John Smith        | 2652.18   | 11822.9     | 1                     | Low Value       |
+| C0018      | John Smith        | 13144.68  | 40313.53    | 2                     | Medium Value    |
+| C0020      | Alice Taylor      | 2111.34   | 14728.62    | 2                     | Low Value       |
+| C0022      | John Wilson       | 72373     | 126454.24   | 8                     | High Value      |
+| C0025      | Alice Brown       | 35583.78  | 190262.08   | 6                     | High Value      |
+| C0028      | Alice Smith       | 39948.6   | 82164.64    | 4                     | High Value      |
+| C0029      | John Smith        | 17679.28  | 53275.22    | 2                     | High Value      |
+| C0031      | Jane Doe          | 15005.04  | 79205.06    | 2                     | High Value      |
+| C0038      | John Taylor       | 10230.28  | 13088.4     | 2                     | Low Value       |
+| C0042      | Jane Wilson       | 18363.1   | 93473.64    | 2                     | High Value      |
+| C0046      | Michelle Smith    | 9025.38   | 39304.56    | 2                     | Medium Value    |
+| C0047      | Michelle Wilson   | 20467.23  | 50025.07    | 3                     | High Value      |
+| C0052      | Jane Davis        | 10728.16  | 42321.43    | 2                     | Medium Value    |
+| C0056      | Alex Brown        | 7897.81   | 3084.6      | 1                     | Low Value       |
+| C0057      | Michelle Wilson   | 25429.12  | 189171.5    | 5                     | High Value      |
+| C0059      | Jane Smith        | 7720.42   | 44559.83    | 2                     | Medium Value    |
+| C0061      | Alex Brown        | 28270.14  | 94821.22    | 6                     | High Value      |
+| C0062      | Alex Taylor       | 1561.71   | 71517.12    | 3                     | High Value      |
+| C0063      | Jane Taylor       | 965.42    | 44415.87    | 1                     | Medium Value    |
+| C0064      | Michelle Doe      | 12142.46  | 60661.23    | 2                     | High Value      |
+| C0065      | Michelle Brown    | 37210.98  | 132280.88   | 6                     | High Value      |
+| C0066      | Michelle Doe      | 13868.8   | 139877.58   | 3                     | High Value      |
+| C0070      | Michelle Davis    | 28125.28  | 81033.15    | 5                     | High Value      |
+| C0071      | Alex Wilson       | 2094.42   | 196734.5    | 4                     | High Value      |
+| C0072      | Jane Smith        | 5681.58   | 23350.14    | 1                     | Low Value       |
+| C0079      | Michael Taylor    | 37205.52  | 159200.18   | 4                     | High Value      |
+| C0081      | Michael Smith     | 49952.84  | 106695.48   | 8                     | High Value      |
+| C0082      | Alex Doe          | 17892.44  | 44591.8     | 4                     | Medium Value    |
+| C0084      | Jane Taylor       | 48657.52  | 243398      | 8                     | High Value      |
+| C0092      | Michelle Doe      | 26536.77  | 195666.16   | 6                     | High Value      |
+| C0105      | Alice Smith       | 6934.75   | 35310.8     | 1                     | Medium Value    |
+| C0108      | Michelle Doe      | 160.81    | 41916.09    | 1                     | Medium Value    |
+
+
+### Business Scenario Q37
+**Account Activity Summary**
+The bank management wants to retrieve a summary of account activity for each customer. This summary should include the total deposits, total withdrawals, and the current balance for each customer's accounts. This information is crucial for understanding customer behaviour, monitoring account health, and providing personalised financial advice.
+
+```sql
+WITH TOTAL_DEPOSITCTE 
+AS 
+	(
+		SELECT * FROM FB.Transactions
+		WHERE TransactionType = 'Deposit'
+	),
+	TOTAL_WITHDRAWALCTE AS
+	(
+		SELECT * FROM FB.Transactions
+		WHERE TransactionType = 'Withdrawal'	
+	)
+	SELECT A.AccountID, a.CustomerID, CONCAT(c.FirstName, ' ',c.LastName) As FullName,Round(Sum(Isnull(A.Balance,0)),2) Opening_Balance, Round(Sum(isnull(D.Amount,0)),2) AS Total_Deposit,
+	Round(Sum(Isnull(W.Amount,0)),2) AS Total_withdrawal,		(Round(Sum(Isnull(A.Balance,0)),2) - Round(Sum(Isnull(W.Amount,0)),2) + Round(Sum(isnull(D.Amount,0)),2)) As Current_balance
+	FROM TOTAL_DEPOSITCTE D JOIN TOTAL_WITHDRAWALCTE W ON W.AccountID = D.AccountID
+	JOIN FB.Accounts A ON D.AccountID = A.AccountID and W.AccountID = A.AccountID
+	JOIN FB.Customers C on A.CustomerID = C.CustomerID
+	GROUP BY A.AccountID, a.CustomerID,c.FirstName, c.LastName
+```
+| AccountID | CustomerID | FullName         | Opening_Balance | Total_Deposit | Total_withdrawal | Current_balance |
+|-----------|------------|------------------|-----------------|---------------|------------------|-----------------|
+| A0015     | C0316      | Alice Davis      | 1454.33         | 944.35        | 310.79           | 2087.89         |
+| A0020     | C0989      | Jane Brown       | 402.6           | 713.64        | 692.55           | 423.69          |
+| A0029     | C0755      | John Smith       | 3766.23         | 79.61         | 977.16           | 2868.68         |
+| A0046     | C0390      | Alice Doe        | 3147.94         | 865.2         | 1579.39          | 2433.75         |
+| A0057     | C0279      | Jane Taylor      | 2826.68         | 994.38        | 316.7            | 3504.36         |
+| A0075     | C0534      | Alice Smith      | 7406.15         | 165.75        | 424.6            | 7147.3          |
+| A0088     | C0794      | Jane Wilson      | 2165.9          | 528.98        | 795.31           | 1899.57         |
+| A0094     | C0972      | Alex Doe         | 455.7           | 514.74        | 68.8             | 901.64          |
+| A0095     | C0089      | Alice Taylor     | 8623.54         | 189.95        | 457.15           | 8356.34         |
+| A0108     | C0228      | Alex Davis       | 8904.21         | 212.43        | 815.6            | 8301.04         |
+| A0111     | C0444      | Jane Wilson      | 7652.26         | 287.23        | 272.69           | 7666.8          |
+| A0113     | C0671      | Michael Doe      | 0               | 784.58        | 407.22           | 377.36          |
+| A0121     | C0565      | Jane Taylor      | 5002.39         | 947.29        | 871.41           | 5078.27         |
+| A0154     | C0262      | Michael Doe      | 4593.29         | 908.1         | 373.91           | 5127.48         |
+| A0223     | C0892      | Alice Wilson     | 0               | 425.54        | 148.28           | 277.26          |
+| A0239     | C0893      | Michelle Taylor  | 5127.81         | 545.64        | 800.58           | 4872.87         |
+| A0254     | C0667      | Alex Davis       | 6996.3          | 287.58        | 404.01           | 6879.87         |
+| A0266     | C0582      | Michelle Wilson  | 7864.9          | 925.14        | 364.03           | 8426.01         |
+| A0360     | C0401      | John Brown       | 2302.38         | 789.56        | 360.14           | 2731.8          |
+| A0374     | C0973      | Alex Brown       | 8569.21         | 54.6          | 371.2            | 8252.61         |
+| A0413     | C0073      | Michelle Davis   | 8809.75         | 974.63        | 470.45           | 9313.93         |
+| A0419     | C0198      | Alice Davis      | 5620.43         | 97.05         | 0                | 5717.48         |
+| A0444     | C0404      | Jane Brown       | 9646.82         | 723.03        | 0                | 10369.85        |
+| A0456     | C0998      | Alice Davis      | 3096.86         | 394.27        | 698.63           | 2792.5          |
+| A0461     | C0514      | Alex Brown       | 0               | 139.19        | 88.53            | 50.66           |
+| A0467     | C0841      | Michelle Davis   | 10519.62        | 588.48        | 451.27           | 10656.83        |
+| A0519     | C0385      | Michelle Wilson  | 5025            | 607.39        | 714.42           | 4917.97         |
+| A0587     | C0477      | Alice Taylor     | 4328.32         | 933.92        | 586.91           | 4675.33         |
+| A0591     | C0860      | Alice Brown      | 8340.27         | 304.95        | 453.83           | 8191.39         |
+| A0594     | C0645      | Jane Wilson      | 4399.67         | 760.84        | 139.84           | 5020.67         |
+| A0601     | C0395      | Alice Brown      | 8920.58         | 478.01        | 114.27           | 9284.32         |
+| A0605     | C0988      | Michael Wilson   | 439.99          | 640.34        | 845.02           | 235.31          |
+| A0637     | C0083      | John Brown       | 7003.27         | 0             | 519.04           | 6484.23         |
+| A0642     | C0009      | John Davis       | 1590.72         | 608.11        | 477.33           | 1721.5          |
+| A0653     | C0554      | Alex Davis       | 13128.22        | 385.66        | 1750.86          | 11763.02        |
+| A0654     | C0265      | Alice Wilson     | 11910.14        | 420.1         | 571.41           | 11758.83        |
+| A0665     | C0558      | Jane Smith       | 4177.35         | 694.32        | 19.86            | 4851.81         |
+| A0703     | C0793      | Michelle Doe     | 1578.24         | 195.39        | 48.87            | 1724.76         |
+| A0739     | C0880      | Michelle Brown   | 1347.55         | 271.72        | 875.36           | 743.91          |
+| A0759     | C0511      | Alice Taylor     | 1034.31         | 593.87        | 196.91           | 1431.27         |
+| A0811     | C0924      | Michael Taylor   | 7881.41         | 0             | 475.63           | 7405.78         |
+| A0815     | C0131      | Michael Doe      | 3883.77         | 824.49        | 793.67           | 3914.59         |
+| A0845     | C0691      | John Davis       | 7031.25         | 297.9         | 782.29           | 6546.86         |
+| A0871     | C0881      | Michael Davis    | 7620.66         | 107.27        | 1498.88          | 6229.05         |
+| A0879     | C0503      | Jane Doe         | 17480.62        | 575.92        | 536.72           | 17519.82        |
+| A0888     | C0975      | John Davis       | 4375.97         | 713.91        | 312              | 4777.88         |
+| A0896     | C0556      | Michael Doe      | 6302.49         | 131.14        | 0                | 6433.63         |
+| A0936     | C0451      | Michelle Wilson  | 3935.68         | 417.1         | 294.04           | 4058.74         |
+| A0954     | C0917      | Alice Wilson     | 5535.95         | 745.54        | 60.65            | 6220.84         |
+| A0959     | C0079      | Michael Taylor   | 9301.38         | 326.88        | 0                | 9628.26         |
+
+
+### Business Scenario Q38
+**Customer Investment Profile**
+The bank management wants to list customers along with their total investment amounts and the types of investments they hold. This information is crucial for understanding customer investment behaviour, identifying potential high-value clients, and tailoring investment products to meet customer needs.
+
+```sql
+	WITH ETFsCTE 
+	As	
+		(
+			SELECT CustomerID,Count(InvestmentID) As Investment_CNT,Sum(ISnull(Amount,0)) As total_investment
+			FROM FB.Investments 
+			WHERE InvestmentType = 'ETFs'
+			GROUP BY CustomerID
+		), STOCKSCTE AS
+		(
+			SELECT CustomerID,Count(InvestmentID) As Investment_CNT,Sum(ISnull(Amount,0)) As total_investment
+			FROM FB.Investments 
+			WHERE InvestmentType = 'Stocks'
+			GROUP BY CustomerID
+		), Mutual_FundsCTE AS
+		(
+			SELECT CustomerID,Count(InvestmentID) As Investment_CNT,Sum(ISnull(Amount,0)) As total_investment
+			FROM FB.Investments 
+			WHERE InvestmentType = 'Mutual Funds'
+			GROUP BY CustomerID
+		), BondsCTE AS
+		(
+			SELECT CustomerID,Count(InvestmentID) As Investment_CNT,Sum(ISnull(Amount,0)) As total_investment
+			FROM FB.Investments 
+			WHERE InvestmentType = 'Bonds'
+			GROUP BY CustomerID
+		)
+		SELECT C.CustomerID, CONCAT(c.FirstName, ' ',c.LastName) As FullName, Isnull(e.Investment_CNT,0) As EFTs_investment_CNT, Round(isnull(E.total_investment,0),2) As TotalEFTs_investment,
+		ISnull(S.Investment_CNT,0) As Stocks_investment_CNT, Round(Isnull(S.total_investment,0),2) As TotalStocks_investment, Isnull(M.Investment_CNT,0) As Mutual_fund_Investment_CNT
+		, Round(Isnull(M.total_investment,0),2) As Total_Mutual_fund_Investment,	ISNULL(B.Investment_CNT,0) As Bond_investment_CNT,Round(isnull( B.total_investment,0),2) As TotalBonds_Investment
+		,(IsNULL(e.Investment_CNT,0)+ISNULL(M.Investment_CNT,0)+ISnull(S.Investment_CNT,0)+isnull(B.Investment_CNT,0)) As Investment_Count,
+		(Isnull(E.total_investment,0)+isnull(M.total_investment,0)+isnull(B.total_investment,0)+isnull(S.total_investment,0)) As Total_Investment_Amount
+		FROM FB.Customers C LEFT JOIN ETFsCTE E ON C.CustomerID = E.CustomerID
+		LEFT JOIN Mutual_FundsCTE M ON C.CustomerID = M.CustomerID LEFT JOIN STOCKSCTE S ON C.CustomerID = S.CustomerID
+		JOIN BondsCTE B ON B.CustomerID = C.CustomerID
+```
+
+| CustomerID | FullName         | EFTs_investment_CNT | TotalEFTs_investment | Stocks_investment_CNT | TotalStocks_investment | Mutual_fund_Investment_CNT | Total_Mutual_fund_Investment | Bond_investment_CNT | TotalBonds_Investment | Investment_Count | Total_Investment_Amount |
+|------------|------------------|----------------------|-----------------------|------------------------|-------------------------|----------------------------|------------------------------|----------------------|------------------------|------------------|--------------------------|
+| C0003      | John Doe         | 0                    | 0                     | 0                      | 0                       | 0                          | 0                            | 1                   | 26815.61               | 1                | 26815.609375             |
+| C0008      | John Doe         | 0                    | 0                     | 0                      | 0                       | 0                          | 0                            | 1                   | 37375.23               | 1                | 37375.23046875           |
+| C0012      | Michael Doe      | 0                    | 0                     | 0                      | 0                       | 0                          | 0                            | 1                   | 32154.31               | 1                | 32154.310546875          |
+| C0016      | Jane Brown       | 1                    | 23947.45              | 0                      | 0                       | 0                          | 0                            | 1                   | 14358.89               | 2                | 38306.3388671875         |
+| C0024      | Alice Doe        | 0                    | 0                     | 0                      | 0                       | 1                          | 4698.79                      | 1                   | 45116.83               | 2                | 49815.6181640625         |
+| C0025      | Alice Brown      | 0                    | 0                     | 2                      | 57786.38                | 0                          | 0                            | 1                   | 37344.66               | 3                | 95131.0400390625         |
+| C0046      | Michelle Smith   | 0                    | 0                     | 0                      | 0                       | 0                          | 0                            | 1                   | 19652.28               | 1                | 19652.279296875          |
+| C0052      | Jane Davis       | 1                    | 6849.74               | 0                      | 0                       | 0                          | 0                            | 1                   | 35471.69               | 2                | 42321.431640625          |
+| C0056      | Alex Brown       | 0                    | 0                     | 0                      | 0                       | 0                          | 0                            | 1                   | 3084.6                 | 1                | 3084.60009765625         |
+| C0065      | Michelle Brown   | 0                    | 0                     | 1                      | 12236.1                 | 0                          | 0                            | 2                   | 53904.34               | 3                | 66140.4409179688         |
+| C0068      | John Smith       | 1                    | 6851.8                | 0                      | 0                       | 0                          | 0                            | 1                   | 35287.38               | 2                | 42139.1787109375         |
+| C0070      | Michelle Davis   | 0                    | 0                     | 0                      | 0                       | 0                          | 0                            | 1                   | 16206.63               | 1                | 16206.6298828125         |
+| C0075      | Alice Smith      | 0                    | 0                     | 0                      | 0                       | 0                          | 0                            | 1                   | 33837.63               | 1                | 33837.62890625           |
+| C0079      | Michael Taylor   | 1                    | 30111.98              | 0                      | 0                       | 0                          | 0                            | 1                   | 49488.11               | 2                | 79600.08984375           |
+| C0080      | Alice Doe        | 0                    | 0                     | 0                      | 0                       | 0                          | 0                            | 2                   | 33624.54               | 2                | 33624.5390625            |
+| C0081      | Michael Smith    | 1                    | 24125.68              | 0                      | 0                       | 0                          | 0                            | 1                   | 2548.19                | 2                | 26673.8696289063         |
+| C0087      | Michael Smith    | 0                    | 0                     | 1                      | 1053.79                 | 0                          | 0                            | 1                   | 9464.93                | 2                | 10518.7197265625         |
+| C0092      | Michelle Doe     | 1                    | 49995.93              | 1                      | 14687.03                | 0                          | 0                            | 1                   | 33150.12               | 3                | 97833.0810546875         |
+| C0093      | John Brown       | 0                    | 0                     | 0                      | 0                       | 1                          | 44092.42                     | 1                   | 34191.46               | 2                | 78283.8828125            |
+| C0103      | Alex Taylor      | 1                    | 19169.03              | 0                      | 0                       | 0                          | 0                            | 1                   | 17391.84               | 2                | 36560.869140625          |
+| C0112      | John Smith       | 0                    | 0                     | 1                      | 18842.03                | 0                          | 0                            | 1                   | 7405.52                | 2                | 26247.5493164063         |
+| C0113      | John Brown       | 0                    | 0                     | 0                      | 0                       | 0                          | 0                            | 1                   | 41835.8                | 1                | 41835.80078125           |
+| C0117      | Alice Smith      | 1                    | 11043.72              | 0                      | 0                       | 0                          | 0                            | 1                   | 44323.95               | 2                | 55367.6689453125         |
+| C0120      | Michael Wilson   | 1                    | 42248.08              | 0                      | 0                       | 0                          | 0                            | 1                   | 34204.55               | 2                | 76452.62890625           |
+| C0126      | John Brown       | 0                    | 0                     | 0                      | 0                       | 1                          | 12298.73                     | 2                   | 29664.03               | 3                | 41962.759765625          |
+| C0128      | John Wilson      | 0                    | 0                     | 0                      | 0                       | 1                          | 46387.63                     | 1                   | 43505.81               | 2                | 89893.4375               |
+| C0140      | Michelle Doe     | 0                    | 0                     | 0                      | 0                       | 1                          | 29896.37                     | 1                   | 32263.41               | 2                | 62159.779296875          |
+| C0144      | Jane Taylor      | 1                    | 46539.77              | 0                      | 0                       | 0                          | 0                            | 1                   | 44355.31               | 2                | 90895.078125             |
+| C0151      | Michael Davis    | 0                    | 0                     | 0                      | 0                       | 1                          | 48553.57                     | 1                   | 11114.69               | 2                | 59668.2607421875         |
+| C0161      | Michael Smith    | 0                    | 0                     | 1                      | 22251.36                | 0                          | 0                            | 1                   | 46061.83               | 2                | 68313.1875               |
+| C0166      | John Taylor      | 0                    | 0                     | 0                      | 0                       | 0                          | 0                            | 1                   | 32578.51               | 1                | 32578.509765625          |
+| C0169      | Alice Taylor     | 0                    | 0                     | 0                      | 0                       | 0                          | 0                            | 1                   | 49627.65               | 1                | 49627.6484375            |
+| C0171      | Michael Wilson   | 3                    | 125758.42             | 1                      | 47697.55                | 0                          | 0                            | 1                   | 43569.47               | 5                | 217025.44140625          |
+| C0179      | Michelle Brown   | 0                    | 0                     | 0                      | 0                       | 0                          | 0                            | 1                   | 22798.31               | 1                | 22798.310546875          |
+| C0187      | Alice Wilson     | 1                    | 49310.88              | 0                      | 0                       | 0                          | 0                            | 1                   | 36067.57               | 2                | 85378.44921875           |
+| C0188      | John Taylor      | 0                    | 0                     | 0                      | 0                       | 1                          | 12069.75                     | 1                   | 4444.62                | 2                | 16514.3701171875         |
+| C0193      | Alex Brown       | 1                    | 32227.14              | 0                      | 0                       | 0                          | 0                            | 1                   | 28159.5                | 2                | 60386.640625             |
+| C0194      | John Taylor      | 0                    | 0                     | 0                      | 0                       | 1                          | 4046.38                      | 1                   | 6475.15                | 2                | 10521.5297851563         |
+| C0195      | Alex Smith       | 0                    | 0                     | 0                      | 0                       | 0                          | 0                            | 1                   | 43764.61               | 1                | 43764.609375             |
+| C0196      | Jane Doe         | 1                    | 6175.89               | 0                      | 0                       | 1                          | 13665.48                     | 2                   | 41011.46               | 4                | 60852.8305664063         |
+| C0197      | Alice Doe        | 0                    | 0                     | 0                      | 0                       | 0                          | 0                            | 1                   | 39935.07               | 1                | 39935.0703125            |
+| C0216      | Michelle Brown   | 1                    | 7401.12               | 0                      | 0                       | 0                          | 0                            | 1                   | 29198.62               | 2                | 36599.7392578125         |
+| C0231      | John Taylor      | 0                    | 0                     | 0                      | 0                       | 0                          | 0                            | 1                   | 25572.21               | 1                | 25572.2109375            |
+| C0232      | Alice Davis      | 0                    | 0                     | 0                      | 0                       | 0                          | 0                            | 1                   | 34577.41               | 1                | 34577.41015625           |
+| C0255      | Alex Smith       | 0                    | 0                     | 0                      | 0                       | 1                          | 4853.45                      | 1                   | 15853.64               | 2                | 20707.08984375           |
+| C0259      | John Taylor      | 0                    | 0                     | 1                      | 44967.83                | 0                          | 0                            | 1                   | 27674.95               | 2                | 72642.77734375           |
+| C0263      | Alice Brown      | 0                    | 0                     | 1                      | 35507.17                | 0                          | 0                            | 1                   | 12776.51               | 2                | 48283.681640625          |
+| C0267      | Alice Davis      | 0                    | 0                     | 1                      | 37113.54                | 0                          | 0                            | 2                   | 42407.79               | 3                | 79521.328125             |
+| C0271      | Alex Davis       | 0                    | 0                     | 1                      | 23138.72                | 0                          | 0                            | 1                   | 7393.17                | 2                | 30531.890625             |
+| C0274      | Michael Smith    | 1                    | 31301.35              | 0                      | 0                       | 2                          | 47789.76                     | 1                   | 22345.49               | 4                | 101436.599609375         |
+| C0294      | Jane Smith       | 1                    | 45077.11              | 0                      | 0                       | 0                          | 0                            | 1                   | 36149.39               | 2                | 81226.5                  |
+| C0306      | Alex Smith       | 0                    | 0                     | 0                      | 0                       | 0                          | 0                            | 1                   | 4347.98                | 1                | 4347.97998046875         |
+| C0309      | Michael Doe      | 0                    | 0                     | 0                      | 0                       | 0                          | 0                            | 1                   | 33457.66               | 1                | 33457.66015625           |
+| C0313      | Alice Smith      | 0                    | 0                     | 0                      | 0                       | 0                          | 0                            | 1                   | 24416.3                | 1                | 24416.30078125           |
+| C0319      | Michael Davis    | 1                    | 49587.1               | 0                      | 0                       | 0                          | 0                            | 1                   | 1978.07                | 2                | 51565.1715087891         |
+| C0326      | Alex Brown       | 0                    | 0                     | 0                      | 0                       | 1                          | 21205.35                     | 1                   | 5725.13                | 2                | 26930.4794921875         |
+| C0328      | John Wilson      | 0                    | 0                     | 1                      | 14118.77                | 0                          | 0                            | 1                   | 30865.64               | 2                | 44984.41015625           |
+| C0329      | Jane Taylor      | 1                    | 16046.5               | 0                      | 0                       | 0                          | 0                            | 1                   | 9019.72                | 2                | 25066.2197265625         |
+| C0335      | Alex Doe         | 0                    | 0                     | 1                      | 22802.06                | 1                          | 32584.84                     | 1                   | 19150.84               | 3                | 74537.740234375          |
+| C0338      | Michelle Doe     | 0                    | 0                     | 1                      | 3361.68                 | 0                          | 0                            | 1                   | 49680.86               | 2                | 53042.5393066406         |
+| C0343      | Alex Davis       | 1                    | 7343.87               | 0                      | 0                       | 0                          | 0                            | 1                   | 23017.17               | 2                | 30361.0400390625         |
+| C0348      | Michelle Davis   | 0                    | 0                     | 0                      | 0                       | 0                          | 0                            | 1                   | 27286.09               | 1                | 27286.08984375           |
+| C0350      | John Wilson      | 0                    | 0                     | 0                      | 0                       | 1                          | 5293.71                      | 1                   | 37561.29               | 2                | 42854.9990234375         |
+| C0353      | Michael Wilson   | 0                    | 0                     | 0                      | 0                       | 0                          | 0                            | 1                   | 44593.11               | 1                | 44593.109375             |
+| C0369      | John Doe         | 0                    | 0                     | 0                      | 0                       | 0                          | 0                            | 1                   | 46751.91               | 1                | 46751.91015625           |
+
+
+### Business Scenario Q39
+**Monthly Transaction Volume**
+The bank management wants to calculate the total transaction volume for each month from 2011 to 2023, broken down by transaction type. This information is essential for understanding transaction patterns, planning for resource allocation, and identifying peak transaction periods.
+
+```sql
+
+SELECT Year(TransactionDate) As Transaction_Year, MONTH(TransactionDate) AS Transaction_Month, TransactionType, Count(TransactionID) as CNT_Transaction
+, Round(Sum(isnull(Amount,0)),2) As Transactuon_Amount
+FROM FB.Transactions
+WHERE TransactionDate BETWEEN '2011-01-01' AND '2024-01-01'
+GROUP BY Year(TransactionDate) ,  MONTH(TransactionDate), TransactionType
+ORDER BY  Year(TransactionDate) , MONTH(TransactionDate);
+```
+| Transaction_Year | Transaction_Month | TransactionType | CNT_Transaction | Transactuon_Amount |
+|------------------|-------------------|-----------------|------------------|---------------------|
+| 2011             | 1                 | Payment         | 1                | 150.33              |
+| 2011             | 1                 | Transfer        | 3                | 675.77              |
+| 2011             | 2                 | Deposit         | 1                | 53.95               |
+| 2011             | 2                 | Payment         | 2                | 951.89              |
+| 2011             | 2                 | Transfer        | 2                | 720.59              |
+| 2011             | 3                 | Payment         | 3                | 941.47              |
+| 2011             | 4                 | Deposit         | 1                | 603.28              |
+| 2011             | 4                 | Payment         | 3                | 927.59              |
+| 2011             | 4                 | Transfer        | 1                | 864.36              |
+| 2011             | 4                 | Withdrawal      | 1                | 194.51              |
+| 2011             | 5                 | Withdrawal      | 1                | 413.2               |
+| 2011             | 6                 | Deposit         | 1                | 545.64              |
+| 2011             | 6                 | Payment         | 2                | 611.35              |
+| 2011             | 6                 | Transfer        | 2                | 1295.68             |
+| 2011             | 7                 | Transfer        | 1                | 686.84              |
+| 2011             | 7                 | Withdrawal      | 1                | 364.03              |
+| 2011             | 8                 | Deposit         | 1                | 968.54              |
+| 2011             | 8                 | Payment         | 1                | 529.52              |
+| 2011             | 8                 | Transfer        | 1                | 622.68              |
+| 2011             | 8                 | Withdrawal      | 1                | 533.35              |
+| 2011             | 9                 | Deposit         | 1                | 0                   |
+| 2011             | 9                 | Payment         | 1                | 511.6               |
+| 2011             | 9                 | Withdrawal      | 1                | 0                   |
+| 2011             | 10                | Deposit         | 2                | 1048.86             |
+| 2011             | 10                | Payment         | 4                | 1264.5              |
+| 2011             | 11                | Deposit         | 2                | 548.48              |
+| 2011             | 11                | Payment         | 1                | 505.39              |
+| 2011             | 11                | Withdrawal      | 1                | 707.86              |
+| 2011             | 12                | Withdrawal      | 2                | 882.81              |
+| 2012             | 1                 | Transfer        | 1                | 123.98              |
+| 2012             | 2                 | Deposit         | 1                | 394.27              |
+| 2012             | 2                 | Payment         | 1                | 62.66               |
+| 2012             | 3                 | Payment         | 1                | 401.35              |
+| 2012             | 3                 | Transfer        | 2                | 1073.68             |
+| 2012             | 4                 | Deposit         | 1                | 210.05              |
+| 2012             | 4                 | Payment         | 1                | 0                   |
+| 2012             | 4                 | Withdrawal      | 1                | 822.29              |
+| 2012             | 5                 | Payment         | 1                | 245.92              |
+| 2012             | 5                 | Transfer        | 1                | 647.48              |
+| 2012             | 6                 | Deposit         | 1                | 629.7               |
+| 2012             | 6                 | Transfer        | 1                | 228.73              |
+| 2012             | 7                 | Transfer        | 2                | 1947.28             |
+| 2012             | 7                 | Withdrawal      | 2                | 1014.1              |
+| 2012             | 8                 | Deposit         | 1                | 895.39              |
+| 2012             | 8                 | Transfer        | 1                | 0                   |
+| 2012             | 9                 | Withdrawal      | 1                | 645.63              |
+| 2012             | 10                | Deposit         | 2                | 1483.24             |
+| 2012             | 10                | Payment         | 3                | 1875.64             |
+| 2012             | 10                | Transfer        | 1                | 640.97              |
+| 2012             | 10                | Withdrawal      | 1                | 432.36              |
+| 2012             | 11                | Deposit         | 1                | 723.03              |
+| 2012             | 11                | Transfer        | 1                | 945.43              |
+| 2012             | 11                | Withdrawal      | 2                | 648.43              |
+| 2012             | 12                | Deposit         | 2                | 1143.6              |
+| 2012             | 12                | Payment         | 1                | 585.87              |
+| 2012             | 12                | Withdrawal      | 1                | 299.14              |
+| 2013             | 1                 | Payment         | 1                | 0                   |
+| 2013             | 1                 | Withdrawal      | 1                | 755.89              |
+| 2013             | 2                 | Deposit         | 1                | 139.19              |
+| 2013             | 2                 | Transfer        | 2                | 1607.28             |
+| 2013             | 3                 | Deposit         | 2                | 1094.57             |
+| 2013             | 3                 | Payment         | 2                | 1286.61             |
+| 2013             | 3                 | Transfer        | 1                | 505.2               |
+| 2013             | 4                 | Deposit         | 2                | 195.39              |
+| 2013             | 4                 | Payment         | 2                | 177.46              |
+| 2013             | 5                 | Deposit         | 2                | 1661.16             |
+| 2013             | 5                 | Withdrawal      | 2                | 139.84              |
+| 2013             | 6                 | Transfer        | 1                | 967.97              |
+| 2013             | 6                 | Withdrawal      | 1                | 269.52              |
+| 2013             | 7                 | Payment         | 1                | 298.58              |
+| 2013             | 8                 | Deposit         | 3                | 1141.05             |
+| 2013             | 8                 | Payment         | 2                | 0                   |
+| 2013             | 8                 | Withdrawal      | 2                | 949.27              |
+| 2013             | 9                 | Deposit         | 1                | 425.4               |
+| 2013             | 9                 | Payment         | 2                | 1873.3              |
+| 2013             | 10                | Payment         | 1                | 616.99              |
+| 2013             | 10                | Withdrawal      | 2                | 622.96              |
+| 2013             | 11                | Deposit         | 1                | 429.25              |
+| 2013             | 11                | Transfer        | 2                | 1206.09             |
+| 2013             | 11                | Withdrawal      | 1                | 560.1               |
+| 2013             | 12                | Deposit         | 1                | 244.99              |
+| 2013             | 12                | Payment         | 1                | 716.4               |
+| 2013             | 12                | Transfer        | 1                | 0                   |
+| 2013             | 12                | Withdrawal      | 1                | 571.64              |
+| 2014             | 1                 | Transfer        | 2                | 1196.31             |
+| 2014             | 1                 | Withdrawal      | 2                | 371.03              |
+| 2014             | 3                 | Deposit         | 2                | 724.69              |
+| 2014             | 3                 | Payment         | 2                | 1261.21             |
+| 2014             | 3                 | Withdrawal      | 1                | 139.42              |
+| 2014             | 4                 | Withdrawal      | 2                | 968.29              |
+| 2014             | 5                 | Payment         | 1                | 440.12              |
+| 2014             | 5                 | Transfer        | 1                | 835.13              |
+| 2014             | 5                 | Withdrawal      | 1                | 993.88              |
+| 2014             | 6                 | Transfer        | 2                | 1185.09             |
+| 2014             | 6                 | Withdrawal      | 2                | 158.35              |
+| 2014             | 7                 | Withdrawal      | 2                | 1357.33             |
+| 2014             | 8                 | Deposit         | 2                | 760.86              |
+| 2014             | 8                 | Payment         | 2                | 826.43              |
+| 2014             | 8                 | Transfer        | 2                | 464.46              |
+| 2014             | 9                 | Deposit         | 1                | 178.65              |
+| 2014             | 9                 | Transfer        | 1                | 0                   |
+| 2014             | 9                 | Withdrawal      | 2                | 1193.75             |
+| 2014             | 10                | Deposit         | 2                | 994.6               |
+| 2014             | 10                | Payment         | 1                | 528.21              |
+| 2014             | 10                | Transfer        | 1                | 577.4               |
+| 2014             | 11                | Deposit         | 1                | 56.39               |
+| 2014             | 11                | Transfer        | 2                | 1315.14             |
+| 2014             | 11                | Withdrawal      | 1                | 519.04              |
+| 2014             | 12                | Deposit         | 1                | 947.29              |
+| 2014             | 12                | Payment         | 2                | 1331.96             |
+| 2014             | 12                | Transfer        | 1                | 0                   |
+| 2015             | 1                 | Transfer        | 1                | 115.88              |
+| 2015             | 2                 | Payment         | 3                | 1668.77             |
+| 2015             | 3                 | Deposit         | 1                | 90.81               |
+| 2015             | 3                 | Payment         | 1                | 857.54              |
+| 2015             | 3                 | Withdrawal      | 1                | 533.85              |
+| 2015             | 4                 | Transfer        | 1                | 572.89              |
+| 2015             | 5                 | Payment         | 1                | 984.48              |
+| 2015             | 5                 | Transfer        | 1                | 146.61              |
+| 2015             | 5                 | Withdrawal      | 1                | 358.75              |
+| 2015             | 6                 | Deposit         | 2                | 826.82              |
+| 2015             | 6                 | Payment         | 2                | 1264.94             |
+| 2015             | 7                 | Deposit         | 3                | 1669.18             |
+| 2015             | 7                 | Payment         | 1                | 799.71              |
+| 2015             | 7                 | Transfer        | 1                | 812.39              |
+| 2015             | 7                 | Withdrawal      | 2                | 873.92              |
+| 2015             | 8                 | Deposit         | 1                | 856.04              |
+| 2015             | 9                 | Payment         | 2                | 1091.07             |
+| 2015             | 9                 | Transfer        | 1                | 20.45               |
+| 2015             | 10                | Deposit         | 2                | 1231.58             |
+| 2015             | 10                | Payment         | 1                | 0                   |
+| 2015             | 10                | Transfer        | 1                | 184.1               |
+| 2015             | 10                | Withdrawal      | 2                | 1025.05             |
+| 2015             | 11                | Deposit         | 1                | 20.42               |
+| 2015             | 11                | Payment         | 1                | 452.66              |
+| 2015             | 11                | Transfer        | 1                | 55.5                |
+| 2015             | 12                | Deposit         | 1                | 124.12              |
+| 2015             | 12                | Payment         | 1                | 256.54              |
+| 2015             | 12                | Transfer        | 1                | 0                   |
+| 2016             | 1                 | Transfer        | 2                | 1344.01             |
+| 2016             | 1                 | Withdrawal      | 3                | 2052.19             |
+| 2016             | 2                 | Payment         | 1                | 348.5               |
+| 2016             | 2                 | Transfer        | 1                | 364.07              |
+| 2016             | 3                 | Deposit         | 1                | 574.7               |
+| 2016             | 3                 | Payment         | 3                | 1410.92             |
+| 2016             | 3                 | Transfer        | 2                | 887.24              |
+| 2016             | 3                 | Withdrawal      | 1                | 25.42               |
+| 2016             | 4                 | Deposit         | 2                | 1097.32             |
+| 2016             | 4                 | Payment         | 3                | 780.58              |
+| 2016             | 4                 | Transfer        | 1                | 163.96              |
+| 2016             | 5                 | Deposit         | 1                | 702.5               |
+| 2016             | 5                 | Payment         | 1                | 149.5               |
+| 2016             | 5                 | Transfer        | 1                | 207.23              |
+| 2016             | 5                 | Withdrawal      | 1                | 0                   |
+| 2016             | 6                 | Payment         | 2                | 1048.36             |
+| 2016             | 6                 | Transfer        | 4                | 1622.12             |
+| 2016             | 6                 | Withdrawal      | 2                | 1017.59             |
+| 2016             | 7                 | Payment         | 1                | 489.56              |
+| 2016             | 7                 | Transfer        | 1                | 265.94              |
+| 2016             | 7                 | Withdrawal      | 1                | 586.91              |
+| 2016             | 8                 | Transfer        | 3                | 2077.15             |
+| 2016             | 8                 | Withdrawal      | 1                | 487.95              |
+| 2016             | 9                 | Withdrawal      | 2                | 976.97              |
+| 2016             | 10                | Deposit         | 1                | 16.62               |
+| 2016             | 10                | Payment         | 2                | 614.05              |
+| 2016             | 10                | Withdrawal      | 1                | 88.53               |
+| 2016             | 11                | Deposit         | 1                | 593.87              |
+| 2016             | 11                | Payment         | 3                | 1320.1              |
+| 2016             | 11                | Withdrawal      | 1                | 544.12              |
+| 2016             | 12                | Deposit         | 2                | 429.92              |
+| 2016             | 12                | Transfer        | 2                | 225.86              |
+| 2017             | 1                 | Deposit         | 1                | 238.92              |
+| 2017             | 1                 | Withdrawal      | 2                | 1226.04             |
+
+
+### Business Scenario Q40
+**Loan Repayment Status**
+The bank management wants to list all loans along with their repayment status. This should include the total amount repaid and the outstanding balance for each loan. This information is crucial for monitoring loan performance, identifying potential defaults, and managing credit risk.
+```sql
+	WITH LOANCTE 
+	AS
+		(
+			SELECT LoanID,LoanAmount= Round(Sum(isnull(LoanAmount,0)),2),InterestRate = Round(Sum(isnull(InterestRate,0)),2),
+			Total_Expected_Loan_Payment = Round(Sum(isnull(LoanAmount,0)* (1 + (isnull(InterestRate,0)/100))),2), LoanDate
+			FROM FB.Loans
+			GROUP BY LoanID,LoanDate
+		)
+			SELECT LC.LoanID,LoanAmount = sum(LoanAmount),InterestRate = sum(InterestRate),Total_Expected_Loan_Payment=Sum(Total_Expected_Loan_Payment), Loan_Payment = Round(Sum(isnull(P.Amount,0)),2)
+			,Outstanding_payment =CASE WHEN Round(Sum(isnull(P.Amount,0)),2) != 0 then  Sum(Total_Expected_Loan_Payment) -Round(Sum(isnull(P.Amount,0)),2) Else 0 end
+			, Payment_Indicator = CASE WHEN Round(Sum(isnull(P.Amount,0)),2) = 0 THEN 'Fully paid' 
+			ELSE 'Partly paid' end
+			, LoanDate = CAST(LoanDate AS DATE)
+			FROM LOANCTE LC LEFT JOIN FB.Payments P ON LC.LoanID = p.LoanID
+			GROUP BY LC.LoanID,LoanDate;
+```
+
+| LoanID  | LoanAmount | InterestRate | Total_Expected_Loan_Payment | Loan_Payment | Outstanding_payment | Payment_Indicator | LoanDate   |
+|---------|------------|--------------|-----------------------------|--------------|---------------------|-------------------|------------|
+| L0001   | 30961.62   | 9.24         | 33822.47                    | 0            | 0                   | Fully paid        | 2006-11-24 |
+| L0002   | 24157.1    | 8.94         | 25236.92                    | 1460.24      | 23776.68            | Partly paid       | 2012-03-09 |
+| L0003   | 21364.18   | 11.9         | 22635.34                    | 1548.91      | 21086.43            | Partly paid       | 2022-12-11 |
+| L0004   | 63346.72   | 28           | 67781                       | 1633.76      | 66147.24            | Partly paid       | 2010-10-14 |
+| L0005   | 45035.02   | 6.11         | 47786.66                    | 0            | 0                   | Fully paid        | 2020-11-30 |
+| L0006   | 47638.73   | 4.92         | 49982.56                    | 135.34       | 49847.22            | Partly paid       | 2009-03-14 |
+| L0007   | 50986.64   | 2.78         | 51695.36                    | 859.89       | 50835.47            | Partly paid       | 2010-04-05 |
+| L0008   | 12691.1    | 1.52         | 12884                       | 497.14       | 12386.86            | Partly paid       | 2011-04-11 |
+| L0009   | 25359.53   | 3.48         | 26242.04                    | 590.26       | 25651.78            | Partly paid       | 2002-08-15 |
+| L0010   | 121866.57  | 22.35        | 130945.62                   | 1168.24      | 129777.38           | Partly paid       | 2012-09-02 |
+| L0011   | 31748.52   | 2.73         | 32615.25                    | 0            | 0                   | Fully paid        | 2018-05-13 |
+| L0012   | 21606.4    | 6.84         | 22345.34                    | 756.64       | 21588.7             | Partly paid       | 2021-04-04 |
+| L0013   | 126793.29  | 6.96         | 129734.88                   | 1645.49      | 128089.39           | Partly paid       | 2003-04-10 |
+| L0014   | 16361.95   | 5.99         | 17342.03                    | 915.59       | 16426.44            | Partly paid       | 2015-07-15 |
+| L0015   | 12496.5    | 6.06         | 12875.14                    | 925.62       | 11949.52            | Partly paid       | 2020-09-19 |
+| L0016   | 44761.49   | 4.69         | 46860.8                     | 539.66       | 46321.14            | Partly paid       | 2013-10-28 |
+| L0017   | 40950.46   | 9.35         | 44779.33                    | 0            | 0                   | Fully paid        | 2003-02-21 |
+| L0018   | 27379.81   | 0            | 27379.81                    | 0            | 0                   | Fully paid        | 2019-10-19 |
+| L0019   | 27991.77   | 17.07        | 29584.5                     | 1479.81      | 28104.69            | Partly paid       | 2015-06-18 |
+| L0020   | 31894.14   | 2.47         | 32681.93                    | 934.37       | 31747.56            | Partly paid       | 2011-12-25 |
+| L0021   | 37397.44   | 8.61         | 40617.36                    | 148.58       | 40468.78            | Partly paid       | 2019-06-15 |
+| L0022   | 18275.79   | 9.73         | 20054.02                    | 0            | 0                   | Fully paid        | 2013-10-17 |
+| L0023   | 117105.63  | 5.76         | 119354.07                   | 2328.71      | 117025.36           | Partly paid       | 2011-09-02 |
+| L0024   | 10056.08   | 3.09         | 10366.81                    | 0            | 0                   | Fully paid        | 2007-05-12 |
+| L0025   | 37905.6    | 3.42         | 39201.97                    | 436.05       | 38765.92            | Partly paid       | 2005-12-29 |
+| L0026   | 39898.9    | 5.04         | 41909.8                     | 298.56       | 41611.24            | Partly paid       | 2011-10-10 |
+| L0027   | 31429.58   | 3.88         | 32039.32                    | 1027.16      | 31012.16            | Partly paid       | 2017-04-02 |
+| L0028   | 36174.95   | 2.05         | 36916.54                    | 290.41       | 36626.13            | Partly paid       | 2008-08-14 |
+| L0029   | 14400.24   | 3.46         | 14898.49                    | 0            | 0                   | Fully paid        | 2021-06-25 |
+| L0030   | 43249.49   | 3.11         | 44594.55                    | 0            | 0                   | Fully paid        | 2020-11-29 |
+| L0031   | 18991.32   | 8.05         | 20520.12                    | 912.95       | 19607.17            | Partly paid       | 2000-10-10 |
+| L0032   | 6634.08    | 3.58         | 6871.58                     | 389.26       | 6482.32             | Partly paid       | 2019-10-06 |
+| L0033   | 34827.8    | 9.65         | 38188.68                    | 0            | 0                   | Fully paid        | 2009-07-12 |
+| L0034   | 18551.41   | 0            | 18551.41                    | 0            | 0                   | Fully paid        | 2002-01-12 |
+| L0035   | 46032.44   | 39           | 50520.6                     | 2454.04      | 48066.56            | Partly paid       | 2013-11-23 |
+| L0036   | 97560.99   | 19.86        | 104019.54                   | 1566.21      | 102453.33           | Partly paid       | 2008-09-03 |
+| L0037   | 30119.21   | 9.47         | 32971.5                     | 861.79       | 32109.71            | Partly paid       | 2022-05-27 |
+| L0038   | 23418.41   | 2.72         | 24055.39                    | 563.68       | 23491.71            | Partly paid       | 2010-10-25 |
+| L0039   | 30576.04   | 1.87         | 31147.81                    | 137.62       | 31010.19            | Partly paid       | 2011-05-23 |
+| L0040   | 12409.66   | 6.07         | 13162.93                    | 0            | 0                   | Fully paid        | 2017-07-10 |
+| L0041   | 11878.07   | 9.7          | 13030.24                    | 0            | 0                   | Fully paid        | 2002-11-12 |
+| L0042   | 9468.49    | 9.11         | 10331.07                    | 0            | 0                   | Fully paid        | 2019-07-23 |
+| L0043   | 27308.43   | 3.99         | 28398.04                    | 0            | 0                   | Fully paid        | 2012-05-20 |
+| L0044   | 37934.16   | 12.1         | 40229.18                    | 191.82       | 40037.36            | Partly paid       | 2001-07-07 |
+| L0045   | 27303.52   | 2.16         | 27893.28                    | 0            | 0                   | Fully paid        | 2003-12-15 |
+| L0046   | 16772.66   | 1.9          | 17091.34                    | 102.4        | 16988.94            | Partly paid       | 2018-12-28 |
+| L0047   | 37273.25   | 6.07         | 39535.74                    | 0            | 0                   | Fully paid        | 2004-06-11 |
+| L0048   | 48089.8    | 6            | 50975.19                    | 0            | 0                   | Fully paid        | 2012-01-28 |
+| L0049   | 10884.4    | 9.63         | 11932.57                    | 0            | 0                   | Fully paid        | 2022-11-10 |
+| L0050   | 47997.04   | 9.5          | 50276.9                     | 1376.94      | 48899.96            | Partly paid       | 2015-08-10 |
+| L0051   | 22498.77   | 1.67         | 22874.5                     | 0            | 0                   | Fully paid        | 2016-06-26 |
+| L0052   | 30447.93   | 6.88         | 32542.75                    | 0            | 0                   | Fully paid        | 2004-04-30 |
+| L0053   | 48727.09   | 9.38         | 53297.69                    | 0            | 0                   | Fully paid        | 2022-12-28 |
+| L0054   | 21299.35   | 7.47         | 22890.41                    | 355.45       | 22534.96            | Partly paid       | 2001-01-20 |
+| L0055   | 30433.13   | 4.57         | 31823.92                    | 0            | 0                   | Fully paid        | 2018-10-17 |
+| L0056   | 46507.02   | 3.14         | 47967.34                    | 887.91       | 47079.43            | Partly paid       | 2022-04-21 |
+| L0057   | 27422.37   | 0            | 27422.37                    | 1958.08      | 25464.29            | Partly paid       | 2005-05-21 |
+| L0058   | 35511.3    | 8.13         | 38398.37                    | 0            | 0                   | Fully paid        | 2014-10-03 |
+| L0059   | 49639.76   | 1.94         | 50602.77                    | 0            | 0                   | Fully paid        | 2011-07-30 |
+| L0060   | 45445.52   | 7.94         | 49053.89                    | 0            | 0                   | Fully paid        | 2022-10-07 |
+| L0061   | 38164.76   | 9.78         | 41897.28                    | 300.45       | 41596.83            | Partly paid       | 2022-05-22 |
+| L0062   | 72424.84   | 0            | 72424.84                    | 973.01       | 71451.83            | Partly paid       | 2006-10-24 |
+| L0063   | 35648.52   | 0            | 35648.52                    | 652.29       | 34996.23            | Partly paid       | 2020-09-01 |
+| L0064   | 20893.37   | 7.77         | 22516.78                    | 0            | 0                   | Fully paid        | 2010-08-28 |
+| L0065   | 29807.89   | 4.94         | 31280.4                     | 0            | 0                   | Fully paid        | 2002-02-05 |
+| L0066   | 27952.85   | 3.52         | 28936.79                    | 734.73       | 28202.06            | Partly paid       | 2008-12-28 |
+| L0067   | 44238.97   | 5.05         | 46473.04                    | 0            | 0                   | Fully paid        | 2008-07-14 |
+| L0068   | 16166.22   | 4.08         | 16825.8                     | 953.49       | 15872.31            | Partly paid       | 2008-08-23 |
+| L0069   | 137326.02  | 8.61         | 141267.27                   | 2134.42      | 139132.85           | Partly paid       | 2014-01-30 |
+| L0070   | 116960.16  | 0            | 116960.16                   | 1746.69      | 115213.47           | Partly paid       | 2018-12-31 |
+| L0071   | 38249.37   | 5.9          | 40506.08                    | 0            | 0                   | Fully paid        | 2016-05-08 |
+| L0072   | 42645.38   | 4.08         | 44385.31                    | 789.77       | 43595.54            | Partly paid       | 2006-07-29 |
+| L0073   | 30732.24   | 9.81         | 31737.18                    | 1451.48      | 30285.7             | Partly paid       | 2009-01-04 |
+| L0074   | 16499.22   | 0            | 16499.22                    | 322.3        | 16176.92            | Partly paid       | 2006-06-14 |
+| L0075   | 10938.52   | 8.39         | 11856.26                    | 633.15       | 11223.11            | Partly paid       | 2013-10-12 |
+| L0076   | 19487.29   | 0            | 19487.29                    | 0            | 0                   | Fully paid        | 2010-02-12 |
+| L0077   | 88341.6    | 20.16        | 92794                       | 2326.64      | 90467.36            | Partly paid       | 2016-08-06 |
+| L0078   | 25160.66   | 3.08         | 25935.61                    | 224.58       | 25711.03            | Partly paid       | 2012-01-14 |
+| L0079   | 26478.12   | 8.32         | 28681.1                     | 0            | 0                   | Fully paid        | 2006-09-18 |
+| L0080   | 21306.53   | 8.68         | 23155.94                    | 0            | 0                   | Fully paid        | 2003-12-15 |
+| L0081   | 38388.62   | 7.43         | 41240.9                     | 312.49       | 40928.41            | Partly paid       | 2022-05-08 |
+
+
+### Business Scenario Q41
+**Analyse Customer Investment Trends**
+The bank management wants to analyse customer investment trends, Year-over-Year Growth in Investments: This includes understanding how customers are investing over time, identifying popular investment types, and tracking the total investment amounts. This information is crucial for developing investment products, marketing strategies, and providing personalised investment advice.
+
+```sql
+	WITH YOYTREND 
+	AS 
+		(
+			SELECT CustomerID, YEar(InvestmentDate) As [Year], Investment = (Amount) FROM FB.Investments
+		)
+		SELECT Y1.CustomerID,Y1.Year, Round(Sum(Isnull(Y1.Investment,0)),2) As currentYear_Investment,Round(Sum(Isnull(Y2.Investment,0)),2) As previousYear_Investment,
+		Round((Round(Sum(Isnull(Y1.Investment,0)),2) - Round(Sum(Isnull(Y2.Investment,0)),2)),2) As Diff_Investment,
+		Round(((Round(Sum(Isnull(Y1.Investment,0)),2) - Round(Sum(Isnull(Y2.Investment,0)),2))/ Round(Sum(NULLIF(Y2.Investment,0)),2)*100),2) as Growth
+		FROM YOYTREND Y1, YOYTREND Y2
+		WHERE Y1.Year = Y2.Year + 1
+		GROUP BY Y1.CustomerID,Y1.Year
+```
+
+| CustomerID | Year | currentYear_Investment | previousYear_Investment | Diff_Investment | Growth  |
+|------------|------|------------------------|--------------------------|------------------|---------|
+| C0031      | 2002 | 1869865.46             | 1272131.81               | 597733.65        | 46.99   |
+| C0580      | 2002 | 655872.88              | 1272131.81               | -616258.93       | -48.44  |
+| C0571      | 2004 | 1287482.28             | 1461414.93               | -173932.65       | -11.9   |
+| C0931      | 2008 | 1562731.02             | 1266671.68               | 296059.34        | 23.37   |
+| C0754      | 2015 | 1002700.88             | 985412.5                 | 17288.38         | 1.75    |
+| C0718      | 2003 | 2044773.98             | 1132672.2                | 912101.78        | 80.53   |
+| C0822      | 2001 | 696987.38              | 1269359.19               | -572371.81       | -45.09  |
+| C0204      | 2014 | 1416475.31             | 1328247.86               | 88227.45         | 6.64    |
+| C0093      | 2003 | 1984158.98             | 1132672.2                | 851486.78        | 75.18   |
+| C0433      | 2007 | 1044198.17             | 898006.27                | 146191.9         | 16.28   |
+| C0923      | 2020 | 754451.54              | 915813.11                | -161361.57       | -17.62  |
+| C0954      | 2020 | 837945.43              | 915813.11                | -77867.68        | -8.5    |
+| C0067      | 2012 | 1270060.93             | 987256.73                | 282804.2         | 28.65   |
+| C0028      | 2017 | 531336.52              | 1405229.16               | -873892.64       | -62.19  |
+| C0343      | 2001 | 352505.77              | 1269359.19               | -916853.42       | -72.23  |
+| C0390      | 2020 | 999975.96              | 915813.11                | 84162.85         | 9.19    |
+| C0817      | 2018 | 1957076.08             | 1282916.7                | 674159.38        | 52.55   |
+| C0603      | 2001 | 1305637.88             | 1269359.19               | 36278.69         | 2.86    |
+| C0941      | 2003 | 1545029.12             | 1132672.2                | 412356.92        | 36.41   |
+| C0350      | 2012 | 227629.53              | 987256.73                | -759627.2        | -76.94  |
+| C0492      | 2021 | 2317442.36             | 1225915.72               | 1091526.64       | 89.04   |
+| C0252      | 2003 | 918765.44              | 1132672.2                | -213906.76       | -18.89  |
+| C0153      | 2005 | 432804.9               | 851258.79                | -418453.89       | -49.16  |
+| C0232      | 2010 | 1452251.23             | 839821.15                | 612430.08        | 72.92   |
+| C0952      | 2016 | 2375737.5              | 1112718.2                | 1263019.3        | 113.51  |
+| C0723      | 2008 | 1105403.51             | 1266671.68               | -161268.17       | -12.73  |
+| C0552      | 2005 | 1822429.51             | 851258.79                | 971170.72        | 114.09  |
+| C0496      | 2001 | 1189624.78             | 1269359.19               | -79734.41        | -6.28   |
+| C0987      | 2008 | 1690210.03             | 1266671.68               | 423538.35        | 33.44   |
+| C0608      | 2007 | 104223.6               | 898006.27                | -793782.67       | -88.39  |
+| C0087      | 2010 | 397527.05              | 839821.15                | -442294.1        | -52.67  |
+| C0343      | 2018 | 1127841.33             | 1282916.7                | -155075.37       | -12.09  |
+| C0245      | 2014 | 2441501.11             | 1328247.86               | 1113253.25       | 83.81   |
+| C0173      | 2009 | 646401.62              | 871496.68                | -225095.06       | -25.83  |
+| C0449      | 2014 | 1423715.19             | 1328247.86               | 95467.33         | 7.19    |
+| C0755      | 2003 | 524906.54              | 1132672.2                | -607765.66       | -53.66  |
+| C0347      | 2012 | 992931.48              | 987256.73                | 5674.75          | 0.57    |
+| C0764      | 2007 | 57905.06               | 898006.27                | -840101.21       | -93.55  |
+| C0969      | 2018 | 1017520.79             | 1282916.7                | -265395.91       | -20.69  |
+| C0375      | 2022 | 485972.71              | 756558.34                | -270585.63       | -35.77  |
+| C0056      | 2013 | 123384                 | 992415.77                | -869031.77       | -87.57  |
+| C0867      | 2012 | 1320856.32             | 1974513.45               | -653657.13       | -33.1   |
+| C0528      | 2006 | 1700307.42             | 1268964.32               | 431343.1         | 33.99   |
+| C0208      | 2013 | 146999.2               | 992415.77                | -845416.57       | -85.19  |
+| C0876      | 2015 | 294747.36              | 985412.5                 | -690665.14       | -70.09  |
+| C0635      | 2015 | 612083.67              | 985412.5                 | -373328.83       | -37.89  |
+| C0275      | 2016 | 752873                 | 1112718.2                | -359845.2        | -32.34  |
+| C0537      | 2022 | 990510.63              | 756558.34                | 233952.29        | 30.92   |
+| C0079      | 2011 | 1294815.16             | 1192848.73               | 101966.43        | 8.55    |
+| C0892      | 2021 | 250615.04              | 1225915.72               | -975300.68       | -79.56  |
+| C0085      | 2006 | 428324.41              | 1268964.32               | -840639.91       | -66.25  |
+| C0033      | 2006 | 506413.34              | 1268964.32               | -762550.98       | -60.09  |
+| C0477      | 2007 | 758206.77              | 898006.27                | -139799.5        | -15.57  |
+| C0783      | 2009 | 99771.75               | 871496.68                | -771724.93       | -88.55  |
+| C0297      | 2002 | 2136109.31             | 1272131.81               | 863977.5         | 67.92   |
+| C0775      | 2005 | 326842.82              | 851258.79                | -524415.97       | -61.6   |
+| C0811      | 2022 | 1264445.2              | 756558.34                | 507886.86        | 67.13   |
+| C0982      | 2002 | 721730.66              | 1272131.81               | -550401.15       | -43.27  |
+| C0876      | 2009 | 610859.32              | 871496.68                | -260637.36       | -29.91  |
+| C0563      | 2016 | 2448238.48             | 1112718.2                | 1335520.28       | 120.02  |
+| C0070      | 2011 | 696885.08              | 1192848.73               | -495963.65       | -41.58  |
+| C0438      | 2001 | 52434.24               | 1269359.19               | -1216924.95      | -95.87  |
+| C0057      | 2011 | 1626874.93             | 1192848.73               | 434026.2         | 36.39   |
+| C0267      | 2001 | 1425985.88             | 1269359.19               | 156626.69        | 12.34   |
+| C0189      | 2015 | 1677443.73             | 985412.5                 | 692031.23        | 70.23   |
+| C0531      | 2013 | 675052.03              | 992415.77                | -317363.74       | -31.98  |
+| C0692      | 2013 | 1687762.03             | 992415.77                | 695346.26        | 70.07   |
+| C0231      | 2011 | 1099605.07             | 1192848.73               | -93243.66        | -7.82   |
+| C0321      | 2011 | 616436.41              | 1192848.73               | -576412.32       | -48.32  |
+| C0566      | 2019 | 1588294.31             | 1086235.94               | 502058.37        | 46.22   |
+| C0992      | 2022 | 913825.12              | 756558.34                | 157266.78        | 20.79   |
+| C0574      | 2008 | 505096.82              | 1266671.68               | -761574.86       | -60.12  |
+| C0636      | 2012 | 1391476.14             | 987256.73                | 404219.41        | 40.94   |
+| C0619      | 2020 | 696149.08              | 915813.11                | -219664.03       | -23.99  |
+| C0156      | 2011 | 1636306.04             | 1192848.73               | 443457.31        | 37.18   |
+| C0827      | 2005 | 1753275.64             | 851258.79                | 902016.85        | 105.96  |
+| C0425      | 2009 | 501569.25              | 871496.68                | -369927.43       | -42.45  |
+| C0610      | 2013 | 1210410                | 992415.77                | 217994.23        | 21.97   |
+| C0781      | 2018 | 1747634.96             | 1282916.7                | 464718.26        | 36.22   |
+| C0737      | 2006 | 1156475.74             | 1268964.32               | -112488.58       | -8.86   |
+| C0849      | 2008 | 2152835.95             | 1266671.68               | 886164.27        | 69.96   |
+| C0436      | 2013 | 950368.83              | 992415.77                | -42046.94        | -4.24   |
+| C0404      | 2010 | 1835821.31             | 839821.15                | 996000.16        | 118.6   |
+| C0618      | 2001 | 1467338.44             | 1269359.19               | 197979.25        | 15.6    |
+| C0777      | 2012 | 914913.18              | 987256.73                | -72343.55        | -7.33   |
+| C0481      | 2021 | 1666791.34             | 1225915.72               | 440875.62        | 35.96   |
+| C0840      | 2002 | 903498.45              | 1272131.81               | -368633.36       | -28.98  |
+| C0065      | 2014 | 648513.28              | 1328247.86               | -679734.58       | -51.18  |
+| C0314      | 2007 | 48078.72               | 898006.27                | -849927.55       | -94.65  |
+| C0713      | 2003 | 1345591.32             | 1132672.2                | 212919.12        | 18.8    |
+| C0715      | 2006 | 1277765.51             | 1268964.32               | 8801.19          | 0.69    |
+| C0158      | 2011 | 560701.52              | 1192848.73               | -632147.21       | -52.99  |
+| C0989      | 2012 | 518198.17              | 987256.73                | -469058.56       | -47.51  |
+| C0764      | 2010 | 337989.11              | 839821.15                | -501832.04       | -59.75  |
+| C0084      | 2019 | 1304525                | 1086235.94               | 218289.06        | 20.1    |
+| C0018      | 2014 | 264279.19              | 1328247.86               | -1063968.67      | -80.1   |
+| C0103      | 2009 | 678281.75              | 871496.68                | -193214.93       | -22.17  |
+| C0933      | 2001 | 188620.8               | 1269359.19               | -1080738.39      | -85.14  |
+| C0116      | 2019 | 2028214.45             | 1086235.94               | 941978.51        | 86.72   |
+| C0648      | 2016 | 301654                 | 1112718.2                | -811064.2        | -72.89  |
+| C0036      | 2015 | 288115.61              | 985412.5                 | -697296.89       | -70.76  |
+| C0353      | 2012 | 1917503.7              | 987256.73                | 930246.97        | 94.23   |
+| C0395      | 2019 | 1136548.96             | 1086235.94               | 50313.02         | 4.63    |
+| C0068      | 2011 | 294627.39              | 1192848.73               | -898221.34       | -75.3   |
+| C0204      | 2006 | 1548363.16             | 1268964.32               | 279398.84        | 22.02   |
+| C0861      | 2018 | 1648680.99             | 1282916.7                | 365764.29        | 28.51   |
+
+
+### Business Scenario Q42
+**Credit Card Expiry Notification**
+The bank management wants to identify credit cards that are set to expire in the next three months (from January 2022) and list their holders. This information is crucial for customer service, allowing the bank to notify customers about the impending expiration of their credit cards and facilitate timely renewals or replacements.
+
+```sql
+
+		SELECT C.CustomerID, CONCAT(c.FirstName, ' ', c.LastName) As FullName, C.Email,CC.ExpirationDate 
+		FROM FB.Credit_cards CC JOIN FB.Customers C On CC.CustomerID = C.CustomerID
+		WHERE ExpirationDate BETWEEN '2022-01-01' AND DATEADD(MONTH,3,'2022-01-01')
+		Order By CC.ExpirationDate 
+
+```
+
+| CustomerID | Name            | Email                          | Timestamp                  |
+|------------|-----------------|--------------------------------|----------------------------|
+| C0486      | Michelle Brown  | michelle.brown@example.com     | 2022-01-03 11:25:29.0000000 |
+| C0876      | Jane Taylor     | jane.taylor@example.com        | 2022-01-05 10:54:46.0000000 |
+| C0029      | John Smith      | john.smith@example.com         | 2022-01-05 11:44:25.0000000 |
+| C0682      | Jane Davis      | jane.davis@example.com         | 2022-01-06 19:38:41.0000000 |
+| C0326      | Alex Brown      | alex.brown@example.com         | 2022-01-09 06:56:46.0000000 |
+| C0017      | John Smith      | john.smith@example.com         | 2022-01-09 08:05:51.0000000 |
+| C0342      | John Wilson     | john.wilson@example.com        | 2022-01-09 23:14:01.0000000 |
+| C0042      | Jane Wilson     | jane.wilson@example.com        | 2022-01-10 17:09:05.0000000 |
+| C0416      | Alex Brown      | alex.brown@example.com         | 2022-01-11 03:23:24.0000000 |
+| C0058      | Alex Brown      | alex.brown@example.com         | 2022-01-12 15:56:40.0000000 |
+| C0826      | Michelle Taylor | michelle.taylor@example.com    | 2022-01-18 04:27:16.0000000 |
+| C0791      | Michael Smith   | michael.smith@example.com      | 2022-01-20 16:17:08.0000000 |
+| C0301      | Alex Smith      | alex.smith@example.com         | 2022-01-20 21:57:35.0000000 |
+| C0105      | Alice Smith     | alice.smith@example.com        | 2022-01-22 13:57:47.0000000 |
+| C0473      | Alice Doe       | alice.doe@example.com          | 2022-01-24 22:30:49.0000000 |
+| C0381      | Michelle Davis  | michelle.davis@example.com     | 2022-01-26 07:37:02.0000000 |
+| C0825      | Alex Wilson     | alex.wilson@example.com        | 2022-01-28 22:09:46.0000000 |
+| C1000      | Michelle Doe    | michelle.doe@example.com       | 2022-01-31 05:57:21.0000000 |
+| C0882      | John Brown      | john.brown@example.com         | 2022-02-02 11:08:27.0000000 |
+| C0750      | Michelle Davis  | michelle.davis@example.com     | 2022-02-02 14:11:24.0000000 |
+| C0177      | John Wilson     | john.wilson@example.com        | 2022-02-02 16:26:12.0000000 |
+| C0581      | Michael Doe     | michael.doe@example.com        | 2022-02-03 14:23:39.0000000 |
+| C0998      | Alice Davis     | alice.davis@example.com        | 2022-02-05 03:46:19.0000000 |
+| C0912      | Alex Davis      | alex.davis@example.com         | 2022-02-06 21:55:12.0000000 |
+| C0079      | Michael Taylor  | michael.taylor@example.com     | 2022-02-09 14:44:15.0000000 |
+| C0398      | Michael Brown   | michael.brown@example.com      | 2022-02-10 08:02:21.0000000 |
+| C0385      | Michelle Wilson | michelle.wilson@example.com    | 2022-02-13 08:04:27.0000000 |
+| C0970      | Alex Smith      | alex.smith@example.com         | 2022-02-15 01:18:36.0000000 |
+| C0391      | Alex Davis      | alex.davis@example.com         | 2022-02-18 01:40:44.0000000 |
+| C0002      | Jane Wilson     | jane.wilson@example.com        | 2022-02-20 23:30:07.0000000 |
+| C0609      | Alex Taylor     | alex.taylor@example.com        | 2022-02-21 01:35:12.0000000 |
+| C0999      | Jane Doe        | jane.doe@example.com           | 2022-02-21 07:25:46.0000000 |
+| C0515      | John Doe        | john.doe@example.com           | 2022-02-21 21:31:43.0000000 |
+| C0922      | Alex Smith      | alex.smith@example.com         | 2022-02-21 23:18:47.0000000 |
+| C0193      | Alex Brown      | alex.brown@example.com         | 2022-02-23 23:07:48.0000000 |
+| C0388      | John Taylor     | john.taylor@example.com        | 2022-02-25 06:29:55.0000000 |
+| C0557      | Jane Brown      | jane.brown@example.com         | 2022-02-25 19:48:44.0000000 |
+| C0355      | Michelle Taylor | michelle.taylor@example.com    | 2022-02-27 19:27:33.0000000 |
+| C0918      | Jane Taylor     | jane.taylor@example.com        | 2022-02-27 22:11:57.0000000 |
+| C0720      | John Doe        | john.doe@example.com           | 2022-03-04 11:52:04.0000000 |
+| C0159      | Alice Doe       | alice.doe@example.com          | 2022-03-09 06:42:07.0000000 |
+| C0218      | Michelle Davis  | michelle.davis@example.com     | 2022-03-15 15:30:54.0000000 |
+| C0297      | Jane Brown      | jane.brown@example.com         | 2022-03-16 03:50:45.0000000 |
+| C0719      | Jane Smith      | jane.smith@example.com         | 2022-03-17 07:08:36.0000000 |
+| C0482      | Alex Brown      | alex.brown@example.com         | 2022-03-18 05:10:37.0000000 |
+| C0161      | Michael Smith   | michael.smith@example.com      | 2022-03-19 08:35:46.0000000 |
+| C0747      | Michael Smith   | michael.smith@example.com      | 2022-03-21 00:27:31.0000000 |
+| C0324      | John Brown      | john.brown@example.com         | 2022-03-21 15:11:27.0000000 |
+| C0192      | John Davis      | john.davis@example.com         | 2022-03-24 23:38:25.0000000 |
+| C0232      | Alice Davis     | alice.davis@example.com        | 2022-03-26 22:38:08.0000000 |
+| C0607      | John Brown      | john.brown@example.com         | 2022-03-27 21:05:13.0000000 |
+| C0393      | Michelle Wilson | michelle.wilson@example.com    | 2022-03-28 17:20:28.0000000 |
+| C0223      | Michelle Brown  | michelle.brown@example.com     | 2022-03-31 19:07:06.0000000 |
