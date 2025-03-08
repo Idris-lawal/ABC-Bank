@@ -738,4 +738,4 @@ The bank management wants to find the total number of transactions for each acco
 
 The table above shows the count od transactions by account Type, below is the graphical representations
 
-![Piechart](Capture.PNG)
+![Piechart](Tramsaction Pie chart.PNG)
