@@ -1857,3 +1857,19 @@ The bank management wants to retrieve the details of all customers who have made
 
 The above shows the list of customers that are making payment with bank transfer 
 
+### Business Scenario Q28
+**Total Number of Credit Card Transactions in 2022**
+The bank management wants to find the total number of credit card transactions made in the year 2022. This information is important for understanding the usage and popularity of credit cards among customers, assessing transaction volumes, and planning marketing strategies for credit card products.
+
+```sql
+		SELECT Count(PaymentID) As Credit_Card_transact_2022 FROM FB.Payments
+		WHERE PaymentMethod = 'Credit Card' AND YEAR(PaymentDate) = '2022'
+```
+
+| Credit_Card_transact_2022 |
+|---------------------------|
+| 12                        |
+
+The total number of credit card transactions in 2022 is 12
+
+### Business Scenario Q29
