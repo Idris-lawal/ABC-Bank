@@ -654,3 +654,69 @@ The bank management wants to calculate the total amount of payments made towards
 		SELECT  Round(sum(isnull(Amount,0)),2) as payment FROM FB.Payments
 		WHERE YEAR(Paymentdate) = '2015'
 ```
+
+| Totalpayment |
+|-------------|
+| 24792.89    |
+
+The above table shows the total loan payment made by customer in 2015
+
+
+
+###  Business Scenario Q12
+
+**Customer Investments in Mutual Funds**
+The bank management wants to retrieve the details of all investments made by customers in mutual funds. This information is valuable for understanding the investment preferences of customers, assessing the performance of mutual fund products, and planning targeted investment offerings.
+
+```sql
+		SELECT C.CustomerID, CONCAT(C.FirstName,' ', C.LastName) As FULLNAME, Email
+		FROM FB.Investments I JOIN FB.Customers C on I.CustomerID = C.CustomerID
+		WHERE InvestmentType = 'Mutual Funds'
+```
+
+| CustomerID | FULLNAME         | Email                      |
+|------------|-----------------|----------------------------|
+| C0007      | Jane Doe        | jane.doe@example.com       |
+| C0013      | Alex Smith      | alex.smith@example.com     |
+| C0013      | Alex Smith      | alex.smith@example.com     |
+| C0014      | Michael Brown   | michael.brown@example.com  |
+| C0022      | John Wilson     | john.wilson@example.com    |
+| C0024      | Alice Doe       | alice.doe@example.com      |
+| C0028      | Alice Smith     | alice.smith@example.com    |
+| C0030      | Jane Doe        | jane.doe@example.com       |
+| C0033      | Michael Doe     | michael.doe@example.com    |
+| C0038      | John Taylor     | john.taylor@example.com    |
+| C0041      | Michelle Wilson | michelle.wilson@example.com|
+| C0047      | Michelle Wilson | michelle.wilson@example.com|
+| C0053      | John Davis      | john.davis@example.com     |
+| C0053      | John Davis      | john.davis@example.com     |
+| C0059      | Jane Smith      | jane.smith@example.com     |
+| C0061      | Alex Brown      | alex.brown@example.com     |
+| C0063      | Jane Taylor     | jane.taylor@example.com    |
+| C0067      | Alex Smith      | alex.smith@example.com     |
+| C0069      | John Brown      | john.brown@example.com     |
+| C0077      | Michelle Taylor | michelle.taylor@example.com|
+| C0082      | Alex Doe        | alex.doe@example.com       |
+| C0085      | John Smith      | john.smith@example.com     |
+| C0086      | John Davis      | john.davis@example.com     |
+| C0093      | John Brown      | john.brown@example.com     |
+| C0110      | John Brown      | john.brown@example.com     |
+| C0124      | Jane Brown      | jane.brown@example.com     |
+| C0126      | John Brown      | john.brown@example.com     |
+| C0128      | John Wilson     | john.wilson@example.com    |
+| C0129      | Michelle Smith  | michelle.smith@example.com |
+| C0129      | Michelle Smith  | michelle.smith@example.com |
+| C0131      | Michael Doe     | michael.doe@example.com    |
+| C0132      | Jane Doe        | jane.doe@example.com       |
+| C0134      | Alex Wilson     | alex.wilson@example.com    |
+| C0137      | Jane Taylor     | jane.taylor@example.com    |
+| C0140      | Michelle Doe    | michelle.doe@example.com   |
+| C0143      | Michelle Wilson | michelle.wilson@example.com|
+| C0151      | Michael Davis   | michael.davis@example.com  |
+| C0153      | Alex Doe        | alex.doe@example.com       |
+| C0159      | Alice Doe       | alice.doe@example.com      |
+| C0180      | Jane Davis      | jane.davis@example.com     |
+
+
+The table above shows the list of customers that invested in mutual funds
+
