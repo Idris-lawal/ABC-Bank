@@ -720,3 +720,20 @@ The bank management wants to retrieve the details of all investments made by cus
 
 The table above shows the list of customers that invested in mutual funds
 
+### Business Scenario Q13
+**Transaction Count by Account Type**
+The bank management wants to find the total number of transactions for each account type (Checking, Savings, Credit). This information is important for understanding the transaction activity across different types of accounts, identifying popular account types, and making strategic decisions related to product offerings and customer engagement
+
+```sql
+		SELECT A.AccountType , Count(T.TransactionID) As Trasaction_number
+		FROM FB.Accounts A  JOIN FB.Transactions T on A.AccountID = T.AccountID
+		Group by A.AccountType
+```
+
+| AccountType | Transaction_number |
+|------------|-------------------|
+| Savings    | 318               |
+| Credit     | 341               |
+| Checking   | 341               |
+
+The table above shows the count od transactions by account Type
