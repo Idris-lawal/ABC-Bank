@@ -884,3 +884,976 @@ Below is the output of the scripts
 | B0197    | East Branch   | 2           |
 | B0199    | South Branch  | 1           |
 | B0200    | West Branch   | 2           |
+
+
+### Business Scenario Q15
+**Total Outstanding Loan Amount by Customer**
+The bank management wants to calculate the total outstanding loan amount for each customer. This information is crucial for assessing individual customer debt levels, managing credit risk, and making informed decisions about loan approvals and customer credit limits.
+
+```sql
+		SELECT c.CustomerID, CONCAT(c.FirstName,' ',c.LastName) As FullName, C.Email, Round(SUM(isnull(l.LoanAmount,0)),2) As Outstanding_Loan_amount
+		FROM FB.Loans L JOIN FB.Customers C on l.CustomerID = c.CustomerID 
+		GROUP BY c.CustomerID, c.FirstName,c.LastName, C.Email
+```
+Below is the output of the script
+
+| CustomerID | FullName          | Email                     | Outstanding_Loan_amount |
+|------------|-------------------|---------------------------|-------------------------|
+| C0003      | John Doe          | john.doe@example.com      | 11144.17                |
+| C0005      | Alice Brown       | alice.brown@example.com   | 45438.03                |
+| C0007      | Jane Doe          | jane.doe@example.com      | 46020.59                |
+| C0008      | John Doe          | john.doe@example.com      | 44316.68                |
+| C0009      | John Davis        | john.davis@example.com    | 71219.09                |
+| C0010      | Jane Brown        | jane.brown@example.com    | 32117.33                |
+| C0011      | Alex Doe          | alex.doe@example.com      | 26478.12                |
+| C0012      | Michael Doe       | michael.doe@example.com   | 59453.14                |
+| C0018      | John Smith        | john.smith@example.com    | 42015.31                |
+| C0020      | Alice Taylor      | alice.taylor@example.com  | 16148.9                 |
+| C0021      | Michael Taylor    | michael.taylor@example.com| 59242.64                |
+| C0022      | John Wilson       | john.wilson@example.com   | 39552.37                |
+| C0026      | Alice Wilson      | alice.wilson@example.com  | 49594.08                |
+| C0028      | Alice Smith       | alice.smith@example.com   | 37845.07                |
+| C0029      | John Smith        | john.smith@example.com    | 36337.79                |
+| C0030      | Jane Doe          | jane.doe@example.com      | 31622.76                |
+| C0033      | Michael Doe       | michael.doe@example.com   | 31421.52                |
+| C0034      | Alex Taylor       | alex.taylor@example.com   | 6976.57                 |
+| C0035      | Jane Davis        | jane.davis@example.com    | 38388.62                |
+| C0036      | Michael Taylor    | michael.taylor@example.com| 25906.02                |
+| C0038      | John Taylor       | john.taylor@example.com   | 37607.98                |
+| C0040      | Alice Wilson      | alice.wilson@example.com  | 49068.74                |
+| C0041      | Michelle Wilson   | michelle.wilson@example.com| 77534.43               |
+| C0044      | John Taylor       | john.taylor@example.com   | 22519.46                |
+| C0045      | Michael Smith     | michael.smith@example.com | 30200.84                |
+| C0048      | John Brown        | john.brown@example.com    | 27168.31                |
+| C0049      | Jane Taylor       | jane.taylor@example.com   | 29534.08                |
+| C0051      | John Davis        | john.davis@example.com    | 26705.2                 |
+| C0052      | Jane Davis        | jane.davis@example.com    | 41726.05                |
+| C0053      | John Davis        | john.davis@example.com    | 28143.13                |
+| C0054      | Jane Doe          | jane.doe@example.com      | 67053.46                |
+| C0055      | Michael Davis     | michael.davis@example.com | 26769.88                |
+| C0056      | Alex Brown        | alex.brown@example.com    | 121592.75               |
+| C0057      | Michelle Wilson   | michelle.wilson@example.com| 19143.84               |
+| C0059      | Jane Smith        | jane.smith@example.com    | 34435.61                |
+| C0060      | Jane Davis        | jane.davis@example.com    | 76737.61                |
+| C0061      | Alex Brown        | alex.brown@example.com    | 48157.12                |
+| C0062      | Alex Taylor       | alex.taylor@example.com   | 13703.26                |
+| C0063      | Jane Taylor       | jane.taylor@example.com   | 23160.31                |
+| C0066      | Michelle Doe      | michelle.doe@example.com  | 13597.51                |
+| C0067      | Alex Smith        | alex.smith@example.com    | 81111.44                |
+| C0068      | John Smith        | john.smith@example.com    | 42118.35                |
+| C0073      | Michelle Davis    | michelle.davis@example.com| 47039.29                |
+| C0074      | Michelle Davis    | michelle.davis@example.com| 27841.84                |
+| C0075      | Alice Smith       | alice.smith@example.com   | 92069.33                |
+| C0076      | Alex Davis        | alex.davis@example.com    | 29691.66                |
+| C0078      | John Davis        | john.davis@example.com    | 53264.47                |
+| C0080      | Alice Doe         | alice.doe@example.com     | 88526.32                |
+| C0082      | Alex Doe          | alex.doe@example.com      | 19364.05                |
+| C0084      | Jane Taylor       | jane.taylor@example.com   | 48089.8                 |
+| C0085      | John Smith        | john.smith@example.com    | 29751.33                |
+| C0086      | John Davis        | john.davis@example.com    | 49782.02                |
+| C0087      | Michael Smith     | michael.smith@example.com | 95763.06                |
+| C0088      | Michael Brown     | michael.brown@example.com | 29991.37                |
+| C0090      | Michael Doe       | michael.doe@example.com   | 76448.57                |
+| C0091      | Alice Taylor      | alice.taylor@example.com  | 32292.72                |
+| C0092      | Michelle Doe      | michelle.doe@example.com  | 49866.28                |
+| C0093      | John Brown        | john.brown@example.com    | 20182.01                |
+| C0095      | Michelle Smith    | michelle.smith@example.com| 38830.31                |
+| C0096      | John Wilson       | john.wilson@example.com   | 44778.73                |
+| C0097      | Michelle Brown    | michelle.brown@example.com| 10374.56                |
+| C0098      | Michael Davis     | michael.davis@example.com | 36124.36                |
+| C0099      | Alice Doe         | alice.doe@example.com     | 19487.29                |
+| C0100      | Alex Taylor       | alex.taylor@example.com   | 45193.86                |
+| C0101      | Michelle Davis    | michelle.davis@example.com| 35649.36                |
+| C0102      | Michelle Doe      | michelle.doe@example.com  | 5457.67                 |
+| C0103      | Alex Taylor       | alex.taylor@example.com   | 62222.33                |
+| C0104      | John Taylor       | john.taylor@example.com   | 22085.4                 |
+| C0106      | Alex Doe          | alex.doe@example.com      | 41236                   |
+| C0108      | Michelle Doe      | michelle.doe@example.com  | 70109.53                |
+| C0113      | John Brown        | john.brown@example.com    | 10399.53                |
+| C0114      | Michael Doe       | michael.doe@example.com   | 32652.68                |
+| C0119      | Michael Brown     | michael.brown@example.com | 32768.46                |
+| C0120      | Michael Wilson    | michael.wilson@example.com| 8882.38                 |
+| C0122      | Michelle Wilson   | michelle.wilson@example.com| 9330.59                |
+| C0123      | Alice Doe         | alice.doe@example.com     | 8116.99                 |
+| C0124      | Jane Brown        | jane.brown@example.com    | 28277.21                |
+| C0125      | Alice Smith       | alice.smith@example.com   | 34962.42                |
+| C0126      | John Brown        | john.brown@example.com    | 50913.08                |
+| C0131      | Michael Doe       | michael.doe@example.com   | 22229.54                |
+| C0132      | Jane Doe          | jane.doe@example.com      | 33636.39                |
+| C0133      | Alice Smith       | alice.smith@example.com   | 23299.2                 |
+| C0134      | Alex Wilson       | alex.wilson@example.com   | 133382.29               |
+| C0135      | Alice Brown       | alice.brown@example.com   | 42364.51                |
+| C0136      | Alice Wilson      | alice.wilson@example.com  | 22149.57                |
+| C0137      | Jane Taylor       | jane.taylor@example.com   | 26009.39                |
+| C0138      | John Wilson       | john.wilson@example.com   | 77058.53                |
+| C0140      | Michelle Doe      | michelle.doe@example.com  | 66906.56                |
+| C0141      | Alice Smith       | alice.smith@example.com   | 37662.99                |
+| C0142      | Alice Brown       | alice.brown@example.com   | 13483.65                |
+| C0143      | Michelle Wilson   | michelle.wilson@example.com| 16318.04               |
+| C0146      | John Doe          | john.doe@example.com      | 50604.56                |
+| C0147      | Michael Doe       | michael.doe@example.com   | 9987.27                 |
+| C0149      | John Davis        | john.davis@example.com    | 20786.41                |
+| C0150      | Alice Doe         | alice.doe@example.com     | 13589.25                |
+| C0151      | Michael Davis     | michael.davis@example.com | 44358.1                 |
+| C0152      | Alice Wilson      | alice.wilson@example.com  | 9063.41                 |
+| C0153      | Alex Doe          | alex.doe@example.com      | 23757.01                |
+| C0155      | Alice Brown       | alice.brown@example.com   | 6913.18                 |
+| C0156      | John Wilson       | john.wilson@example.com   | 40622.19                |
+| C0157      | Jane Taylor       | jane.taylor@example.com   | 31017.55                |
+| C0159      | Alice Doe         | alice.doe@example.com     | 25638.16                |
+| C0161      | Michael Smith     | michael.smith@example.com | 22994.52                |
+| C0162      | Alice Davis       | alice.davis@example.com   | 21306.53                |
+| C0164      | Michael Smith     | michael.smith@example.com | 37185.24                |
+| C0165      | John Smith        | john.smith@example.com    | 23743.64                |
+| C0166      | John Taylor       | john.taylor@example.com   | 14219.85                |
+| C0167      | Jane Smith        | jane.smith@example.com    | 50764.03                |
+| C0168      | Michael Davis     | michael.davis@example.com | 8601.44                 |
+| C0169      | Alice Taylor      | alice.taylor@example.com  | 60664.41                |
+| C0170      | Alex Doe          | alex.doe@example.com      | 39804.37                |
+| C0171      | Michael Wilson    | michael.wilson@example.com| 23547.66                |
+| C0172      | Jane Smith        | jane.smith@example.com    | 26787.61                |
+| C0173      | Alice Doe         | alice.doe@example.com     | 39233.68                |
+| C0174      | Alex Doe          | alex.doe@example.com      | 47789.44                |
+| C0178      | Jane Wilson       | jane.wilson@example.com   | 93764.5                 |
+| C0180      | Jane Davis        | jane.davis@example.com    | 15300.05                |
+| C0181      | Michelle Doe      | michelle.doe@example.com  | 45937.65                |
+| C0182      | Michael Smith     | michael.smith@example.com | 69033.92                |
+| C0183      | Jane Smith        | jane.smith@example.com    | 97729.27                |
+| C0184      | Alex Doe          | alex.doe@example.com      | 19834.22                |
+| C0185      | Michelle Brown    | michelle.brown@example.com| 74937.06                |
+| C0186      | Alex Smith        | alex.smith@example.com    | 15396.43                |
+| C0189      | John Wilson       | john.wilson@example.com   | 13544.56                |
+| C0190      | Michael Taylor    | michael.taylor@example.com| 24184.71                |
+| C0191      | Michael Wilson    | michael.wilson@example.com| 28862.07                |
+| C0192      | John Davis        | john.davis@example.com    | 30192.18                |
+| C0193      | Alex Brown        | alex.brown@example.com    | 61145.32                |
+| C0194      | John Taylor       | john.taylor@example.com   | 26797.71                |
+| C0195      | Alex Smith        | alex.smith@example.com    | 20013.14                |
+| C0196      | Jane Doe          | jane.doe@example.com      | 86147.96                |
+| C0197      | Alice Doe         | alice.doe@example.com     | 49355.47                |
+| C0198      | Alice Davis       | alice.davis@example.com   | 27303.52                |
+| C0199      | Jane Davis        | jane.davis@example.com    | 15311.96                |
+| C0200      | Alice Davis       | alice.davis@example.com   | 43789.44                |
+| C0203      | John Wilson       | john.wilson@example.com   | 23935.49                |
+| C0204      | John Taylor       | john.taylor@example.com   | 50200.55                |
+| C0206      | Michelle Davis    | michelle.davis@example.com| 30234.23                |
+| C0207      | Alice Taylor      | alice.taylor@example.com  | 11769.91                |
+| C0210      | Michelle Smith    | michelle.smith@example.com| 88354.89                |
+| C0211      | Jane Smith        | jane.smith@example.com    | 36237.18                |
+| C0213      | John Davis        | john.davis@example.com    | 32962.1                 |
+| C0214      | John Brown        | john.brown@example.com    | 53100.45                |
+| C0215      | Jane Doe          | jane.doe@example.com      | 54449.85                |
+| C0217      | Jane Brown        | jane.brown@example.com    | 33554.33                |
+| C0218      | Michelle Davis    | michelle.davis@example.com| 17558.06                |
+| C0219      | Alice Taylor      | alice.taylor@example.com  | 36261.11                |
+| C0220      | John Wilson       | john.wilson@example.com   | 34968.43                |
+| C0226      | Michael Smith     | michael.smith@example.com | 25159.33                |
+| C0227      | Alex Brown        | alex.brown@example.com    | 29749.32                |
+| C0228      | Alex Davis        | alex.davis@example.com    | 43479.7                 |
+| C0229      | Michael Smith     | michael.smith@example.com | 30913.42                |
+| C0230      | Alex Taylor       | alex.taylor@example.com   | 55859.04                |
+| C0232      | Alice Davis       | alice.davis@example.com   | 105334.13               |
+| C0233      | Michael Wilson    | michael.wilson@example.com| 24978.02                |
+| C0234      | Michael Smith     | michael.smith@example.com | 11223.13                |
+| C0235      | Jane Wilson       | jane.wilson@example.com   | 36413.45                |
+
+The Table above shows the list of customers with outstanding loan balance
+
+
+### Business Scenario Q16
+**Customers with Multiple Account Types**
+The bank management wants to retrieve the details of all customers who have more than one type of account. This information is important for understanding customer engagement, identifying cross-selling opportunities, and analysing the diversity of customer portfolios.
+
+```sql
+		SELECT * FROM Fb.Customers
+		WHERE CustomerID IN
+					(SELECT CustomerID FROM FB.Accounts
+					 GROUP BY CustomerID
+					 Having Count(Distinct AccountType) >1
+					 )
+```
+
+Below is the output of the script showing the list of customer with multiple accountType
+
+| CustomerID | FirstName | LastName | Gender | DateOfBirth | Email                     | PhoneNumber |
+|------------|-----------|----------|--------|-------------|---------------------------|-------------|
+| C0005      | Alice     | Brown    | M      | 1975-02-07  | alice.brown@example.com   | 555-01005   |
+| C0009      | John      | Davis    | F      | 1978-01-19  | john.davis@example.com    | 555-01009   |
+| C0021      | Michael   | Taylor   | F      | 1987-08-26  | michael.taylor@example.com| 555-01021   |
+| C0022      | John      | Wilson   | M      | 1979-03-17  | john.wilson@example.com   | 555-01022   |
+| C0025      | Alice     | Brown    | M      | 1980-01-17  | alice.brown@example.com   | 555-01025   |
+| C0031      | Jane      | Doe      | M      | 1988-05-01  | jane.doe@example.com      | 555-01031   |
+| C0034      | Alex      | Taylor   | F      | 1979-09-10  | alex.taylor@example.com   | 555-01034   |
+| C0038      | John      | Taylor   | M      | 1987-03-30  | john.taylor@example.com   | 555-01038   |
+| C0042      | Jane      | Wilson   | F      | 1971-03-03  | jane.wilson@example.com   | 555-01042   |
+| C0046      | Michelle  | Smith    | F      | 1983-06-18  | michelle.smith@example.com| 555-01046   |
+| C0057      | Michelle  | Wilson   | M      | 1981-07-15  | michelle.wilson@example.com| 555-01057  |
+| C0058      | Alex      | Brown    | F      | 1977-08-10  | alex.brown@example.com    | 555-01058   |
+| C0065      | Michelle  | Brown    | F      | 1976-04-22  | michelle.brown@example.com| 555-01065   |
+| C0066      | Michelle  | Doe      | M      | 1984-02-29  | michelle.doe@example.com  | 555-01066   |
+| C0071      | Alex      | Wilson   | F      | 1972-09-06  | alex.wilson@example.com   | 555-01071   |
+| C0072      | Jane      | Smith    | M      | 1980-07-27  | jane.smith@example.com    | 555-01072   |
+| C0074      | Michelle  | Davis    | F      | 1985-06-13  | michelle.davis@example.com| 555-01074   |
+| C0079      | Michael   | Taylor   | F      | 1982-12-25  | michael.taylor@example.com| 555-01079   |
+| C0081      | Michael   | Smith    | M      | 1986-11-14  | michael.smith@example.com | 555-01081   |
+| C0082      | Alex      | Doe      | F      | 1980-12-08  | alex.doe@example.com      | 555-01082   |
+| C0083      | John      | Brown    | F      | 1971-06-30  | john.brown@example.com    | 555-01083   |
+| C0088      | Michael   | Brown    | M      | 1976-12-19  | michael.brown@example.com | 555-01088   |
+| C0090      | Michael   | Doe      | M      | 1976-01-23  | michael.doe@example.com   | 555-01090   |
+| C0092      | Michelle  | Doe      | F      | 1987-05-02  | michelle.doe@example.com  | 555-01092   |
+| C0097      | Michelle  | Brown    | M      | 1981-02-06  | michelle.brown@example.com| 555-01097   |
+| C0101      | Michelle  | Davis    | F      | 1986-09-16  | michelle.davis@example.com| 555-01101   |
+| C0109      | Jane      | Davis    | M      | 1978-01-05  | jane.davis@example.com    | 555-01109   |
+| C0110      | John      | Brown    | M      | 1987-01-15  | john.brown@example.com    | 555-01110   |
+| C0119      | Michael   | Brown    | F      | 1982-02-18  | michael.brown@example.com | 555-01119   |
+| C0128      | John      | Wilson   | M      | 1985-09-12  | john.wilson@example.com   | 555-01128   |
+| C0138      | John      | Wilson   | M      | 1984-09-29  | john.wilson@example.com   | 555-01138   |
+| C0142      | Alice     | Brown    | M      | 1981-10-09  | alice.brown@example.com   | 555-01142   |
+| C0147      | Michael   | Doe      | F      | 1981-05-26  | michael.doe@example.com   | 555-01147   |
+| C0148      | Michael   | Smith    | F      | 1973-05-22  | michael.smith@example.com | 555-01148   |
+| C0149      | John      | Davis    | F      | 1973-08-18  | john.davis@example.com    | 555-01149   |
+| C0151      | Michael   | Davis    | M      | 1984-10-22  | michael.davis@example.com | 555-01151   |
+| C0152      | Alice     | Wilson   | M      | 1971-08-12  | alice.wilson@example.com  | 555-01152   |
+| C0154      | Alex      | Doe      | M      | 1989-05-17  | alex.doe@example.com      | 555-01154   |
+| C0169      | Alice     | Taylor   | M      | 1987-07-12  | alice.taylor@example.com  | 555-01169   |
+| C0170      | Alex      | Doe      | M      | 1979-03-31  | alex.doe@example.com      | 555-01170   |
+| C0172      | Jane      | Smith    | M      | 1987-05-27  | jane.smith@example.com    | 555-01172   |
+| C0195      | Alex      | Smith    | F      | 1971-11-28  | alex.smith@example.com    | 555-01195   |
+| C0197      | Alice     | Doe      | F      | 1988-08-23  | alice.doe@example.com     | 555-01197   |
+| C0204      | John      | Taylor   | M      | 1974-03-06  | john.taylor@example.com   | 555-01204   |
+| C0205      | Michael   | Wilson   | F      | 1970-03-12  | michael.wilson@example.com| 555-01205   |
+| C0213      | John      | Davis    | F      | 1982-12-26  | john.davis@example.com    | 555-01213   |
+| C0215      | Jane      | Doe      | M      | 1975-06-21  | jane.doe@example.com      | 555-01215   |
+| C0217      | Jane      | Brown    | M      | 1982-03-26  | jane.brown@example.com    | 555-01217   |
+| C0219      | Alice     | Taylor   | F      | 1989-06-30  | alice.taylor@example.com  | 555-01219   |
+| C0226      | Michael   | Smith    | F      | 1974-02-02  | michael.smith@example.com | 555-01226   |
+| C0228      | Alex      | Davis    | M      | 1989-07-03  | alex.davis@example.com    | 555-01228   |
+| C0233      | Michael   | Wilson   | F      | 1975-07-19  | michael.wilson@example.com| 555-01233   |
+| C0244      | Michael   | Davis    | M      | 1973-05-17  | michael.davis@example.com | 555-01244   |
+| C0264      | Jane      | Davis    | M      | 1986-05-07  | jane.davis@example.com    | 555-01264   |
+| C0267      | Alice     | Davis    | F      | 1984-04-06  | alice.davis@example.com   | 555-01267   |
+| C0269      | Jane      | Taylor   | F      | 1987-11-05  | jane.taylor@example.com   | 555-01269   |
+| C0270      | Michelle  | Wilson   | F      | 1982-08-10  | michelle.wilson@example.com| 555-01270  |
+| C0279      | Jane      | Taylor   | M      | 1972-02-02  | jane.taylor@example.com   | 555-01279   |
+| C0296      | Alex      | Smith    | F      | 1987-04-20  | alex.smith@example.com    | 555-01296   |
+| C0304      | Jane      | Doe      | M      | 1974-10-27  | jane.doe@example.com      | 555-01304   |
+| C0310      | Jane      | Smith    | M      | 1989-05-01  | jane.smith@example.com    | 555-01310   |
+| C0316      | Alice     | Davis    | M      | 1985-01-15  | alice.davis@example.com   | 555-01316   |
+| C0325      | John      | Doe      | F      | 1984-12-03  | john.doe@example.com      | 555-01325   |
+| C0326      | Alex      | Brown    | M      | 1988-10-11  | alex.brown@example.com    | 555-01326   |
+| C0327      | Alice     | Wilson   | F      | 1981-04-27  | alice.wilson@example.com  | 555-01327   |
+| C0335      | Alex      | Doe      | F      | 1976-09-21  | alex.doe@example.com      | 555-01335   |
+| C0338      | Michelle  | Doe      | F      | 1977-03-27  | michelle.doe@example.com  | 555-01338   |
+| C0345      | Alex      | Doe      | F      | 1974-07-13  | alex.doe@example.com      | 555-01345   |
+| C0346      | Alice     | Davis    | F      | 1980-09-10  | alice.davis@example.com   | 555-01346   |
+| C0347      | Michelle  | Davis    | M      | 1980-12-29  | michelle.davis@example.com| 555-01347   |
+| C0350      | John      | Wilson   | F      | 1985-08-10  | john.wilson@example.com   | 555-01350   |
+| C0361      | Michelle  | Wilson   | F      | 1980-04-10  | michelle.wilson@example.com| 555-01361  |
+| C0363      | Michelle  | Davis    | M      | 1982-12-19  | michelle.davis@example.com| 555-01363   |
+| C0365      | Michelle  | Davis    | M      | 1974-06-24  | michelle.davis@example.com| 555-01365   |
+| C0368      | John      | Wilson   | M      | 1984-12-25  | john.wilson@example.com   | 555-01368   |
+| C0372      | John      | Wilson   | F      | 1974-10-29  | john.wilson@example.com   | 555-01372   |
+| C0376      | Alice     | Davis    | M      | 1980-10-22  | alice.davis@example.com   | 555-01376   |
+| C0377      | Alice     | Smith    | F      | 1977-10-05  | alice.smith@example.com   | 555-01377   |
+| C0378      | Michael   | Smith    | F      | 1986-07-17  | michael.smith@example.com | 555-01378   |
+| C0382      | Michael   | Doe      | M      | 1970-11-22  | michael.doe@example.com   | 555-01382   |
+| C0384      | Jane      | Wilson   | M      | 1970-06-23  | jane.wilson@example.com   | 555-01384   |
+| C0388      | John      | Taylor   | M      | 1978-02-17  | john.taylor@example.com   | 555-01388   |
+| C0390      | Alice     | Doe      | F      | 1987-01-15  | alice.doe@example.com     | 555-01390   |
+| C0395      | Alice     | Brown    | F      | 1971-08-01  | alice.brown@example.com   | 555-01395   |
+| C0399      | Alex      | Brown    | F      | 1977-08-04  | alex.brown@example.com    | 555-01399   |
+| C0404      | Jane      | Brown    | M      | 1983-01-28  | jane.brown@example.com    | 555-01404   |
+| C0412      | Jane      | Wilson   | F      | 1974-07-20  | jane.wilson@example.com   | 555-01412   |
+| C0414      | John      | Brown    | F      | 1983-11-27  | john.brown@example.com    | 555-01414   |
+| C0419      | Jane      | Davis    | M      | 1979-04-16  | jane.davis@example.com    | 555-01419   |
+| C0422      | Michael   | Doe      | M      | 1976-07-30  | michael.doe@example.com   | 555-01422   |
+| C0430      | Michelle  | Smith    | M      | 1975-11-16  | michelle.smith@example.com| 555-01430   |
+| C0431      | Jane      | Davis    | F      | 1977-02-10  | jane.davis@example.com    | 555-01431   |
+| C0432      | Michelle  | Taylor   | F      | 1970-09-26  | michelle.taylor@example.com| 555-01432  |
+| C0438      | Alice     | Smith    | M      | 1974-11-11  | alice.smith@example.com   | 555-01438   |
+| C0450      | Michelle  | Brown    | F      | 1989-10-27  | michelle.brown@example.com| 555-01450   |
+| C0451      | Michelle  | Wilson   | M      | 1975-11-01  | michelle.wilson@example.com| 555-01451  |
+| C0456      | Michelle  | Davis    | M      | 1987-05-09  | michelle.davis@example.com| 555-01456   |
+| C0460      | John      | Davis    | M      | 1980-08-17  | john.davis@example.com    | 555-01460   |
+| C0464      | John      | Davis    | F      | 1971-09-06  | john.davis@example.com    | 555-01464   |
+| C0470      | Alex      | Davis    | M      | 1988-02-27  | alex.davis@example.com    | 555-01470   |
+| C0475      | Jane      | Doe      | M      | 1984-12-25  | jane.doe@example.com      | 555-01475   |
+
+
+### Business Scenario Q17
+**Total Number of Loans Approved in 2017**
+The bank management wants to find the total number of loans approved in the year 2017. This information is essential for assessing the bank's lending activity for that	year, understanding market demand, and planning future loan offerings and strategies
+
+```sql
+		SELECT Count(loanID) As total_Loan_approve_2017 
+		FROM FB.Loans 
+		WHERE YEAR(LoanDate) = '2017'
+```
+
+| Total_Loan_Approve_2017 |
+|-------------------------|
+| 57                      |
+
+
+57 loan requests was approved in 2017
+
+### Business Scenario Q18
+**Average Balance of Savings Accounts**
+The bank management wants to calculate the average balance of all savings accounts. This information is important for understanding the typical balance held by customers in savings accounts, assessing the bank's liquidity, and making informed decisions about interest rates and savings account products.
+
+```sql
+		SELECT Round(AVG(isnull(Balance,0)),2) As Avg_saving_bal
+		FROM FB.Accounts
+		WHERE AccountType = 'Savings'
+```
+
+| Avg_Saving_Bal |
+|----------------|
+| 4621.4        |
+
+The average saving balance is $4621.4
+
+### Business Scenario Q19
+**Customers with Stock Investments**
+The bank management wants to retrieve the details of all customers who have investments in stocks. This information is valuable for understanding customer investment behaviour, identifying customers interested in equity markets, and planning targeted marketing campaigns for stock-related financial products.
+
+```sql
+		SELECT C.CustomerID, CONCAT(c.FirstName,' ',c.LastName) as Fullname, c.Email
+		FROM FB.Investments I JOIN FB.Customers C on I.CustomerID = c.CustomerID
+		WHERE InvestmentType = 'Stocks'
+```
+
+| CustomerID | Fullname           | Email                     |
+|------------|--------------------|---------------------------|
+| C0010      | Jane Brown         | jane.brown@example.com    |
+| C0011      | Alex Doe           | alex.doe@example.com      |
+| C0023      | Michelle Wilson    | michelle.wilson@example.com|
+| C0023      | Michelle Wilson    | michelle.wilson@example.com|
+| C0025      | Alice Brown        | alice.brown@example.com   |
+| C0025      | Alice Brown        | alice.brown@example.com   |
+| C0028      | Alice Smith        | alice.smith@example.com   |
+| C0031      | Jane Doe           | jane.doe@example.com      |
+| C0032      | Alex Davis         | alex.davis@example.com    |
+| C0036      | Michael Taylor     | michael.taylor@example.com|
+| C0036      | Michael Taylor     | michael.taylor@example.com|
+| C0037      | Alice Doe          | alice.doe@example.com     |
+| C0042      | Jane Wilson        | jane.wilson@example.com   |
+| C0044      | John Taylor        | john.taylor@example.com   |
+| C0045      | Michael Smith      | michael.smith@example.com |
+| C0045      | Michael Smith      | michael.smith@example.com |
+| C0057      | Michelle Wilson    | michelle.wilson@example.com|
+| C0059      | Jane Smith         | jane.smith@example.com    |
+| C0060      | Jane Davis         | jane.davis@example.com    |
+| C0061      | Alex Brown         | alex.brown@example.com    |
+| C0062      | Alex Taylor        | alex.taylor@example.com   |
+| C0065      | Michelle Brown     | michelle.brown@example.com|
+| C0071      | Alex Wilson        | alex.wilson@example.com   |
+| C0072      | Jane Smith         | jane.smith@example.com    |
+| C0077      | Michelle Taylor    | michelle.taylor@example.com|
+| C0084      | Jane Taylor        | jane.taylor@example.com   |
+| C0087      | Michael Smith      | michael.smith@example.com |
+| C0092      | Michelle Doe       | michelle.doe@example.com  |
+| C0099      | Alice Doe          | alice.doe@example.com     |
+| C0100      | Alex Taylor        | alex.taylor@example.com   |
+| C0102      | Michelle Doe       | michelle.doe@example.com  |
+| C0105      | Alice Smith        | alice.smith@example.com   |
+| C0112      | John Smith         | john.smith@example.com    |
+| C0116      | Michael Smith      | michael.smith@example.com |
+| C0122      | Michelle Wilson    | michelle.wilson@example.com|
+| C0122      | Michelle Wilson    | michelle.wilson@example.com|
+| C0123      | Alice Doe          | alice.doe@example.com     |
+| C0123      | Alice Doe          | alice.doe@example.com     |
+| C0135      | Alice Brown        | alice.brown@example.com   |
+| C0135      | Alice Brown        | alice.brown@example.com   |
+| C0136      | Alice Wilson       | alice.wilson@example.com  |
+| C0139      | Michelle Brown     | michelle.brown@example.com|
+| C0150      | Alice Doe          | alice.doe@example.com     |
+| C0156      | John Wilson        | john.wilson@example.com   |
+| C0156      | John Wilson        | john.wilson@example.com   |
+| C0157      | Jane Taylor        | jane.taylor@example.com   |
+| C0158      | Michael Davis      | michael.davis@example.com |
+| C0161      | Michael Smith      | michael.smith@example.com |
+| C0171      | Michael Wilson     | michael.wilson@example.com|
+| C0173      | Alice Doe          | alice.doe@example.com     |
+| C0173      | Alice Doe          | alice.doe@example.com     |
+| C0183      | Jane Smith         | jane.smith@example.com    |
+| C0184      | Alex Doe           | alex.doe@example.com      |
+| C0184      | Alex Doe           | alex.doe@example.com      |
+| C0189      | John Wilson        | john.wilson@example.com   |
+| C0190      | Michael Taylor     | michael.taylor@example.com|
+| C0200      | Alice Davis        | alice.davis@example.com   |
+| C0200      | Alice Davis        | alice.davis@example.com   |
+| C0204      | John Taylor        | john.taylor@example.com   |
+| C0205      | Michael Wilson     | michael.wilson@example.com|
+| C0205      | Michael Wilson     | michael.wilson@example.com|
+| C0207      | Alice Taylor       | alice.taylor@example.com  |
+| C0208      | Jane Smith         | jane.smith@example.com    |
+| C0210      | Michelle Smith     | michelle.smith@example.com|
+| C0214      | John Brown         | john.brown@example.com    |
+| C0217      | Jane Brown         | jane.brown@example.com    |
+| C0224      | John Doe           | john.doe@example.com      |
+| C0226      | Michael Smith      | michael.smith@example.com |
+| C0234      | Michael Smith      | michael.smith@example.com |
+| C0236      | Alice Taylor       | alice.taylor@example.com  |
+| C0238      | Alice Smith        | alice.smith@example.com   |
+| C0239      | Alex Wilson        | alex.wilson@example.com   |
+| C0240      | Alex Taylor        | alex.taylor@example.com   |
+| C0242      | Michael Wilson     | michael.wilson@example.com|
+| C0246      | Michelle Wilson    | michelle.wilson@example.com|
+| C0248      | Michelle Brown     | michelle.brown@example.com|
+| C0259      | John Taylor        | john.taylor@example.com   |
+| C0261      | Michelle Brown     | michelle.brown@example.com|
+| C0263      | Alice Brown        | alice.brown@example.com   |
+| C0267      | Alice Davis        | alice.davis@example.com   |
+| C0271      | Alex Davis         | alex.davis@example.com    |
+| C0279      | Jane Taylor        | jane.taylor@example.com   |
+| C0283      | Michael Brown      | michael.brown@example.com |
+| C0285      | Michelle Wilson    | michelle.wilson@example.com|
+| C0287      | Michelle Wilson    | michelle.wilson@example.com|
+| C0290      | Michael Taylor     | michael.taylor@example.com|
+| C0297      | Jane Brown         | jane.brown@example.com    |
+| C0305      | Michael Doe        | michael.doe@example.com   |
+| C0314      | Jane Wilson        | jane.wilson@example.com   |
+| C0318      | Alex Doe           | alex.doe@example.com      |
+| C0320      | Jane Davis         | jane.davis@example.com    |
+| C0321      | Michael Smith      | michael.smith@example.com |
+| C0323      | Alice Brown        | alice.brown@example.com   |
+| C0328      | John Wilson        | john.wilson@example.com   |
+| C0335      | Alex Doe           | alex.doe@example.com      |
+| C0338      | Michelle Doe       | michelle.doe@example.com  |
+| C0340      | Alex Smith         | alex.smith@example.com    |
+| C0344      | Alice Wilson       | alice.wilson@example.com  |
+| C0347      | Michelle Davis     | michelle.davis@example.com|
+| C0362      | Michelle Davis     | michelle.davis@example.com|
+| C0364      | Alex Doe           | alex.doe@example.com      |
+| C0375      | Jane Davis         | jane.davis@example.com    |
+| C0386      | Alice Brown        | alice.brown@example.com   |
+| C0391      | Alex Davis         | alex.davis@example.com    |
+| C0393      | Michelle Wilson    | michelle.wilson@example.com|
+| C0403      | Alex Davis         | alex.davis@example.com    |
+| C0404      | Jane Brown         | jane.brown@example.com    |
+| C0406      | Jane Wilson        | jane.wilson@example.com   |
+| C0422      | Michael Doe        | michael.doe@example.com   |
+| C0423      | Michael Smith      | michael.smith@example.com |
+| C0424      | Michelle Smith     | michelle.smith@example.com|
+| C0428      | Alice Doe          | alice.doe@example.com     |
+| C0442      | Alex Wilson        | alex.wilson@example.com   |
+| C0450      | Michelle Brown     | michelle.brown@example.com|
+| C0455      | Michael Doe        | michael.doe@example.com   |
+| C0456      | Michelle Davis     | michelle.davis@example.com|
+| C0457      | Jane Wilson        | jane.wilson@example.com   |
+| C0460      | John Davis         | john.davis@example.com    |
+| C0465      | Jane Davis         | jane.davis@example.com    |
+| C0471      | Alex Davis         | alex.davis@example.com    |
+| C0471      | Alex Davis         | alex.davis@example.com    |
+| C0476      | Alex Davis         | alex.davis@example.com    |
+| C0477      | Alice Taylor       | alice.taylor@example.com  |
+| C0487      | Jane Doe           | jane.doe@example.com      |
+| C0489      | Alex Brown         | alex.brown@example.com    |
+| C0492      | Michelle Wilson    | michelle.wilson@example.com|
+| C0496      | Alice Wilson       | alice.wilson@example.com  |
+| C0500      | John Taylor        | john.taylor@example.com   |
+| C0501      | Michelle Davis     | michelle.davis@example.com|
+| C0503      | Jane Doe           | jane.doe@example.com      |
+| C0506      | Alice Davis        | alice.davis@example.com   |
+| C0522      | Alice Wilson       | alice.wilson@example.com  |
+| C0528      | Michael Taylor     | michael.taylor@example.com|
+| C0531      | Michael Wilson     | michael.wilson@example.com|
+| C0537      | Alice Wilson       | alice.wilson@example.com  |
+| C0544      | Michelle Taylor    | michelle.taylor@example.com|
+| C0547      | John Doe           | john.doe@example.com      |
+| C0549      | Alice Davis        | alice.davis@example.com   |
+| C0554      | Alex Davis         | alex.davis@example.com    |
+| C0558      | Jane Smith         | jane.smith@example.com    |
+| C0566      | Alex Doe           | alex.doe@example.com      |
+| C0567      | Alice Davis        | alice.davis@example.com   |
+| C0569      | John Wilson        | john.wilson@example.com   |
+| C0570      | Michelle Wilson    | michelle.wilson@example.com|
+| C0571      | John Davis         | john.davis@example.com    |
+| C0573      | Michelle Doe       | michelle.doe@example.com  |
+| C0581      | Michael Doe        | michael.doe@example.com   |
+| C0584      | Michelle Wilson    | michelle.wilson@example.com|
+| C0591      | John Brown         | john.brown@example.com    |
+| C0601      | Jane Smith         | jane.smith@example.com    |
+| C0605      | Michael Wilson     | michael.wilson@example.com|
+| C0609      | Alex Taylor        | alex.taylor@example.com   |
+| C0616      | Jane Davis         | jane.davis@example.com    |
+| C0618      | Alex Davis         | alex.davis@example.com    |
+| C0619      | Michael Smith      | michael.smith@example.com |
+| C0621      | Michelle Wilson    | michelle.wilson@example.com|
+| C0626      | John Brown         | john.brown@example.com    |
+| C0636      | Michelle Wilson    | michelle.wilson@example.com|
+| C0652      | Jane Smith         | jane.smith@example.com    |
+| C0653      | Alex Brown         | alex.brown@example.com    |
+| C0658      | Michelle Smith     | michelle.smith@example.com|
+| C0660      | Jane Brown         | jane.brown@example.com    |
+| C0665      | Jane Wilson        | jane.wilson@example.com   |
+| C0670      | Alice Doe          | alice.doe@example.com     |
+| C0671      | Michael Doe        | michael.doe@example.com   |
+| C0672      | Alex Doe           | alex.doe@example.com      |
+| C0673      | Alice Doe          | alice.doe@example.com     |
+| C0680      | Michael Smith      | michael.smith@example.com |
+| C0680      | Michael Smith      | michael.smith@example.com |
+| C0684      | Michael Smith      | michael.smith@example.com |
+| C0696      | Michael Doe        | michael.doe@example.com   |
+| C0698      | John Brown         | john.brown@example.com    |
+| C0699      | Alice Brown        | alice.brown@example.com   |
+| C0706      | Michael Davis      | michael.davis@example.com |
+| C0714      | Michael Smith      | michael.smith@example.com |
+| C0717      | Alice Doe          | alice.doe@example.com     |
+| C0718      | Alice Wilson       | alice.wilson@example.com  |
+| C0718      | Alice Wilson       | alice.wilson@example.com  |
+| C0721      | Alex Smith         | alex.smith@example.com    |
+| C0723      | John Smith         | john.smith@example.com    |
+| C0724      | John Brown         | john.brown@example.com    |
+| C0726      | Alex Wilson        | alex.wilson@example.com   |
+| C0731      | Jane Davis         | jane.davis@example.com    |
+| C0732      | Jane Smith         | jane.smith@example.com    |
+| C0742      | John Brown         | john.brown@example.com    |
+| C0742      | John Brown         | john.brown@example.com    |
+| C0743      | Michelle Smith     | michelle.smith@example.com|
+| C0744      | John Smith         | john.smith@example.com    |
+| C0747      | Michael Smith      | michael.smith@example.com |
+| C0754      | Michelle Doe       | michelle.doe@example.com  |
+| C0755      | John Smith         | john.smith@example.com    |
+| C0755      | John Smith         | john.smith@example.com    |
+| C0759      | Alice Wilson       | alice.wilson@example.com  |
+| C0766      | Alice Brown        | alice.brown@example.com   |
+| C0777      | Michelle Doe       | michelle.doe@example.com  |
+| C0784      | Michael Wilson     | michael.wilson@example.com|
+| C0787      | Michael Davis      | michael.davis@example.com |
+| C0792      | Michael Wilson     | michael.wilson@example.com|
+| C0795      | Michelle Davis     | michelle.davis@example.com|
+| C0800      | Jane Doe           | jane.doe@example.com      |
+| C0805      | John Taylor        | john.taylor@example.com   |
+| C0806      | Michelle Davis     | michelle.davis@example.com|
+| C0813      | Michael Brown      | michael.brown@example.com |
+| C0817      | Michelle Taylor    | michelle.taylor@example.com|
+| C0820      | Michelle Taylor    | michelle.taylor@example.com|
+| C0827      | Michael Brown      | michael.brown@example.com |
+| C0829      | Alice Wilson       | alice.wilson@example.com  |
+| C0835      | Alex Wilson        | alex.wilson@example.com   |
+| C0835      | Alex Wilson        | alex.wilson@example.com   |
+| C0844      | Michael Brown      | michael.brown@example.com |
+| C0847      | Michelle Wilson    | michelle.wilson@example.com|
+| C0858      | John Taylor        | john.taylor@example.com   |
+| C0861      | John Brown         | john.brown@example.com    |
+| C0864      | Michael Smith      | michael.smith@example.com |
+| C0867      | Alex Brown         | alex.brown@example.com    |
+| C0868      | Michelle Taylor    | michelle.taylor@example.com|
+
+The table above shows the list of customers with stocks investment
+
+### Business Scenario Q20
+**Total Interest Earned on Loans in 2012**
+The bank management wants to calculate the total interest earned on all loans in the year 2012. This information is crucial for understanding the revenue generated from loan interest during that period, evaluating the profitability of the bank's lending activities, and making informed financial planning and strategic decisions.
+
+```sql
+		SELECT ROUND(SUM(ISNULL(InterestRate,0)),2) As Total_interest_2012
+		FROM FB.Loans
+		Where LoanDate BETWEEN '2012-01-01' AND '2012-12-31'
+		
+		
+		SELECT ROUND(SUM(ISNULL(InterestRate,0)),2) As Total_interest_2012
+		FROM FB.Loans
+		Where YEAR(LoanDate) = '2012' 
+```
+
+| Total_Interest_2012 |
+|---------------------|
+| 216.85             |
+
+The total interest earned on loan in 2012 is $216.85
+
+### Business Scenario Q22
+**Employees Hired in 2018**
+The bank management wants to retrieve the details of all employees who were hired in the year 2018. This information is important for understanding hiring trends, analysing employee retention, and planning future hiring strategies.
+
+```sql
+		SELECT * FROM FB.Employees
+		WHERE YEAR(HireDate) = '2018'
+		Order by HireDate
+```
+
+| EmployeeID | FirstName | LastName  | Position         | BranchID | HireDate                  | PhoneNumber |
+|------------|-----------|-----------|------------------|----------|---------------------------|-------------|
+| E0423      | Laura     | Jones     | Customer Service | B0654    | 2018-01-13 21:29:05.0000000 | 555-02423   |
+| E0043      | David     | Johnson   | Teller           | B0278    | 2018-01-14 12:32:02.0000000 | 555-02043   |
+| E0859      | James     | Williams  | Teller           | B0189    | 2018-01-14 14:33:00.0000000 | 555-02859   |
+| E0807      | Sarah     | Johnson   | Customer Service | B0041    | 2018-01-20 04:08:51.0000000 | 555-02807   |
+| E0653      | James     | Garcia    | Loan Officer     | B0486    | 2018-01-22 07:18:35.0000000 | 555-02653   |
+| E0193      | Sarah     | Martinez  | Teller           | B0655    | 2018-02-04 07:11:58.0000000 | 555-02193   |
+| E0320      | Maria     | Hernandez | Teller           | B0969    | 2018-02-06 04:45:46.0000000 | 555-02320   |
+| E0037      | Sarah     | Martinez  | Teller           | B0582    | 2018-02-09 21:33:27.0000000 | 555-02037   |
+| E0655      | David     | Johnson   | Customer Service | B0434    | 2018-02-12 06:33:42.0000000 | 555-02655   |
+| E0007      | David     | Williams  | Manager          | B0629    | 2018-02-13 10:13:17.0000000 | 555-02007   |
+| E0742      | Maria     | Hernandez | Customer Service | B0373    | 2018-02-14 22:31:49.0000000 | 555-02742   |
+| E0218      | Sarah     | Martinez  | Teller           | B0886    | 2018-02-16 14:00:15.0000000 | 555-02218   |
+| E0700      | Laura     | Johnson   | Teller           | B0889    | 2018-02-26 06:32:25.0000000 | 555-02700   |
+| E0656      | Laura     | Martinez  | Manager          | B0372    | 2018-03-11 06:36:33.0000000 | 555-02656   |
+| E0006      | Maria     | Martinez  | Manager          | B0240    | 2018-03-12 10:00:41.0000000 | 555-02006   |
+| E0456      | Sarah     | Hernandez | Customer Service | B0136    | 2018-03-25 19:00:28.0000000 | 555-02456   |
+| E0103      | Maria     | Johnson   | Customer Service | B0976    | 2018-03-31 07:43:42.0000000 | 555-02103   |
+| E0392      | Maria     | Garcia    | Customer Service | B0123    | 2018-04-08 07:42:29.0000000 | 555-02392   |
+| E0309      | James     | Hernandez | Teller           | B0015    | 2018-04-28 05:56:17.0000000 | 555-02309   |
+| E0014      | David     | Williams  | Loan Officer     | B0512    | 2018-05-03 11:12:48.0000000 | 555-02014   |
+| E0329      | James     | Hernandez | Loan Officer     | B0746    | 2018-05-18 06:21:33.0000000 | 555-02329   |
+| E0605      | David     | Hernandez | Loan Officer     | B0898    | 2018-05-21 19:53:50.0000000 | 555-02605   |
+| E0761      | Robert    | Garcia    | Customer Service | B0816    | 2018-06-12 21:01:59.0000000 | 555-02761   |
+| E0628      | Sarah     | Jones     | Loan Officer     | B0665    | 2018-06-14 06:45:18.0000000 | 555-02628   |
+| E0546      | James     | Martinez  | Teller           | B0059    | 2018-06-15 01:59:48.0000000 | 555-02546   |
+| E0540      | Sarah     | Hernandez | Customer Service | B0322    | 2018-06-24 08:37:54.0000000 | 555-02540   |
+| E0230      | Robert    | Williams  | Customer Service | B0303    | 2018-07-13 22:16:58.0000000 | 555-02230   |
+| E0131      | James     | Johnson   | Manager          | B0369    | 2018-07-14 03:56:16.0000000 | 555-02131   |
+| E0399      | David     | Jones     | Loan Officer     | B0208    | 2018-07-21 04:58:29.0000000 | 555-02399   |
+| E0481      | Sarah     | Hernandez | Manager          | B0671    | 2018-08-01 06:13:00.0000000 | 555-02481   |
+| E0232      | Maria     | Johnson   | Loan Officer     | B0236    | 2018-08-01 15:43:10.0000000 | 555-02232   |
+| E0536      | David     | Jones     | Customer Service | B0148    | 2018-08-04 15:45:37.0000000 | 555-02536   |
+| E0837      | Robert    | Hernandez | Teller           | B0041    | 2018-08-10 08:07:19.0000000 | 555-02837   |
+| E0876      | Sarah     | Hernandez | Loan Officer     | B0612    | 2018-08-14 19:03:53.0000000 | 555-02876   |
+| E0778      | James     | Williams  | Loan Officer     | B0521    | 2018-08-21 08:25:35.0000000 | 555-02778   |
+| E0752      | James     | Martinez  | Manager          | B0222    | 2018-08-27 01:27:33.0000000 | 555-02752   |
+| E0975      | Sarah     | Martinez  | Teller           | B0842    | 2018-08-27 09:23:39.0000000 | 555-02975   |
+| E0093      | Sarah     | Hernandez | Customer Service | B0898    | 2018-09-10 21:31:15.0000000 | 555-02093   |
+| E0855      | Robert    | Jones     | Manager          | B0873    | 2018-09-17 17:07:50.0000000 | 555-02855   |
+| E0734      | Maria     | Williams  | Customer Service | B0870    | 2018-09-17 18:52:23.0000000 | 555-02734   |
+| E0767      | James     | Williams  | Customer Service | B0235    | 2018-09-20 20:19:34.0000000 | 555-02767   |
+| E0188      | Laura     | Jones     | Loan Officer     | B0954    | 2018-10-08 07:11:26.0000000 | 555-02188   |
+| E0836      | James     | Hernandez | Customer Service | B0523    | 2018-10-12 17:52:18.0000000 | 555-02836   |
+| E0644      | David     | Williams  | Manager          | B0710    | 2018-11-02 10:54:40.0000000 | 555-02644   |
+| E0332      | Robert    | Johnson   | Loan Officer     | B0152    | 2018-11-07 18:04:08.0000000 | 555-02332   |
+| E0996      | James     | Williams  | Customer Service | B0605    | 2018-11-09 15:12:18.0000000 | 555-02996   |
+| E0207      | James     | Garcia    | Customer Service | B0697    | 2018-11-10 20:16:48.0000000 | 555-02207   |
+| E0318      | David     | Martinez  | Teller           | B0030    | 2018-11-18 04:56:26.0000000 | 555-02318   |
+| E0970      | Robert    | Martinez  | Manager          | B0139    | 2018-11-18 05:37:24.0000000 | 555-02970   |
+| E0937      | Laura     | Garcia    | Customer Service | B0514    | 2018-11-22 07:32:17.0000000 | 555-02937   |
+| E0245      | David     | Hernandez | Loan Officer     | B0767    | 2018-11-24 11:15:57.0000000 | 555-02245   |
+| E0458      | Maria     | Martinez  | Loan Officer     | B0031    | 2018-11-30 18:20:26.0000000 | 555-02458   |
+| E0971      | Laura     | Hernandez | Loan Officer     | B0366    | 2018-12-04 07:27:35.0000000 | 555-02971   |
+| E0843      | David     | Johnson   | Manager          | B0350    | 2018-12-16 11:36:29.0000000 | 555-02843   |
+| E0348      | David     | Jones     | Teller           | B0042    | 2018-12-16 11:56:10.0000000 | 555-02348   |
+| E0883      | James     | Johnson   | Customer Service | B0199    | 2018-12-18 05:07:08.0000000 | 555-02883   |
+| E0387      | Maria     | Garcia    | Manager          | B0915    | 2018-12-18 19:44:41.0000000 | 555-02387   |
+
+The above shows the list of employees employed in 2018
+
+### Business Scenario Q23
+**Total Amount of Investments Made by All Customers**
+The bank management wants to calculate the total amount of investments made by all customers. This information is crucial for understanding the overall investment activity,evaluating the bank's investment product performance, and making strategic decisions regarding investment offerings.
+
+```sql
+	SELECT Round(Sum(Isnull(Amount,0)),2) Total_Amount_Investment FROM FB.Investments
+```
+| Total_Amount_Investment |
+|-------------------------|
+| 25375317.73            |
+
+The total amount Of investment made by all customers is $25375317.73
+
+
+### Business Scenario Q24
+**Customers with Multiple Loans**
+The bank management wants to retrieve the details of all customers who have more than one loan. This information is important for understanding customer borrowing behaviour, identifying high-risk customers, and providing targeted financial services.
+```sql
+		SELECT * FROM FB.Customers
+		WHERE CustomerID in 
+				(SELECT CustomerID FROM FB.Loans
+				GROUP BY CustomerID
+				HAVING Count(distinct(LoanType))>1
+				)
+```
+
+| CustomerID | FirstName | LastName | Gender | DateOfBirth | Email                     | PhoneNumber |
+|------------|-----------|----------|--------|-------------|---------------------------|-------------|
+| C0008      | John      | Doe      | F      | 1972-12-06  | john.doe@example.com      | 555-01008   |
+| C0009      | John      | Davis    | F      | 1978-01-19  | john.davis@example.com    | 555-01009   |
+| C0010      | Jane      | Brown    | M      | 1986-08-11  | jane.brown@example.com    | 555-01010   |
+| C0012      | Michael   | Doe      | M      | 1976-03-22  | michael.doe@example.com   | 555-01012   |
+| C0021      | Michael   | Taylor   | F      | 1987-08-26  | michael.taylor@example.com| 555-01021   |
+| C0026      | Alice     | Wilson   | F      | 1976-08-06  | alice.wilson@example.com  | 555-01026   |
+| C0029      | John      | Smith    | F      | 1976-11-21  | john.smith@example.com    | 555-01029   |
+| C0044      | John      | Taylor   | M      | 1985-10-17  | john.taylor@example.com   | 555-01044   |
+| C0048      | John      | Brown    | M      | 1983-10-31  | john.brown@example.com    | 555-01048   |
+| C0054      | Jane      | Doe      | M      | 1970-10-01  | jane.doe@example.com      | 555-01054   |
+| C0056      | Alex      | Brown    | F      | 1989-05-10  | alex.brown@example.com    | 555-01056   |
+| C0060      | Jane      | Davis    | M      | 1981-01-30  | jane.davis@example.com    | 555-01060   |
+| C0067      | Alex      | Smith    | F      | 1977-04-14  | alex.smith@example.com    | 555-01067   |
+| C0074      | Michelle  | Davis    | F      | 1985-06-13  | michelle.davis@example.com| 555-01074   |
+| C0075      | Alice     | Smith    | F      | 1972-09-10  | alice.smith@example.com   | 555-01075   |
+| C0078      | John      | Davis    | F      | 1982-08-02  | john.davis@example.com    | 555-01078   |
+| C0080      | Alice     | Doe      | F      | 1987-08-26  | alice.doe@example.com     | 555-01080   |
+| C0082      | Alex      | Doe      | F      | 1980-12-08  | alex.doe@example.com      | 555-01082   |
+| C0087      | Michael   | Smith    | F      | 1988-06-15  | michael.smith@example.com | 555-01087   |
+| C0090      | Michael   | Doe      | M      | 1976-01-23  | michael.doe@example.com   | 555-01090   |
+| C0091      | Alice     | Taylor   | M      | 1973-10-15  | alice.taylor@example.com  | 555-01091   |
+| C0095      | Michelle  | Smith    | F      | 1980-05-26  | michelle.smith@example.com| 555-01095   |
+| C0103      | Alex      | Taylor   | F      | 1985-05-27  | alex.taylor@example.com   | 555-01103   |
+| C0108      | Michelle  | Doe      | M      | 1976-10-08  | michelle.doe@example.com  | 555-01108   |
+| C0131      | Michael   | Doe      | M      | 1977-11-11  | michael.doe@example.com   | 555-01131   |
+| C0132      | Jane      | Doe      | F      | 1973-05-06  | jane.doe@example.com      | 555-01132   |
+| C0134      | Alex      | Wilson   | F      | 1982-12-21  | alex.wilson@example.com   | 555-01134   |
+| C0140      | Michelle  | Doe      | M      | 1983-06-15  | michelle.doe@example.com  | 555-01140   |
+| C0141      | Alice     | Smith    | M      | 1986-10-24  | alice.smith@example.com   | 555-01141   |
+| C0142      | Alice     | Brown    | M      | 1981-10-09  | alice.brown@example.com   | 555-01142   |
+| C0146      | John      | Doe      | F      | 1970-03-01  | john.doe@example.com      | 555-01146   |
+| C0151      | Michael   | Davis    | M      | 1984-10-22  | michael.davis@example.com | 555-01151   |
+| C0167      | Jane      | Smith    | M      | 1972-10-23  | jane.smith@example.com    | 555-01167   |
+| C0169      | Alice     | Taylor   | M      | 1987-07-12  | alice.taylor@example.com  | 555-01169   |
+| C0178      | Jane      | Wilson   | M      | 1972-02-13  | jane.wilson@example.com   | 555-01178   |
+| C0182      | Michael   | Smith    | F      | 1987-10-13  | michael.smith@example.com | 555-01182   |
+| C0183      | Jane      | Smith    | F      | 1984-06-19  | jane.smith@example.com    | 555-01183   |
+| C0184      | Alex      | Doe      | F      | 1972-05-21  | alex.doe@example.com      | 555-01184   |
+| C0193      | Alex      | Brown    | M      | 1989-05-27  | alex.brown@example.com    | 555-01193   |
+| C0194      | John      | Taylor   | M      | 1981-09-29  | john.taylor@example.com   | 555-01194   |
+| C0196      | Jane      | Doe      | M      | 1988-01-29  | jane.doe@example.com      | 555-01196   |
+| C0199      | Jane      | Davis    | F      | 1975-05-22  | jane.davis@example.com    | 555-01199   |
+| C0204      | John      | Taylor   | M      | 1974-03-06  | john.taylor@example.com   | 555-01204   |
+| C0206      | Michelle  | Davis    | M      | 1973-08-01  | michelle.davis@example.com| 555-01206   |
+| C0210      | Michelle  | Smith    | F      | 1989-01-08  | michelle.smith@example.com| 555-01210   |
+| C0214      | John      | Brown    | F      | 1974-05-27  | john.brown@example.com    | 555-01214   |
+| C0218      | Michelle  | Davis    | M      | 1974-11-10  | michelle.davis@example.com| 555-01218   |
+| C0230      | Alex      | Taylor   | F      | 1988-07-01  | alex.taylor@example.com   | 555-01230   |
+| C0232      | Alice     | Davis    | M      | 1978-10-22  | alice.davis@example.com   | 555-01232   |
+| C0237      | Alex      | Taylor   | F      | 1979-06-16  | alex.taylor@example.com   | 555-01237   |
+| C0239      | Alex      | Wilson   | F      | 1985-03-01  | alex.wilson@example.com   | 555-01239   |
+| C0241      | Michael   | Smith    | M      | 1981-08-02  | michael.smith@example.com | 555-01241   |
+| C0242      | Michael   | Wilson   | F      | 1987-05-08  | michael.wilson@example.com| 555-01242   |
+| C0245      | Michael   | Taylor   | F      | 1979-03-05  | michael.taylor@example.com| 555-01245   |
+| C0253      | John      | Brown    | F      | 1979-12-29  | john.brown@example.com    | 555-01253   |
+| C0256      | Jane      | Brown    | F      | 1973-03-13  | jane.brown@example.com    | 555-01256   |
+| C0263      | Alice     | Brown    | M      | 1986-07-21  | alice.brown@example.com   | 555-01263   |
+| C0270      | Michelle  | Wilson   | F      | 1982-08-10  | michelle.wilson@example.com| 555-01270  |
+| C0277      | Alice     | Davis    | M      | 1981-02-15  | alice.davis@example.com   | 555-01277   |
+| C0291      | Michelle  | Taylor   | F      | 1979-02-02  | michelle.taylor@example.com| 555-01291  |
+| C0294      | Jane      | Smith    | M      | 1974-06-25  | jane.smith@example.com    | 555-01294   |
+| C0295      | Alex      | Smith    | F      | 1989-11-10  | alex.smith@example.com    | 555-01295   |
+| C0296      | Alex      | Smith    | F      | 1987-04-20  | alex.smith@example.com    | 555-01296   |
+| C0299      | Alex      | Brown    | F      | 1986-01-30  | alex.brown@example.com    | 555-01299   |
+| C0306      | Alex      | Smith    | F      | 1983-05-16  | alex.smith@example.com    | 555-01306   |
+| C0313      | Alice     | Smith    | M      | 1971-10-11  | alice.smith@example.com   | 555-01313   |
+| C0319      | Michael   | Davis    | F      | 1988-02-16  | michael.davis@example.com | 555-01319   |
+| C0320      | Jane      | Davis    | M      | 1987-01-17  | jane.davis@example.com    | 555-01320   |
+| C0326      | Alex      | Brown    | M      | 1988-10-11  | alex.brown@example.com    | 555-01326   |
+| C0327      | Alice     | Wilson   | F      | 1981-04-27  | alice.wilson@example.com  | 555-01327   |
+| C0333      | Alex      | Taylor   | M      | 1982-12-09  | alex.taylor@example.com   | 555-01333   |
+| C0339      | Michelle  | Wilson   | M      | 1974-03-17  | michelle.wilson@example.com| 555-01339  |
+| C0340      | Alex      | Smith    | F      | 1970-12-15  | alex.smith@example.com    | 555-01340   |
+| C0352      | Jane      | Doe      | F      | 1975-01-21  | jane.doe@example.com      | 555-01352   |
+| C0358      | Alex      | Wilson   | M      | 1988-11-08  | alex.wilson@example.com   | 555-01358   |
+| C0363      | Michelle  | Davis    | M      | 1982-12-19  | michelle.davis@example.com| 555-01363   |
+| C0371      | Alice     | Brown    | M      | 1986-10-15  | alice.brown@example.com   | 555-01371   |
+| C0372      | John      | Wilson   | F      | 1974-10-29  | john.wilson@example.com   | 555-01372   |
+| C0373      | John      | Doe      | M      | 1974-03-24  | john.doe@example.com      | 555-01373   |
+| C0378      | Michael   | Smith    | F      | 1986-07-17  | michael.smith@example.com | 555-01378   |
+| C0379      | Jane      | Taylor   | M      | 1986-07-22  | jane.taylor@example.com   | 555-01379   |
+| C0382      | Michael   | Doe      | M      | 1970-11-22  | michael.doe@example.com   | 555-01382   |
+| C0384      | Jane      | Wilson   | M      | 1970-06-23  | jane.wilson@example.com   | 555-01384   |
+| C0385      | Michelle  | Wilson   | M      | 1980-12-15  | michelle.wilson@example.com| 555-01385  |
+| C0386      | Alice     | Brown    | F      | 1984-09-15  | alice.brown@example.com   | 555-01386   |
+| C0394      | Alex      | Smith    | F      | 1986-12-29  | alex.smith@example.com    | 555-01394   |
+| C0396      | Alex      | Doe      | F      | 1985-11-01  | alex.doe@example.com      | 555-01396   |
+| C0399      | Alex      | Brown    | F      | 1977-08-04  | alex.brown@example.com    | 555-01399   |
+| C0407      | John      | Davis    | F      | 1988-09-27  | john.davis@example.com    | 555-01407   |
+| C0408      | Alice     | Taylor   | F      | 1980-08-07  | alice.taylor@example.com  | 555-01408   |
+| C0410      | Jane      | Davis    | M      | 1987-11-21  | jane.davis@example.com    | 555-01410   |
+| C0411      | John      | Smith    | M      | 1980-10-23  | john.smith@example.com    | 555-01411   |
+| C0427      | Jane      | Davis    | F      | 1973-11-20  | jane.davis@example.com    | 555-01427   |
+| C0439      | Alex      | Smith    | F      | 1989-01-25  | alex.smith@example.com    | 555-01439   |
+| C0440      | Michelle  | Taylor   | M      | 1986-06-13  | michelle.taylor@example.com| 555-01440  |
+| C0442      | Alex      | Wilson   | M      | 1976-09-19  | alex.wilson@example.com   | 555-01442   |
+| C0452      | Michael   | Taylor   | F      | 1982-05-15  | michael.taylor@example.com| 555-01452   |
+| C0456      | Michelle  | Davis    | M      | 1987-05-09  | michelle.davis@example.com| 555-01456   |
+| C0466      | John      | Davis    | M      | 1977-07-27  | john.davis@example.com    | 555-01466   |
+| C0467      | Alice     | Davis    | F      | 1976-12-02  | alice.davis@example.com   | 555-01467   |
+| C0474      | Michelle  | Wilson   | F      | 1981-12-28  | michelle.wilson@example.com| 555-01474  |
+
+The table above shows the list of the customers  with multiple loans
+
+### Business Scenario Q25
+**Accounts with Low Balances**
+The bank management wants to list all accounts that have a balance less than $500.This information is important for identifying accounts that may require attention, such as those at risk of becoming inactive or needing additional financial products and services to encourage higher balances.
+
+```sql
+		SELECT * FROM FB.Customers
+		WHERE CustomerID IN
+				(SELECT distinct CustomerID FROM FB.Accounts
+				Where Balance < 500
+				)
+```
+
+| CustomerID | FirstName | LastName | Gender | DateOfBirth | Email                     | PhoneNumber |
+|------------|-----------|----------|--------|-------------|---------------------------|-------------|
+| C0050      | Jane      | Brown    | M      | 1978-04-20  | jane.brown@example.com    | 555-01050   |
+| C0071      | Alex      | Wilson   | F      | 1972-09-06  | alex.wilson@example.com   | 555-01071   |
+| C0101      | Michelle  | Davis    | F      | 1986-09-16  | michelle.davis@example.com| 555-01101   |
+| C0108      | Michelle  | Doe      | M      | 1976-10-08  | michelle.doe@example.com  | 555-01108   |
+| C0109      | Jane      | Davis    | M      | 1978-01-05  | jane.davis@example.com    | 555-01109   |
+| C0148      | Michael   | Smith    | F      | 1973-05-22  | michael.smith@example.com | 555-01148   |
+| C0149      | John      | Davis    | F      | 1973-08-18  | john.davis@example.com    | 555-01149   |
+| C0154      | Alex      | Doe      | M      | 1989-05-17  | alex.doe@example.com      | 555-01154   |
+| C0157      | Jane      | Taylor   | F      | 1979-07-12  | jane.taylor@example.com   | 555-01157   |
+| C0179      | Michelle  | Brown    | F      | 1970-11-09  | michelle.brown@example.com| 555-01179   |
+| C0195      | Alex      | Smith    | F      | 1971-11-28  | alex.smith@example.com    | 555-01195   |
+| C0295      | Alex      | Smith    | F      | 1989-11-10  | alex.smith@example.com    | 555-01295   |
+| C0306      | Alex      | Smith    | F      | 1983-05-16  | alex.smith@example.com    | 555-01306   |
+| C0337      | Alice     | Taylor   | F      | 1980-06-04  | alice.taylor@example.com  | 555-01337   |
+| C0346      | Alice     | Davis    | F      | 1980-09-10  | alice.davis@example.com   | 555-01346   |
+| C0353      | Michael   | Wilson   | M      | 1985-03-23  | michael.wilson@example.com| 555-01353   |
+| C0378      | Michael   | Smith    | F      | 1986-07-17  | michael.smith@example.com | 555-01378   |
+| C0417      | Alex      | Davis    | M      | 1973-04-29  | alex.davis@example.com    | 555-01417   |
+| C0450      | Michelle  | Brown    | F      | 1989-10-27  | michelle.brown@example.com| 555-01450   |
+| C0454      | Michelle  | Davis    | F      | 1973-06-24  | michelle.davis@example.com| 555-01454   |
+| C0511      | Alice     | Taylor   | M      | 1975-12-14  | alice.taylor@example.com  | 555-01511   |
+| C0565      | Jane      | Taylor   | F      | 1989-10-23  | jane.taylor@example.com   | 555-01565   |
+| C0598      | Michelle  | Davis    | M      | 1971-02-15  | michelle.davis@example.com| 555-01598   |
+| C0603      | Alice     | Wilson   | F      | 1971-08-10  | alice.wilson@example.com  | 555-01603   |
+| C0610      | Michelle  | Wilson   | M      | 1978-09-28  | michelle.wilson@example.com| 555-01610  |
+| C0667      | Alex      | Davis    | M      | 1983-12-17  | alex.davis@example.com    | 555-01667   |
+| C0734      | Michael   | Doe      | M      | 1974-10-02  | michael.doe@example.com   | 555-01734   |
+| C0739      | John      | Brown    | M      | 1972-09-20  | john.brown@example.com    | 555-01739   |
+| C0804      | Alice     | Smith    | M      | 1979-01-22  | alice.smith@example.com   | 555-01804   |
+| C0826      | Michelle  | Taylor   | F      | 1989-05-23  | michelle.taylor@example.com| 555-01826  |
+| C0854      | Michael   | Doe      | F      | 1976-11-29  | michael.doe@example.com   | 555-01854   |
+| C0873      | Jane      | Taylor   | M      | 1984-04-15  | jane.taylor@example.com   | 555-01873   |
+| C0876      | Jane      | Taylor   | M      | 1974-07-20  | jane.taylor@example.com   | 555-01876   |
+| C0922      | Alex      | Smith    | M      | 1988-08-30  | alex.smith@example.com    | 555-01922   |
+| C0972      | Alex      | Doe      | M      | 1975-06-07  | alex.doe@example.com      | 555-01972   |
+| C0988      | Michael   | Wilson   | F      | 1973-03-22  | michael.wilson@example.com| 555-01988   |
+| C0989      | Jane      | Brown    | F      | 1984-07-26  | jane.brown@example.com    | 555-01989   |
+
+the above shows the customer with low balances less than $500 
+
+
+### Business Scenario Q26
+**Total Amount of Withdrawals in January 2013**
+The bank management wants to calculate the total amount of withdrawals made in January 2013. This information is essential for understanding cash outflows, assessing liquidity needs, and planning for financial management and customer service strategies.
+
+```sql
+		SELECT Round(Sum(isnull(Amount,0)),2) As Total_withdrawal_Transact FROM FB.Transactions
+		WHERE TransactionType = 'Withdrawal' and TransactionDate BETWEEN '2013-01-01' AND '2013-01-31'
+```
+
+| Total_Withdrawal_Transact |
+|---------------------------|
+| 755.89                   |
+
+The total Amount of withdrawal in January 2013 is $755.89
+
+### Business Scenario Q27
+**Customers Making Payments Using Bank Transfers**
+The bank management wants to retrieve the details of all customers who have made payments using bank transfers. This information is important for understanding	customer payment preferences, identifying trends in payment methods, and planning targeted services and promotions for bank transfer users.
+
+```sql
+		SELECT * FROM FB.Customers 
+		WHERE CustomerID IN
+				(SELECT Distinct CustomerID FROM FB.Payments P JOIN FB.Loans L  ON L.LoanID = P.LoanID
+				WHERE PaymentMethod = 'Bank Transfer'
+				)
+```
+
+| CustomerID | FirstName | LastName | Gender | DateOfBirth | Email                     | PhoneNumber |
+|------------|-----------|----------|--------|-------------|---------------------------|-------------|
+| C0008      | John      | Doe      | F      | 1972-12-06  | john.doe@example.com      | 555-01008   |
+| C0010      | Jane      | Brown    | M      | 1986-08-11  | jane.brown@example.com    | 555-01010   |
+| C0012      | Michael   | Doe      | M      | 1976-03-22  | michael.doe@example.com   | 555-01012   |
+| C0020      | Alice     | Taylor   | F      | 1984-12-14  | alice.taylor@example.com  | 555-01020   |
+| C0021      | Michael   | Taylor   | F      | 1987-08-26  | michael.taylor@example.com| 555-01021   |
+| C0029      | John      | Smith    | F      | 1976-11-21  | john.smith@example.com    | 555-01029   |
+| C0033      | Michael   | Doe      | F      | 1971-12-20  | michael.doe@example.com   | 555-01033   |
+| C0040      | Alice     | Wilson   | F      | 1976-09-11  | alice.wilson@example.com  | 555-01040   |
+| C0041      | Michelle  | Wilson   | F      | 1977-08-07  | michelle.wilson@example.com| 555-01041  |
+| C0060      | Jane      | Davis    | M      | 1981-01-30  | jane.davis@example.com    | 555-01060   |
+| C0061      | Alex      | Brown    | M      | 1973-05-03  | alex.brown@example.com    | 555-01061   |
+| C0066      | Michelle  | Doe      | M      | 1984-02-29  | michelle.doe@example.com  | 555-01066   |
+| C0068      | John      | Smith    | F      | 1970-06-13  | john.smith@example.com    | 555-01068   |
+| C0074      | Michelle  | Davis    | F      | 1985-06-13  | michelle.davis@example.com| 555-01074   |
+| C0075      | Alice     | Smith    | F      | 1972-09-10  | alice.smith@example.com   | 555-01075   |
+| C0078      | John      | Davis    | F      | 1982-08-02  | john.davis@example.com    | 555-01078   |
+| C0085      | John      | Smith    | F      | 1981-04-20  | john.smith@example.com    | 555-01085   |
+| C0087      | Michael   | Smith    | F      | 1988-06-15  | michael.smith@example.com | 555-01087   |
+| C0090      | Michael   | Doe      | M      | 1976-01-23  | michael.doe@example.com   | 555-01090   |
+| C0091      | Alice     | Taylor   | M      | 1973-10-15  | alice.taylor@example.com  | 555-01091   |
+| C0092      | Michelle  | Doe      | F      | 1987-05-02  | michelle.doe@example.com  | 555-01092   |
+| C0093      | John      | Brown    | M      | 1974-06-18  | john.brown@example.com    | 555-01093   |
+| C0095      | Michelle  | Smith    | F      | 1980-05-26  | michelle.smith@example.com| 555-01095   |
+| C0097      | Michelle  | Brown    | M      | 1981-02-06  | michelle.brown@example.com| 555-01097   |
+| C0103      | Alex      | Taylor   | F      | 1985-05-27  | alex.taylor@example.com   | 555-01103   |
+| C0104      | John      | Taylor   | F      | 1989-03-22  | john.taylor@example.com   | 555-01104   |
+| C0108      | Michelle  | Doe      | M      | 1976-10-08  | michelle.doe@example.com  | 555-01108   |
+| C0119      | Michael   | Brown    | F      | 1982-02-18  | michael.brown@example.com | 555-01119   |
+| C0122      | Michelle  | Wilson   | M      | 1970-05-04  | michelle.wilson@example.com| 555-01122  |
+| C0123      | Alice     | Doe      | M      | 1981-08-27  | alice.doe@example.com     | 555-01123   |
+| C0126      | John      | Brown    | M      | 1981-06-13  | john.brown@example.com    | 555-01126   |
+| C0131      | Michael   | Doe      | M      | 1977-11-11  | michael.doe@example.com   | 555-01131   |
+| C0132      | Jane      | Doe      | F      | 1973-05-06  | jane.doe@example.com      | 555-01132   |
+| C0134      | Alex      | Wilson   | F      | 1982-12-21  | alex.wilson@example.com   | 555-01134   |
+| C0136      | Alice     | Wilson   | F      | 1982-06-09  | alice.wilson@example.com  | 555-01136   |
+| C0138      | John      | Wilson   | M      | 1984-09-29  | john.wilson@example.com   | 555-01138   |
+| C0140      | Michelle  | Doe      | M      | 1983-06-15  | michelle.doe@example.com  | 555-01140   |
+| C0146      | John      | Doe      | F      | 1970-03-01  | john.doe@example.com      | 555-01146   |
+| C0149      | John      | Davis    | F      | 1973-08-18  | john.davis@example.com    | 555-01149   |
+| C0151      | Michael   | Davis    | M      | 1984-10-22  | michael.davis@example.com | 555-01151   |
+| C0153      | Alex      | Doe      | F      | 1975-07-24  | alex.doe@example.com      | 555-01153   |
+| C0156      | John      | Wilson   | M      | 1978-01-04  | john.wilson@example.com   | 555-01156   |
+| C0157      | Jane      | Taylor   | F      | 1979-07-12  | jane.taylor@example.com   | 555-01157   |
+| C0161      | Michael   | Smith    | F      | 1984-11-25  | michael.smith@example.com | 555-01161   |
+| C0167      | Jane      | Smith    | M      | 1972-10-23  | jane.smith@example.com    | 555-01167   |
+| C0169      | Alice     | Taylor   | M      | 1987-07-12  | alice.taylor@example.com  | 555-01169   |
+| C0174      | Alex      | Doe      | M      | 1977-01-07  | alex.doe@example.com      | 555-01174   |
+| C0181      | Michelle  | Doe      | F      | 1977-04-24  | michelle.doe@example.com  | 555-01181   |
+| C0182      | Michael   | Smith    | F      | 1987-10-13  | michael.smith@example.com | 555-01182   |
+| C0184      | Alex      | Doe      | F      | 1972-05-21  | alex.doe@example.com      | 555-01184   |
+| C0185      | Michelle  | Brown    | M      | 1988-07-22  | michelle.brown@example.com| 555-01185   |
+| C0186      | Alex      | Smith    | F      | 1973-01-17  | alex.smith@example.com    | 555-01186   |
+| C0190      | Michael   | Taylor   | M      | 1989-12-05  | michael.taylor@example.com| 555-01190   |
+| C0194      | John      | Taylor   | M      | 1981-09-29  | john.taylor@example.com   | 555-01194   |
+| C0195      | Alex      | Smith    | F      | 1971-11-28  | alex.smith@example.com    | 555-01195   |
+| C0204      | John      | Taylor   | M      | 1974-03-06  | john.taylor@example.com   | 555-01204   |
+| C0210      | Michelle  | Smith    | F      | 1989-01-08  | michelle.smith@example.com| 555-01210   |
+| C0214      | John      | Brown    | F      | 1974-05-27  | john.brown@example.com    | 555-01214   |
+| C0220      | John      | Wilson   | F      | 1972-04-08  | john.wilson@example.com   | 555-01220   |
+| C0226      | Michael   | Smith    | F      | 1974-02-02  | michael.smith@example.com | 555-01226   |
+| C0229      | Michael   | Smith    | F      | 1981-03-01  | michael.smith@example.com | 555-01229   |
+| C0230      | Alex      | Taylor   | F      | 1988-07-01  | alex.taylor@example.com   | 555-01230   |
+| C0233      | Michael   | Wilson   | F      | 1975-07-19  | michael.wilson@example.com| 555-01233   |
+| C0234      | Michael   | Smith    | M      | 1981-03-13  | michael.smith@example.com | 555-01234   |
+| C0237      | Alex      | Taylor   | F      | 1979-06-16  | alex.taylor@example.com   | 555-01237   |
+| C0238      | Alice     | Smith    | F      | 1974-08-18  | alice.smith@example.com   | 555-01238   |
+| C0239      | Alex      | Wilson   | F      | 1985-03-01  | alex.wilson@example.com   | 555-01239   |
+| C0241      | Michael   | Smith    | M      | 1981-08-02  | michael.smith@example.com | 555-01241   |
+| C0242      | Michael   | Wilson   | F      | 1987-05-08  | michael.wilson@example.com| 555-01242   |
+| C0249      | Michael   | Taylor   | M      | 1988-09-25  | michael.taylor@example.com| 555-01249   |
+| C0251      | Michael   | Doe      | M      | 1977-11-03  | michael.doe@example.com   | 555-01251   |
+| C0252      | Alex      | Davis    | M      | 1976-03-28  | alex.davis@example.com    | 555-01252   |
+| C0257      | Jane      | Wilson   | F      | 1981-02-27  | jane.wilson@example.com   | 555-01257   |
+| C0259      | John      | Taylor   | F      | 1978-04-14  | john.taylor@example.com   | 555-01259   |
+| C0262      | Michael   | Doe      | F      | 1979-05-24  | michael.doe@example.com   | 555-01262   |
+| C0267      | Alice     | Davis    | F      | 1984-04-06  | alice.davis@example.com   | 555-01267   |
+| C0270      | Michelle  | Wilson   | F      | 1982-08-10  | michelle.wilson@example.com| 555-01270  |
+| C0277      | Alice     | Davis    | M      | 1981-02-15  | alice.davis@example.com   | 555-01277   |
+| C0279      | Jane      | Taylor   | M      | 1972-02-02  | jane.taylor@example.com   | 555-01279   |
+| C0292      | John      | Smith    | F      | 1975-06-10  | john.smith@example.com    | 555-01292   |
+| C0295      | Alex      | Smith    | F      | 1989-11-10  | alex.smith@example.com    | 555-01295   |
+| C0296      | Alex      | Smith    | F      | 1987-04-20  | alex.smith@example.com    | 555-01296   |
+| C0300      | Michelle  | Wilson   | M      | 1989-01-30  | michelle.wilson@example.com| 555-01300  |
+| C0306      | Alex      | Smith    | F      | 1983-05-16  | alex.smith@example.com    | 555-01306   |
+| C0313      | Alice     | Smith    | M      | 1971-10-11  | alice.smith@example.com   | 555-01313   |
+| C0319      | Michael   | Davis    | F      | 1988-02-16  | michael.davis@example.com | 555-01319   |
+| C0321      | Michael   | Smith    | F      | 1975-03-15  | michael.smith@example.com | 555-01321   |
+| C0337      | Alice     | Taylor   | F      | 1980-06-04  | alice.taylor@example.com  | 555-01337   |
+| C0339      | Michelle  | Wilson   | M      | 1974-03-17  | michelle.wilson@example.com| 555-01339  |
+| C0340      | Alex      | Smith    | F      | 1970-12-15  | alex.smith@example.com    | 555-01340   |
+| C0342      | John      | Wilson   | M      | 1982-02-15  | john.wilson@example.com   | 555-01342   |
+| C0343      | Alex      | Davis    | M      | 1977-11-21  | alex.davis@example.com    | 555-01343   |
+| C0345      | Alex      | Doe      | F      | 1974-07-13  | alex.doe@example.com      | 555-01345   |
+| C0347      | Michelle  | Davis    | M      | 1980-12-29  | michelle.davis@example.com| 555-01347   |
+| C0350      | John      | Wilson   | F      | 1985-08-10  | john.wilson@example.com   | 555-01350   |
+| C0358      | Alex      | Wilson   | M      | 1988-11-08  | alex.wilson@example.com   | 555-01358   |
+| C0359      | John      | Davis    | M      | 1979-05-07  | john.davis@example.com    | 555-01359   |
+| C0370      | Michael   | Wilson   | F      | 1977-10-18  | michael.wilson@example.com| 555-01370   |
+| C0371      | Alice     | Brown    | M      | 1986-10-15  | alice.brown@example.com   | 555-01371   |
+| C0373      | John      | Doe      | M      | 1974-03-24  | john.doe@example.com      | 555-01373   |
+| C0374      | Michael   | Doe      | F      | 1980-08-15  | michael.doe@example.com   | 555-01374   |
+
+The above shows the list of customers that are making payment with bank transfer 
+
