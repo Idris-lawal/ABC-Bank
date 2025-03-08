@@ -739,3 +739,148 @@ The bank management wants to find the total number of transactions for each acco
 The table above shows the count od transactions by account Type, below is the graphical representations
 
 ![Piechart](TramsactionPiechart.png)
+
+
+### Business Scenario Q14
+**Employee Count by Branch**
+The bank management wants to list all branches along with the number of employees working in each branch. This information is essential for understanding branch staffing levels, identifying branches that may need additional staffing, and optimising human resource allocation.
+
+```sql
+		SELECT B.BranchID,b.BranchName,Count(E.EmployeeID) AS Employee_cnt
+		FROM FB.Branches B JOIN FB.Employees E on B.BranchID = E.BranchID
+		GROUP BY B.BranchID,b.BranchName
+```
+
+Below is the output of the scripts 
+
+| BranchID | BranchName      | Employee_cnt |
+|----------|---------------|-------------|
+| B0002    | West Branch   | 1           |
+| B0003    | South Branch  | 1           |
+| B0004    | Central Branch | 2           |
+| B0008    | South Branch  | 1           |
+| B0009    | North Branch  | 2           |
+| B0010    | North Branch  | 1           |
+| B0011    | South Branch  | 1           |
+| B0012    | North Branch  | 1           |
+| B0015    | South Branch  | 1           |
+| B0016    | North Branch  | 1           |
+| B0017    | East Branch   | 1           |
+| B0020    | Central Branch | 1           |
+| B0022    | East Branch   | 4           |
+| B0023    | Central Branch | 1           |
+| B0027    | North Branch  | 1           |
+| B0029    | Central Branch | 2           |
+| B0030    | Central Branch | 2           |
+| B0031    | East Branch   | 6           |
+| B0032    | North Branch  | 2           |
+| B0033    | Central Branch | 1           |
+| B0035    | East Branch   | 1           |
+| B0036    | South Branch  | 1           |
+| B0037    | South Branch  | 3           |
+| B0039    | North Branch  | 1           |
+| B0041    | North Branch  | 4           |
+| B0042    | North Branch  | 2           |
+| B0045    | Central Branch | 1           |
+| B0046    | Central Branch | 2           |
+| B0048    | South Branch  | 2           |
+| B0049    | East Branch   | 1           |
+| B0050    | East Branch   | 2           |
+| B0051    | Central Branch | 1           |
+| B0052    | South Branch  | 2           |
+| B0053    | Central Branch | 1           |
+| B0055    | Central Branch | 2           |
+| B0057    | Central Branch | 2           |
+| B0059    | North Branch  | 3           |
+| B0060    | North Branch  | 1           |
+| B0062    | West Branch   | 2           |
+| B0063    | West Branch   | 1           |
+| B0065    | East Branch   | 3           |
+| B0066    | North Branch  | 2           |
+| B0069    | Central Branch | 2           |
+| B0070    | North Branch  | 1           |
+| B0071    | Central Branch | 2           |
+| B0073    | North Branch  | 2           |
+| B0074    | South Branch  | 1           |
+| B0075    | Central Branch | 1           |
+| B0076    | Central Branch | 1           |
+| B0077    | West Branch   | 1           |
+| B0080    | East Branch   | 1           |
+| B0081    | East Branch   | 3           |
+| B0084    | South Branch  | 1           |
+| B0085    | East Branch   | 1           |
+| B0088    | West Branch   | 1           |
+| B0089    | North Branch  | 1           |
+| B0091    | North Branch  | 1           |
+| B0093    | North Branch  | 1           |
+| B0094    | West Branch   | 1           |
+| B0097    | North Branch  | 1           |
+| B0098    | Central Branch | 1           |
+| B0102    | Central Branch | 1           |
+| B0103    | East Branch   | 3           |
+| B0105    | South Branch  | 1           |
+| B0106    | North Branch  | 1           |
+| B0107    | North Branch  | 3           |
+| B0108    | East Branch   | 2           |
+| B0109    | Central Branch | 5           |
+| B0110    | East Branch   | 1           |
+| B0112    | West Branch   | 1           |
+| B0113    | East Branch   | 3           |
+| B0114    | East Branch   | 1           |
+| B0116    | West Branch   | 2           |
+| B0117    | West Branch   | 1           |
+| B0120    | Central Branch | 2           |
+| B0121    | South Branch  | 1           |
+| B0123    | North Branch  | 4           |
+| B0124    | Central Branch | 1           |
+| B0125    | Central Branch | 2           |
+| B0127    | North Branch  | 1           |
+| B0128    | North Branch  | 2           |
+| B0130    | South Branch  | 2           |
+| B0131    | North Branch  | 1           |
+| B0132    | South Branch  | 1           |
+| B0134    | South Branch  | 1           |
+| B0136    | West Branch   | 1           |
+| B0139    | Central Branch | 1           |
+| B0141    | North Branch  | 3           |
+| B0142    | North Branch  | 2           |
+| B0143    | Central Branch | 1           |
+| B0144    | East Branch   | 1           |
+| B0145    | South Branch  | 3           |
+| B0148    | Central Branch | 3           |
+| B0149    | West Branch   | 1           |
+| B0151    | West Branch   | 1           |
+| B0152    | South Branch  | 2           |
+| B0153    | West Branch   | 1           |
+| B0154    | West Branch   | 2           |
+| B0157    | North Branch  | 1           |
+| B0160    | West Branch   | 3           |
+| B0161    | East Branch   | 1           |
+| B0163    | North Branch  | 1           |
+| B0164    | East Branch   | 3           |
+| B0166    | East Branch   | 1           |
+| B0167    | North Branch  | 1           |
+| B0168    | West Branch   | 2           |
+| B0170    | North Branch  | 2           |
+| B0171    | East Branch   | 1           |
+| B0172    | Central Branch | 1           |
+| B0173    | East Branch   | 1           |
+| B0174    | South Branch  | 1           |
+| B0175    | North Branch  | 1           |
+| B0177    | West Branch   | 1           |
+| B0179    | South Branch  | 1           |
+| B0182    | East Branch   | 1           |
+| B0183    | East Branch   | 1           |
+| B0184    | North Branch  | 2           |
+| B0185    | East Branch   | 1           |
+| B0186    | West Branch   | 1           |
+| B0189    | North Branch  | 5           |
+| B0190    | North Branch  | 1           |
+| B0192    | North Branch  | 1           |
+| B0193    | West Branch   | 3           |
+| B0194    | Central Branch | 2           |
+| B0195    | Central Branch | 1           |
+| B0196    | West Branch   | 1           |
+| B0197    | East Branch   | 2           |
+| B0199    | South Branch  | 1           |
+| B0200    | West Branch   | 2           |
