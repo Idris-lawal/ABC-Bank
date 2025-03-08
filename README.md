@@ -736,4 +736,6 @@ The bank management wants to find the total number of transactions for each acco
 | Credit     | 341               |
 | Checking   | 341               |
 
-The table above shows the count od transactions by account Type
+The table above shows the count od transactions by account Type, below is the graphical representations
+
+![Piechart](Tramsaction Pie chart.png)
